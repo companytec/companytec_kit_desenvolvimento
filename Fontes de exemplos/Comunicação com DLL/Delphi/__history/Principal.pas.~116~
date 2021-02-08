@@ -1,0 +1,1182 @@
+unit Principal;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  StdCtrls, Spin, ComCtrls, ExtCtrls, jpeg, dllcompanytec,ShareMem;
+
+type
+  TForm1 = class(TForm)
+    PageControl: TPageControl;
+    Abastecimentos: TTabSheet;
+    TabSheet1: TTabSheet;
+    PageControl1: TPageControl;
+    TabSheet2: TTabSheet;
+    Label1: TLabel;
+    SpinEdit1: TSpinEdit;
+    Button1: TButton;
+    Button2: TButton;
+    Panel1: TPanel;
+    RadioButton1: TRadioButton;
+    RadioButton2: TRadioButton;
+    Button3: TButton;
+    GroupBox5: TGroupBox;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label8: TLabel;
+    Label9: TLabel;
+    Label10: TLabel;
+    Label11: TLabel;
+    Label2: TLabel;
+    EditTotaisDin: TEdit;
+    EditTotaisLT: TEdit;
+    EditPPL: TEdit;
+    EditTempo: TEdit;
+    EditCanal: TEdit;
+    EditData: TEdit;
+    EditHora: TEdit;
+    EditRegistro: TEdit;
+    EditEnc: TEdit;
+    EditString: TEdit;
+    GroupBox1: TGroupBox;
+    Check: TCheckBox;
+    value: TCheckBox;
+    integridade: TCheckBox;
+    PageControl2: TPageControl;
+    TabSheet3: TTabSheet;
+    Panel2: TPanel;
+    Button4: TButton;
+    Panel3: TPanel;
+    Memo1: TMemo;
+    TabSheet4: TTabSheet;
+    Panel4: TPanel;
+    Button5: TButton;
+    Memo2: TMemo;
+    TabSheet5: TTabSheet;
+    TabSheet6: TTabSheet;
+    TabSheet7: TTabSheet;
+    Memo3: TMemo;
+    Panel5: TPanel;
+    Button7: TButton;
+    Memo4: TMemo;
+    Panel6: TPanel;
+    Button8: TButton;
+    Memo5: TMemo;
+    Panel7: TPanel;
+    Button9: TButton;
+    SpinEdit2: TSpinEdit;
+    ListBox1: TListBox;
+    Button6: TButton;
+    Button10: TButton;
+    Memo6: TMemo;
+    TabSheet8: TTabSheet;
+    ListBox2: TListBox;
+    Button11: TButton;
+    Edit1: TEdit;
+    Button12: TButton;
+    StatusBar1: TStatusBar;
+    TabSheet9: TTabSheet;
+    Button14: TButton;
+    Button15: TButton;
+    Button16: TButton;
+    Button17: TButton;
+    Button18: TButton;
+    Button19: TButton;
+    Button20: TButton;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    Edit4: TEdit;
+    Label12: TLabel;
+    Label13: TLabel;
+    Label14: TLabel;
+    Label15: TLabel;
+    ComboBox1: TComboBox;
+    RadioButton3: TRadioButton;
+    Label16: TLabel;
+    Edit5: TEdit;
+    Label17: TLabel;
+    Edit6: TEdit;
+    Label18: TLabel;
+    Edit7: TEdit;
+    RadioButton4: TRadioButton;
+    Edit8: TEdit;
+    Label19: TLabel;
+    Label20: TLabel;
+    Edit9: TEdit;
+    Label21: TLabel;
+    Edit10: TEdit;
+    RadioButton5: TRadioButton;
+    Edit11: TEdit;
+    Label22: TLabel;
+    Edit12: TEdit;
+    Label23: TLabel;
+    TabSheet10: TTabSheet;
+    GroupBox2: TGroupBox;
+    Label24: TLabel;
+    Edit13: TEdit;
+    Label25: TLabel;
+    ComboBox2: TComboBox;
+    Label26: TLabel;
+    Edit14: TEdit;
+    Button13: TButton;
+    GroupBox3: TGroupBox;
+    Label27: TLabel;
+    Label28: TLabel;
+    Label29: TLabel;
+    Edit15: TEdit;
+    Edit16: TEdit;
+    Button21: TButton;
+    Label30: TLabel;
+    Edit17: TEdit;
+    SpinEdit3: TSpinEdit;
+    GroupBox4: TGroupBox;
+    Label31: TLabel;
+    Edit18: TEdit;
+    Button22: TButton;
+    Label32: TLabel;
+    Edit19: TEdit;
+    Panel9: TPanel;
+    RadioButton9: TRadioButton;
+    Button23: TButton;
+    ComboBox3: TComboBox;
+    Label33: TLabel;
+    Shape1: TShape;
+    Label34: TLabel;
+    Image1: TImage;
+    TabSheet11: TTabSheet;
+    Edit20: TEdit;
+    Button24: TButton;
+    Button25: TButton;
+    Button27: TButton;
+    TabSheet12: TTabSheet;
+    Button26: TButton;
+    Label35: TLabel;
+    EditTag: TEdit;
+    TabSheet13: TTabSheet;
+    Button28: TButton;
+    Memo7: TMemo;
+    GroupBox6: TGroupBox;
+    Label36: TLabel;
+    Label37: TLabel;
+    Edit21: TEdit;
+    Button29: TButton;
+    Edit22: TEdit;
+    TabSheet14: TTabSheet;
+    Edit23: TEdit;
+    Label38: TLabel;
+    Button30: TButton;
+    Button31: TButton;
+    Panel8: TPanel;
+    RadioButton6: TRadioButton;
+    RadioButton7: TRadioButton;
+    Button32: TButton;
+    GroupBox7: TGroupBox;
+    Edit24: TEdit;
+    Label39: TLabel;
+    Label40: TLabel;
+    Edit25: TEdit;
+    Button33: TButton;
+    Button34: TButton;
+    TabSheet15: TTabSheet;
+    Edit26: TEdit;
+    Button35: TButton;
+    Edit27: TEdit;
+    Button36: TButton;
+    Button37: TButton;
+    GroupBox8: TGroupBox;
+    Label42: TLabel;
+    Edit29: TEdit;
+    Button40: TButton;
+    TabSheet16: TTabSheet;
+    Button39: TButton;
+    SpinEdit4: TSpinEdit;
+    pc10: TTabSheet;
+    Edit30: TEdit;
+    Label41: TLabel;
+    Label43: TLabel;
+    Edit31: TEdit;
+    Button41: TButton;
+    TabSheet17: TTabSheet;
+    Edit32: TEdit;
+    Edit33: TEdit;
+    Label44: TLabel;
+    Label45: TLabel;
+    Button42: TButton;
+    TabSheet18: TTabSheet;
+    Memo8: TMemo;
+    Button43: TButton;
+    TabSheet19: TTabSheet;
+    Button44: TButton;
+    Button45: TButton;
+    Button46: TButton;
+    Edit34: TEdit;
+    Button47: TButton;
+    Button48: TButton;
+    Memo9: TMemo;
+    savetagFidpage: TTabSheet;
+    Btn_SaveTag: TButton;
+    RadioGroup1: TRadioGroup;
+    Edt_Tag: TEdit;
+    Edt_ResultSaveTag: TEdit;
+    Label46: TLabel;
+    Button38: TButton;
+    Memo10: TMemo;
+    Button49: TButton;
+    Button50: TButton;
+    function ErrorToString(Erro: Error): string;
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure Button3Click(Sender: TObject);
+    procedure Button4Click(Sender: TObject);
+    procedure Button9Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
+    procedure Button7Click(Sender: TObject);
+    procedure Button8Click(Sender: TObject);
+    procedure Button6Click(Sender: TObject);
+    procedure Button10Click(Sender: TObject);
+    procedure Button11Click(Sender: TObject);
+    procedure Button12Click(Sender: TObject);
+    procedure Button14Click(Sender: TObject);
+    procedure Button15Click(Sender: TObject);
+    procedure Button16Click(Sender: TObject);
+    procedure Button17Click(Sender: TObject);
+    procedure Button18Click(Sender: TObject);
+    procedure Button19Click(Sender: TObject);
+    procedure Button20Click(Sender: TObject);
+    procedure Button13Click(Sender: TObject);
+    procedure Button21Click(Sender: TObject);
+    procedure Button22Click(Sender: TObject);
+    procedure Button23Click(Sender: TObject);
+    procedure Button24Click(Sender: TObject);
+    procedure Button25Click(Sender: TObject);
+    procedure Button26Click(Sender: TObject);
+    procedure Button27Click(Sender: TObject);
+    procedure Button28Click(Sender: TObject);
+    procedure Button29Click(Sender: TObject);
+    procedure Button30Click(Sender: TObject);
+    procedure Button31Click(Sender: TObject);
+    procedure Button32Click(Sender: TObject);
+    procedure Button33Click(Sender: TObject);
+    procedure Button34Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure Button35Click(Sender: TObject);
+    procedure Button36Click(Sender: TObject);
+    procedure Button37Click(Sender: TObject);
+    // procedure Button38Click(Sender: TObject);
+    procedure Button39Click(Sender: TObject);
+    procedure Button41Click(Sender: TObject);
+    procedure Button42Click(Sender: TObject);
+    procedure Button43Click(Sender: TObject);
+    procedure Button44Click(Sender: TObject);
+    procedure Button45Click(Sender: TObject);
+    procedure Button46Click(Sender: TObject);
+    procedure Button48Click(Sender: TObject);
+    procedure Button38Click(Sender: TObject);
+    procedure Btn_SaveTagClick(Sender: TObject);
+    procedure Button49Click(Sender: TObject);
+    procedure Button50Click(Sender: TObject);
+
+    // procedure Button47Click(Sender: TObject);
+    // procedure Button48Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.DFM}
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+RadioButton1.Checked := InicializaSerial(SpinEdit1.value);
+RadioButton2.Checked := not RadioButton1.Checked;
+Button1.Enabled := not RadioButton1.Checked;
+Button2.Enabled := not Button1.Enabled;
+end;
+
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+if FechaSerial <> 0 then
+  RadioButton1.Checked := true
+else
+  RadioButton1.Checked := false;
+RadioButton2.Checked := not RadioButton1.Checked;
+Button1.Enabled := not RadioButton1.Checked;
+Button2.Enabled := not Button1.Enabled;
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+begin
+RadioButton1.Checked := PortOpen;
+RadioButton2.Checked := not RadioButton1.Checked;
+Button1.Enabled := not RadioButton1.Checked;
+Button2.Enabled := not Button1.Enabled;
+end;
+
+// ------------------------------------------------------------------------------
+procedure TForm1.Button4Click(Sender: TObject);
+var
+  ab: abast;
+begin
+ab := LeAbastecimento;
+EditTotaisDin.Text := floattostr(ab.total_dinheiro);
+EditString.Text := ab.st_full;
+EditTotaisLT.Text := floattostr(ab.total_litros);
+EditPPL.Text := floattostr(ab.PU);
+EditTempo.Text := ab.tempo;
+EditCanal.Text := ab.canal;
+EditData.Text := ab.data;
+EditHora.Text := ab.hora;
+EditRegistro.Text := floattostr(ab.registro);
+EditEnc.Text := floattostr(ab.encerrante);
+Check.Checked := ab.checksum;
+integridade.Checked := ab.integridade;
+value.Checked := ab.value;
+end;
+
+// ------------------------------------------------------------------------------
+procedure TForm1.Button9Click(Sender: TObject);
+var
+  ab: abast;
+begin
+ab := LeRegistro(SpinEdit2.value);
+EditTotaisDin.Text := floattostr(ab.total_dinheiro);
+EditString.Text := ab.st_full;
+EditTotaisLT.Text := floattostr(ab.total_litros);
+EditPPL.Text := floattostr(ab.PU);
+EditTempo.Text := ab.tempo;
+EditCanal.Text := ab.canal;
+EditData.Text := ab.data;
+EditHora.Text := ab.hora;
+EditRegistro.Text := floattostr(ab.registro);
+EditEnc.Text := floattostr(ab.encerrante);
+Check.Checked := ab.checksum;
+integridade.Checked := ab.integridade;
+value.Checked := ab.value;
+end;
+
+// ------------------------------------------------------------------------------
+procedure TForm1.Button50Click(Sender: TObject);
+begin
+    if( SetClock('AUTO')) then
+      Memo8.Lines.Add('Sucesso')
+    else
+      Memo8.Lines.Add('Falha!');
+end;
+
+procedure TForm1.Button5Click(Sender: TObject);
+var
+  ab: abast2;
+begin
+LeStructSt(ab);
+EditTotaisDin.Text := ab.total_dinheiro;
+EditString.Text := ab.st_full;
+EditTotaisLT.Text := ab.total_litros;
+EditPPL.Text := ab.PU;
+EditTempo.Text := ab.tempo;
+EditCanal.Text := ab.canal;
+EditData.Text := ab.data;
+EditHora.Text := ab.hora;
+EditRegistro.Text := ab.registro;
+EditEnc.Text := ab.encerrante;
+if ab.checksum = '1' then
+  Check.Checked := true
+else
+  Check.Checked := false;
+if ab.integridade = '1' then
+  integridade.Checked := true
+else
+  integridade.Checked := false;
+if ab.value = '1' then
+  value.Checked := true
+else
+  value.Checked := false;
+end;
+
+// ------------------------------------------------------------------------------
+procedure TForm1.Button7Click(Sender: TObject);
+var
+  ab: abast;
+begin
+ab := LeAbFix;
+EditTotaisDin.Text := floattostr(ab.total_dinheiro);
+EditString.Text := ab.st_full;
+EditTotaisLT.Text := floattostr(ab.total_litros);
+EditPPL.Text := floattostr(ab.PU);
+EditTempo.Text := ab.tempo;
+EditCanal.Text := ab.canal;
+EditData.Text := ab.data;
+EditHora.Text := ab.hora;
+EditRegistro.Text := floattostr(ab.registro);
+EditEnc.Text := floattostr(ab.encerrante);
+Check.Checked := ab.checksum;
+integridade.Checked := ab.integridade;
+value.Checked := ab.value;
+end;
+
+// ------------------------------------------------------------------------------
+procedure TForm1.Button8Click(Sender: TObject);
+var
+  ab: abast2;
+begin
+CobLeStructSt(ab);
+EditTotaisDin.Text := ab.total_dinheiro;
+EditString.Text := ab.st_full;
+EditTotaisLT.Text := ab.total_litros;
+EditPPL.Text := ab.PU;
+EditTempo.Text := ab.tempo;
+EditCanal.Text := ab.canal;
+EditData.Text := ab.data;
+EditHora.Text := ab.hora;
+EditRegistro.Text := ab.registro;
+EditEnc.Text := ab.encerrante;
+if ab.checksum = '1' then
+  Check.Checked := true
+else
+  Check.Checked := false;
+if ab.integridade = '1' then
+  integridade.Checked := true
+else
+  integridade.Checked := false;
+if ab.value = '1' then
+  value.Checked := true
+else
+  value.Checked := false;
+end;
+
+// ------------------------------------------------------------------------------
+procedure TForm1.Button6Click(Sender: TObject);
+var
+  ol: online;
+  a: byte;
+begin
+ol := LeVisualizacao;
+for a := 1 to 48 do
+  ListBox1.Items.Add(ol.Bico[a] + ' - ' + floattostr(ol.Litragem[a]));
+end;
+
+// ------------------------------------------------------------------------------------------------------------
+procedure TForm1.Btn_SaveTagClick(Sender: TObject);
+var
+  tag: string;
+  perm1: char;
+  perm2: char;
+  tin: string;
+  idx: integer;
+begin
+
+if (RadioGroup1.ItemIndex = 0) then
+  begin
+  perm1 := '7';
+  perm2 := '2';
+  end;
+
+if (RadioGroup1.ItemIndex = 1) then
+  begin
+  perm1 := '4';
+  perm2 := '2';
+  end;
+
+if (RadioGroup1.ItemIndex = 2) then
+  begin
+  perm1 := '4';
+  perm2 := '0';
+  end;
+
+tag := Edt_Tag.Text;
+tin := 'FFFF';
+
+idx := savetagFid(perm1, perm2, tag, tin, tin, tin, tin);
+
+if idx = 0  then
+  Edt_ResultSaveTag.Text := 'Erro'
+else
+  Edt_ResultSaveTag.Text := 'Inserido no Index ' + IntToStr(idx);
+
+end;
+
+procedure TForm1.Button10Click(Sender: TObject);
+var
+  stvis: Shortstring;
+begin
+STVisualizacao(stvis);
+Memo6.Lines.Add(stvis);
+end;
+
+// ------------------------------------------------------------------------------------------------------------
+procedure TForm1.Button11Click(Sender: TObject);
+var
+  ms: multistatus;
+  a: byte;
+begin
+ms := LeStatus;
+for a := 1 to 32 do
+  begin
+  case ms.Status[a] of
+    Livre:
+      ListBox2.Items.Add(inttostr(a) + ' (L) - Livre');
+    Pronta:
+      ListBox2.Items.Add(inttostr(a) + ' (P) - Pronto');
+    Falha:
+      ListBox2.Items.Add(inttostr(a) + ' (F) - Falha');
+    Concluiu:
+      ListBox2.Items.Add(inttostr(a) + ' (C) - Concluiu');
+    Abastecendo:
+      ListBox2.Items.Add(inttostr(a) + ' (A) - Abastecimento');
+    Bloqueada:
+      ListBox2.Items.Add(inttostr(a) + ' (B) - Bloqueado');
+    SolicitaLib:
+      ListBox2.Items.Add(inttostr(a) + ' (E) - Espera');
+  end;
+  end;
+end;
+
+procedure TForm1.Button12Click(Sender: TObject);
+begin
+Edit1.Text := LeStStatus.value;
+end;
+
+procedure TForm1.Button14Click(Sender: TObject);
+var
+  rta: IFid;
+begin
+rta := FidIdent;
+if rta.value then
+  Edit2.Text := rta.StFull
+else
+  Edit2.Text := '';
+end;
+
+procedure TForm1.Button15Click(Sender: TObject);
+var
+  rta: StFid;
+begin
+rta := FidStatus;
+Edit3.Text := rta.Status;
+end;
+
+procedure TForm1.Button16Click(Sender: TObject);
+begin
+RadioButton3.Checked := false;
+if FidModo(Edit4.Text, ComboBox1.Text[1]) = 1 then
+  RadioButton3.Checked := true
+else
+  RadioButton3.Checked := false;
+end;
+
+procedure TForm1.Button17Click(Sender: TObject);
+begin
+if FidAciona(Edit5.Text, strtoint(Edit5.Text), strtoint(Edit7.Text)) = 1 then
+  RadioButton4.Checked := true
+else
+  RadioButton4.Checked := false;
+end;
+
+procedure TForm1.Button18Click(Sender: TObject);
+begin
+if FidSetClock(strtoint(Edit8.Text), strtoint(Edit9.Text), strtoint(Edit10.Text)) = 1 then
+  RadioButton5.Checked := true
+else
+  RadioButton5.Checked := false;
+end;
+
+procedure TForm1.Button19Click(Sender: TObject);
+var
+  indice: integer;
+  tag: ansistring;
+  level: integer;
+begin
+// edit11.text:=FidLeRegistro(strtoint(edit12.text));
+indice := 0;
+tag := 'B3CF6CA5B7EC8B19';
+level := 27;
+
+Edit11.Text := inttostr(HRSReadTAG(indice, tag, level));
+end;
+
+procedure TForm1.Button20Click(Sender: TObject);
+begin
+FidIncrementa;
+end;
+
+procedure TForm1.Button13Click(Sender: TObject);
+var
+
+  str: string;
+  str2: ansistring;
+  ch: pchar;
+  st: encerrante;
+
+begin
+
+str := '';
+str2 := ComboBox2.Text[1];
+
+ch := pchar(Edit13.Text);
+
+str := LeEncerrante2(pchar(str2), Edit13.Text);
+
+if (Length(str) > 0) and (str[1] = '(') then
+  begin
+  str := copy(str, 6, 6) + ',' + copy(str, 12, 2);
+  Edit14.Text := str;
+  end;
+end;
+
+procedure TForm1.Button21Click(Sender: TObject);
+var
+  Erro: Error;
+  cb: byte;
+begin
+
+cb := strtoint('$' + Edit15.Text);
+
+Erro := SetPrice(cb, strtofloat(Edit17.Text), SpinEdit3.value);
+Edit16.Text := ErrorToString(Erro);
+end;
+
+function TForm1.ErrorToString(Erro: Error): string;
+begin
+if Erro = ErroString then
+  result := 'ErroString'
+else if Erro = None then
+  result := 'Ok'
+else if Erro = ErroCodBico then
+  result := 'ErroCodBico'
+else if Erro = ErroCaracterModo then
+  result := 'ErroCaracterModo'
+else if Erro = ErroTimeout then
+  result := 'ErroTimeout'
+else if Erro = ErroResposta then
+  result := 'ErroResposta'
+else
+  result := 'ErroResposta';
+end;
+
+procedure TForm1.Button22Click(Sender: TObject);
+var
+  Erro: Error;
+  ret : integer;
+  cb : pchar;
+begin
+
+ if ComboBox3.ItemIndex = 0 then
+    ret := NET_FreePump(Edit18.Text)
+ else if ComboBox3.ItemIndex = 1  then
+    ret := NET_AutoPump(Edit18.Text)
+ else if ComboBox3.ItemIndex = 2  then
+    ret := NET_BlockPump(Edit18.Text);
+
+
+
+    if(ret = 1) then
+      Edit19.Text := 'Ok'
+    else
+      Edit19.Text := 'Falha';
+
+end;
+
+procedure TForm1.Button23Click(Sender: TObject);
+begin
+RadioButton9.Checked := Comunica;
+end;
+
+procedure TForm1.Button24Click(Sender: TObject);
+begin
+Edit20.Text := LeStringAbVb;
+end;
+
+procedure TForm1.Button25Click(Sender: TObject);
+begin
+Edit20.Text := LeStStatus2;
+end;
+
+procedure TForm1.Button26Click(Sender: TObject);
+var
+  ab: abastFid;
+begin
+ab := LeAbastecimentoFid;
+EditTotaisDin.Text := floattostr(ab.total_dinheiro);
+EditString.Text := ab.st_full;
+EditTotaisLT.Text := floattostr(ab.total_litros);
+EditPPL.Text := floattostr(ab.PU);
+EditTempo.Text := ab.tempo;
+EditCanal.Text := ab.canal;
+EditData.Text := ab.data;
+EditHora.Text := ab.hora;
+EditRegistro.Text := floattostr(ab.registro);
+EditEnc.Text := floattostr(ab.encerrante);
+EditTag.Text := ab.tag;
+Check.Checked := ab.checksum;
+integridade.Checked := ab.integridade;
+value.Checked := ab.value;
+end;
+
+procedure TForm1.Button27Click(Sender: TObject);
+var
+  ms: multistatus;
+  a: byte;
+begin
+ms := LeStatusFid;
+for a := 1 to 32 do
+  begin
+  case ms.Status[a] of
+    Livre:
+      ListBox2.Items.Add(inttostr(a) + ' (L) - Livre');
+    Pronta:
+      ListBox2.Items.Add(inttostr(a) + ' (P) - Pronto');
+    Falha:
+      ListBox2.Items.Add(inttostr(a) + ' (F) - Falha');
+    Concluiu:
+      ListBox2.Items.Add(inttostr(a) + ' (C) - Concluiu');
+    Abastecendo:
+      ListBox2.Items.Add(inttostr(a) + ' (A) - Abastecimento');
+    Bloqueada:
+      ListBox2.Items.Add(inttostr(a) + ' (B) - Bloqueado');
+    SolicitaLib:
+      ListBox2.Items.Add(inttostr(a) + ' (E) - Espera');
+  end;
+  end;
+end;
+
+procedure TForm1.Button28Click(Sender: TObject);
+var
+  ab: abast3;
+begin
+CobLeStructIDSt(ab);
+// memo7.Clear;
+Memo7.Lines.Add('Ident. : ' + ab.id);
+Memo7.Lines.Add('Total  : ' + ab.total_dinheiro);
+Memo7.Lines.Add('String : ' + ab.st_full);
+Memo7.Lines.Add('Volume : ' + ab.total_litros);
+Memo7.Lines.Add('P.Unit : ' + ab.PU);
+Memo7.Lines.Add('Tempo  : ' + ab.tempo);
+Memo7.Lines.Add('Bico   : ' + ab.canal);
+Memo7.Lines.Add('Data   : ' + ab.data);
+Memo7.Lines.Add('Hora   : ' + ab.hora);
+Memo7.Lines.Add('Reg    : ' + ab.registro);
+Memo7.Lines.Add('Enc.L. : ' + ab.encerrante);
+Memo7.Lines.Add('--------------------------------');
+end;
+
+// ------------------------------------------------------------------------------
+procedure TForm1.Button29Click(Sender: TObject);
+begin
+Edit22.Text := LeEvento(strtoint(Edit21.Text));
+end;
+
+// ------------------------------------------------------------------------------
+procedure TForm1.Button30Click(Sender: TObject);
+begin
+if InicializaSocket(Edit23.Text) then
+  begin
+  RadioButton6.Checked := true;
+  Button30.Enabled := false;
+  Button31.Enabled := true;
+  end
+else
+  begin
+  RadioButton7.Checked := true;
+  Button31.Enabled := false;
+  Button30.Enabled := true;
+  end;
+end;
+
+// ------------------------------------------------------------------------------
+procedure TForm1.Button31Click(Sender: TObject);
+begin
+if FechaSocket then
+  RadioButton7.Checked := true
+else
+  RadioButton6.Checked := true;
+end;
+
+procedure TForm1.Button32Click(Sender: TObject);
+begin
+RadioButton6.Checked := SocketOpen;
+RadioButton7.Checked := not RadioButton6.Checked;
+Button30.Enabled := not RadioButton6.Checked;
+Button31.Enabled := not Button30.Enabled;
+end;
+
+procedure TForm1.Button33Click(Sender: TObject);
+begin
+Edit25.Text := floattostr(LePPL(Edit24.Text));
+end;
+
+procedure TForm1.Button34Click(Sender: TObject);
+var
+  st: string;
+begin
+st := LeStStatus2;
+Edit1.Text := st;
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+// width:=692;
+// height:=600;
+PageControl2.ActivePageIndex := 0;
+end;
+
+procedure TForm1.Button35Click(Sender: TObject);
+begin
+WriteSerial(Edit26.Text, Length(Edit26.Text));
+end;
+
+procedure TForm1.Button36Click(Sender: TObject);
+var
+  p: string;
+begin
+Edit27.Text := '';
+Edit27.Repaint;
+p := ReadSerial(1000);
+Edit27.Text := p;
+end;
+
+procedure TForm1.Button37Click(Sender: TObject);
+var
+  rta: Shortstring;
+  rta2: Shortstring;
+begin
+rta2 := LeStringAb(rta);
+Edit20.Text := rta;
+end;
+
+procedure TForm1.Button38Click(Sender: TObject);
+var
+  str: Shortstring;
+  pdata: pchar;
+begin
+
+str := GetIdentTag();
+
+Memo10.Lines.Add(str);
+// str := string(pdata);
+
+end;
+
+{
+  procedure TForm1.Button38Click(Sender: TObject);
+  var ab:abastPAF2;
+  begin
+  ab:=LeAbastecimentoPAF2;
+  memo8.Lines.Add('--------------------------------------------------------------------------');
+  if ab.value then memo8.Lines.Add('value: TRUE') else memo8.Lines.Add('value: FALSE');
+  memo8.Lines.Add('total_dinheiro: ' + floattostr(ab.total_dinheiro));
+  memo8.Lines.Add('total_litros: ' + floattostr(ab.total_litros));
+  memo8.Lines.Add('PU: ' + floattostr(ab.PU));
+  //memo8.Lines.Add('tempo: ' + ab.tempo);
+  memo8.Lines.Add('codbico: ' + ab.codbico);
+  memo8.Lines.Add('numbico: ' + inttostr(ab.numbico));
+  memo8.Lines.Add('voltanque: ' + inttostr(ab.voltanque));
+  memo8.Lines.Add('codcombustivel: ' + inttostr(ab.codcombustivel));
+  memo8.Lines.Add('seriecbc: ' + inttostr(ab.seriecbc));
+  memo8.Lines.Add('tipocbc: ' + ab.tipocbc);
+  //memo8.Lines.Add('data: ' + ab.data);
+  //memo8.Lines.Add('hora: ' + ab.hora);
+  memo8.Lines.Add('st_full: ' + ab.st_full);
+  memo8.Lines.Add('registro: ' + inttostr(ab.registro));
+  memo8.Lines.Add('encerranteI: ' + floattostr(ab.encerranteI));
+  memo8.Lines.Add('encerranteF: ' + floattostr(ab.encerranteF));
+  if ab.integridade then memo8.Lines.Add('integridade: TRUE') else memo8.Lines.Add('integridade: FALSE');
+  if ab.checksum then memo8.Lines.Add('checksum: TRUE') else memo8.Lines.Add('checksum: FALSE');
+  memo8.Lines.Add('tag1: ' + ab.tag1);
+  memo8.Lines.Add('tag2: ' + ab.tag2);
+
+  check.Checked:=ab.checksum;
+  integridade.Checked:=ab.integridade;
+  value.Checked:=ab.value;
+  edittotaisdin.Text:=floattostr(ab.total_dinheiro);
+  editcanal.Text:=ab.codbico;
+  editppl.Text:=floattostr(ab.PU);
+  editdata.Text:=datetostr(ab.datetime);
+  edithora.Text:=timetostr(ab.datetime);
+  //edittempo.Text:=ab.tempo;
+  editenc.text:=floattostr(ab.encerranteI) + ' / ' + floattostr(ab.encerranteF);
+  editregistro.Text:=inttostr(ab.registro);
+  edittotaislt.Text:=floattostr(ab.total_litros);
+  editstring.Text:=ab.st_full;
+  end;
+}
+procedure TForm1.Button39Click(Sender: TObject);
+var
+  ab: abastFid;
+begin
+ab := LeRegistroFid(SpinEdit4.value);
+
+EditTotaisDin.Text := floattostr(ab.total_dinheiro);
+EditString.Text := ab.st_full;
+EditTotaisLT.Text := floattostr(ab.total_litros);
+EditPPL.Text := floattostr(ab.PU);
+EditTempo.Text := ab.tempo;
+EditCanal.Text := ab.canal;
+EditData.Text := ab.data;
+EditHora.Text := ab.hora;
+EditRegistro.Text := floattostr(ab.registro);
+EditEnc.Text := floattostr(ab.encerrante);
+EditTag.Text := ab.tag;
+Check.Checked := ab.checksum;
+integridade.Checked := ab.integridade;
+value.Checked := ab.value;
+end;
+
+procedure TForm1.Button41Click(Sender: TObject);
+var
+  rta: pchar;
+begin
+rta := TxRxSerial(Edit30.Text, 1000);
+Edit31.Text := rta;
+end;
+
+procedure TForm1.Button42Click(Sender: TObject);
+var
+  ab: AbastFid2;
+begin
+ab := LeAbastecimentoFid2;
+EditTotaisDin.Text := floattostr(ab.total_dinheiro);
+EditString.Text := ab.st_full;
+EditTotaisLT.Text := floattostr(ab.total_litros);
+EditPPL.Text := floattostr(ab.PU);
+EditTempo.Text := ab.tempo;
+EditCanal.Text := ab.canal;
+EditData.Text := ab.data;
+EditHora.Text := ab.hora;
+EditRegistro.Text := floattostr(ab.registro);
+EditEnc.Text := floattostr(ab.encerrante);
+Check.Checked := ab.checksum;
+integridade.Checked := ab.integridade;
+value.Checked := ab.value;
+Edit32.Text := ab.tag;
+Edit33.Text := ab.tag2;
+end;
+
+{
+  Type
+  AbastPAF1=record
+  value           :boolean;
+  total_dinheiro  :currency;
+  total_litros    :double;
+  PU              :currency;
+  tempo           :string[8];
+  codbico         :string[2];
+  numbico         :integer;
+  numtanque       :integer;
+  voltanque       :integer;
+  codcombustivel  :integer;
+  seriecbc        :integer;
+  tipocbc         :char;
+  data            :string[10];
+  hora            :string[5];
+  st_full         :string[87];
+  registro        :integer;
+  encerranteI     :double;
+  encerranteF     :double;
+  integridade     :boolean;
+  checksum        :boolean;
+  tag1            :string[16];
+  tag2            :string[16];
+  end;
+}
+
+Procedure ClearFields();
+begin
+Form1.EditCanal.Text := '';
+Form1.EditTotaisDin.Text := '';
+Form1.EditPPL.Text := '';
+Form1.EditTempo.Text := '';
+Form1.EditTotaisLT.Text := '';
+Form1.EditData.Text := '';
+Form1.EditEnc.Text := '';
+Form1.EditHora.Text := '';
+Form1.EditRegistro.Text := '';
+Form1.EditString.Text := '';
+
+Form1.integridade.Checked := false;
+Form1.Check.Checked := false;
+Form1.value.Checked := false;
+
+end;
+
+
+
+// FUNÇÂO PRECISA SER ENVIADO UM COMANDO DE INCREMENTO PARA QUE SEJA FEITA A
+// LEITURA DE OUTRO ABASTECIMENTO
+
+procedure TForm1.Button43Click(Sender: TObject);
+var
+  ab: AbastPAF2;
+  str: string;
+  flt: double;
+  myHour, myMin, mySec, myMilli: Word;
+begin
+
+ab := LeAbastecimentoPAF2;
+
+DecodeTime(ab.datetime, myHour, myMin, mySec, myMilli);
+
+if ab.value = false then
+  begin
+  Memo8.Lines.Add('(0)');
+  ClearFields;
+
+  end
+else
+  begin
+
+  Memo8.Lines.Add('--------------------------------------------------------------------------');
+
+  if ab.value then
+    Memo8.Lines.Add('value: TRUE')
+  else
+    Memo8.Lines.Add('value: FALSE');
+
+  Memo8.Lines.Add('total_dinheiro: ' + floattostr(ab.total_dinheiro));
+  Memo8.Lines.Add('total_litros: ' + floattostr(ab.total_litros));
+  Memo8.Lines.Add('PU: ' + floattostr(ab.PU));
+  Memo8.Lines.Add('tempo: ' + inttostr(ab.tempo));
+  Memo8.Lines.Add('codbico: ' + ab.codbico);
+  Memo8.Lines.Add('numbico: ' + inttostr(ab.numbico));
+  Memo8.Lines.Add('voltanque: ' + inttostr(ab.voltanque));
+  Memo8.Lines.Add('codcombustivel: ' + inttostr(ab.codcombustivel));
+  Memo8.Lines.Add('seriecbc: ' + inttostr(ab.seriecbc));
+  Memo8.Lines.Add('tipocbc: ' + inttostr(ord(ab.tipocbc) - 65));
+  Memo8.Lines.Add('data: ' + DateTimeToStr(ab.datetime));
+  Memo8.Lines.Add('st_full: ' + ab.st_full);
+  Memo8.Lines.Add('registro: ' + inttostr(ab.registro));
+  Memo8.Lines.Add('encerranteI: ' + floattostr(ab.encerranteI));
+  Memo8.Lines.Add('encerranteF: ' + floattostr(ab.encerranteF));
+
+  if ab.integridade then
+    Memo8.Lines.Add('integridade: TRUE')
+  else
+    Memo8.Lines.Add('integridade: FALSE');
+  if ab.checksum then
+    Memo8.Lines.Add('checksum: TRUE')
+  else
+    Memo8.Lines.Add('checksum: FALSE');
+  Memo8.Lines.Add('tag1: ' + ab.tag1);
+  Memo8.Lines.Add('tag2: ' + ab.tag2);
+
+  Check.Checked := ab.checksum;
+  integridade.Checked := ab.integridade;
+  value.Checked := ab.value;
+  EditTotaisDin.Text := floattostr(ab.total_dinheiro);
+  EditCanal.Text := ab.codbico;
+  EditPPL.Text := floattostr(ab.PU);
+
+  EditData.Text := DateToStr(ab.datetime).Substring(0, 10); // String( ab.data).Substring(1,8) ;
+  EditHora.Text := Format('%.2d:%.2d', [myHour, myMin]);
+  EditTempo.Text := inttostr(ab.tempo);
+  EditEnc.Text := floattostr(ab.encerranteI) + ' / ' + floattostr(ab.encerranteF);
+  EditRegistro.Text := inttostr(ab.registro);
+  EditTotaisLT.Text := floattostr(ab.total_litros);
+  EditString.Text := ab.st_full;
+
+  if (ab.integridade and ab.checksum) then
+    Incrementa;
+  end;
+end;
+
+procedure TForm1.Button44Click(Sender: TObject);
+var
+  ab: abastFid;
+begin
+ab := LeAbFidFix;
+Edit34.Text := ab.st_full;
+end;
+
+procedure TForm1.Button45Click(Sender: TObject);
+var
+  ab: AbastFid2;
+begin
+ab := LeAbFid2Fix;
+Edit34.Text := ab.st_full;
+end;
+
+procedure TForm1.Button46Click(Sender: TObject);
+begin
+FidIncrementaAbast;
+end;
+
+procedure TForm1.Button48Click(Sender: TObject);
+var
+  num: integer;
+  level: integer;
+  tag: string;
+begin
+
+
+
+// HRSReadTAG(indice:integer;var tag:ansistring; var level:integer);
+
+end;
+
+procedure TForm1.Button49Click(Sender: TObject);
+var
+  st : PWideChar;
+begin
+  st := C_GetClock;
+  Memo8.Lines.Add(st);
+end;
+
+{
+  procedure TForm1.Button47Click(Sender: TObject);
+  var ab:abastPAF1;
+  begin
+  ab:=LeAbastecimentoPAF1Fix;
+  memo8.Lines.Add('--------------------------------------------------------------------------');
+  if ab.value then memo8.Lines.Add('value: TRUE') else memo8.Lines.Add('value: FALSE');
+  memo8.Lines.Add('total_dinheiro: ' + floattostr(ab.total_dinheiro));
+  memo8.Lines.Add('total_litros: ' + floattostr(ab.total_litros));
+  memo8.Lines.Add('PU: ' + floattostr(ab.PU));
+  memo8.Lines.Add('tempo: ' + ab.tempo);
+  memo8.Lines.Add('codbico: ' + ab.codbico);
+  memo8.Lines.Add('numbico: ' + inttostr(ab.numbico));
+  memo8.Lines.Add('voltanque: ' + inttostr(ab.voltanque));
+  memo8.Lines.Add('codcombustivel: ' + inttostr(ab.codcombustivel));
+  memo8.Lines.Add('seriecbc: ' + inttostr(ab.seriecbc));
+  memo8.Lines.Add('tipocbc: ' + ab.tipocbc);
+  memo8.Lines.Add('data: ' + ab.data);
+  memo8.Lines.Add('hora: ' + ab.hora);
+  memo8.Lines.Add('st_full: ' + ab.st_full);
+  memo8.Lines.Add('registro: ' + inttostr(ab.registro));
+  memo8.Lines.Add('encerranteI: ' + floattostr(ab.encerranteI));
+  memo8.Lines.Add('encerranteF: ' + floattostr(ab.encerranteF));
+  if ab.integridade then memo8.Lines.Add('integridade: TRUE') else memo8.Lines.Add('integridade: FALSE');
+  if ab.checksum then memo8.Lines.Add('checksum: TRUE') else memo8.Lines.Add('checksum: FALSE');
+  memo8.Lines.Add('tag1: ' + ab.tag1);
+  memo8.Lines.Add('tag2: ' + ab.tag2);
+
+  check.Checked:=ab.checksum;
+  integridade.Checked:=ab.integridade;
+  value.Checked:=ab.value;
+  edittotaisdin.Text:=floattostr(ab.total_dinheiro);
+  editcanal.Text:=ab.codbico;
+  editppl.Text:=floattostr(ab.PU);
+  editdata.Text:=ab.data;
+  edithora.Text:=ab.hora;
+  edittempo.Text:=ab.tempo;
+  editenc.text:=floattostr(ab.encerranteI) + ' / ' + floattostr(ab.encerranteF);
+  editregistro.Text:=inttostr(ab.registro);
+  edittotaislt.Text:=floattostr(ab.total_litros);
+  editstring.Text:=ab.st_full;
+
+  end;
+}
+{
+  procedure TForm1.Button48Click(Sender: TObject);
+  begin
+  leregistro3(1);
+  end;
+}
+end.

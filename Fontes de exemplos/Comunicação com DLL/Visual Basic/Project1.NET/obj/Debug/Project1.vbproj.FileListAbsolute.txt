@@ -1,0 +1,9 @@
+C:\Users\Desenvolvimento.COMPANYTEC\Desktop\EXEMPLOS COMPRIMIDOS\Visual Basic\Project1.NET\bin\Project1.exe
+C:\Users\Desenvolvimento.COMPANYTEC\Desktop\EXEMPLOS COMPRIMIDOS\Visual Basic\Project1.NET\bin\Project1.pdb
+C:\Users\Desenvolvimento.COMPANYTEC\Desktop\EXEMPLOS COMPRIMIDOS\Visual Basic\Project1.NET\bin\Project1.xml
+C:\Users\Desenvolvimento.COMPANYTEC\Desktop\EXEMPLOS COMPRIMIDOS\Visual Basic\Project1.NET\obj\Debug\Project1.Form1.resources
+C:\Users\Desenvolvimento.COMPANYTEC\Desktop\EXEMPLOS COMPRIMIDOS\Visual Basic\Project1.NET\obj\Debug\Project1.vbproj.GenerateResource.Cache
+C:\Users\Desenvolvimento.COMPANYTEC\Desktop\EXEMPLOS COMPRIMIDOS\Visual Basic\Project1.NET\obj\Debug\Project1.exe
+C:\Users\Desenvolvimento.COMPANYTEC\Desktop\EXEMPLOS COMPRIMIDOS\Visual Basic\Project1.NET\obj\Debug\Project1.xml
+C:\Users\Desenvolvimento.COMPANYTEC\Desktop\EXEMPLOS COMPRIMIDOS\Visual Basic\Project1.NET\obj\Debug\Project1.pdb
+C:\Users\Desenvolvimento.COMPANYTEC\Desktop\EXEMPLOS COMPRIMIDOS\Visual Basic\Project1.NET\obj\Debug\Project1.vbprojResolveAssemblyReference.cache

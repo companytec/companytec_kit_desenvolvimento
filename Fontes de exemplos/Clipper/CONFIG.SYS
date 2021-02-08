@@ -1,0 +1,10 @@
+DEVICE=C:\WINDOWS\HIMEM.SYS
+DEVICE=C:\WINDOWS\EMM386.EXE NOEMS
+DOS=HIGH,UMB
+FILESHIGH=255
+BUFFERSHIGH=30
+
+REM OBS: Quando necessitar carregar driver pelo config.sys utilizando o
+REM      DEVICE=, utilize um complemento ao nome: (HIGH).  O driver sera
+REM      carregado em memoria alta.  EX.: DEVICEHIGH=C:\SERSWEDA.SYS
+REM =========================================================================

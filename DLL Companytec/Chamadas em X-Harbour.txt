@@ -1,0 +1,8 @@
+DLL32 FUNCTION InicializaSocket(cIP as STRING)      AS BOOL PASCAL LIB DllPosto
+DLL32 FUNCTION XH_SetClock(cDDHHMM as STRING)       AS BOOL PASCAL LIB DllPosto
+DLL32 FUNCTION XH_GetAbastecimento(@Dado as STRING) AS _INT PASCAL LIB DllPosto
+DLL32 FUNCTION CobLeVis(@Dado as STRING)            AS STRING PASCAL LIB DllPosto
+DLL32 FUNCTION Incrementa()                         AS STRING PASCAL LIB DllPosto
+DLL32 FUNCTION LePPL3(bico as STRING)               AS _INT PASCAL LIB DllPosto
+DLL32 FUNCTION XH_SetPreco(preco as STRING)         AS _INT PASCAL LIB DllPosto
+ 
