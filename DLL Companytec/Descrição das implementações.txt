@@ -1,6 +1,10 @@
-Versão 5.0 - 05/02/2020
+Versão 5.0.0 - 05/02/2020
 - Corrigidos os comandos de preset e preset identificado.
 Versão 5.1 - 12/02/2020
 - Colocado comando de leitura de registro de identificador;
 - Colocado comando para leitura de abastecimento com 8 dígitos no total a pagar e no volume;
 - Corrigido comando de visualização identificada.
+*******************************************************************
+Versão 5.1.0 - 28/07/2020
+- Implementado o comando de atualização de calendário estendido.
+*******************************************************************
