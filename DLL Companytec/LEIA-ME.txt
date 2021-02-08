@@ -1,4 +1,4 @@
-Nesta pasta temos duas subpastas com as diferentes versões da DLL Companytec. A diferença destas duas DLL's é a porta de comunicação quando é chamado a função InicializaSocket ou qualquer outra função de comunicação ethernet que não seja necessário passar o parâmetro da porta de comunicação.
+Nesta pasta há duas subpastas com as diferentes versões da DLL Companytec. A diferença destas duas DLL's é a porta de comunicação quando é chamado a função InicializaSocket ou qualquer outra função de comunicação ethernet que não seja necessário passar o parâmetro da porta de comunicação.
 As últimas versões da DLL eram feitas utilizando a porta 1771 por padrão, só que esta porta é utilizada pelos softwares de configuração e consulta da Companytec. Como a DLL é utilizada pelos sistemas de pista do posto, é aconselhável que os mesmos utilizem a porta 2001, por este motivo que estamos disponibilizando a DLL com comunicação através desta porta.
 Aconselhamos a utilizar a DLL com porta 2001 por questões de futuras intervenções em seus equipamentos de automação.
 OBS.: Caso decida substituir a sua DLL com porta 1771 para a DLL com porta 2001, é necessário seguir os passos abaixo:
