@@ -316,8 +316,6 @@ type
     lbl_tempo: TLabel;
     edt_tempo: TEdit;
     timer1: TTimer;
-    memoVisualizacaoIdentificada: TMemo;
-    btnVisualizacaoIdentificada: TButton;
     function ErrorToString(Erro: Error): string;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
@@ -384,8 +382,6 @@ type
     procedure Button54Click(Sender: TObject);
     procedure btn_enviaPresetIdClick(Sender: TObject);
     procedure btn_presetClick(Sender: TObject);
-    procedure btnLeituraCartaoClick(Sender: TObject);
-    procedure btnVisualizacaoIdentificadaClick(Sender: TObject);
 
     // procedure Button47Click(Sender: TObject);
     // procedure Button48Click(Sender: TObject);
@@ -712,7 +708,6 @@ var
   a: byte;
 begin
   ol := LeVisualizacao;
-  ListBox1.Clear;
   for a := 1 to 48 do
     ListBox1.Items.Add(ol.bico[a] + ' - ' + floattostr(ol.Litragem[a]));
 end;
@@ -720,27 +715,6 @@ end;
 // ------------------------------------------------------------------------------
 // Adiciona cartão a lista negra                                                -
 // ------------------------------------------------------------------------------
-procedure TForm1.btnLeituraCartaoClick(Sender: TObject);
-var
-  indice: Integer;
-  resposta: ShortString;
-begin
-  indice := StrToInt(edtLeituraCartao.Text);
-
-  resposta := lerTagIdf(indice);
-
-  edtRetorno.Text := resposta;
-end;
-
-procedure TForm1.btnVisualizacaoIdentificadaClick(Sender: TObject);
-var
-  stvis: ShortString;
-begin
-  memoVisualizacaoIdentificada.Clear;
-  stvis := GetVisualizacaoId();
-  memoVisualizacaoIdentificada.Lines.Add(stvis);
-end;
-
 procedure TForm1.Btn_AddBlackListClick(Sender: TObject);
 var
   tag: AnsiString;
@@ -1403,10 +1377,19 @@ procedure TForm1.Button40Click(Sender: TObject);
 // Meus testes para o paraguai
 //---------------------------------------------------------
 var
-  retorno: PChar;
+  command: WideString;
+  timeout: Integer;
+  retorno: Integer;
 begin
-  retorno := HRSGetSalePAF();
-  edit35.text := retorno;
+  command := Edit29.Text;
+  timeout := StrToInt(Edit36.Text);
+
+  retorno := PB_sendReceiveText(command, timeout);
+
+
+//  ShowMessage(retorno);
+  Edit35.Text := command;
+
 end;
 
 procedure TForm1.Button41Click(Sender: TObject);

@@ -140,7 +140,7 @@ object Form1: TForm1
     Top = 87
     Width = 571
     Height = 490
-    ActivePage = TabSheet1
+    ActivePage = Abastecimentos
     TabOrder = 0
     object Abastecimentos: TTabSheet
       Caption = 'Abastecimentos'
@@ -925,9 +925,9 @@ object Form1: TForm1
       Caption = 'Visualiza'#231#227'o'
       ImageIndex = 1
       object ListBox1: TListBox
-        Left = 3
+        Left = 0
         Top = 0
-        Width = 557
+        Width = 560
         Height = 204
         Columns = 3
         ItemHeight = 13
@@ -957,22 +957,6 @@ object Form1: TForm1
         Width = 557
         Height = 34
         TabOrder = 3
-      end
-      object memoVisualizacaoIdentificada: TMemo
-        Left = 3
-        Top = 308
-        Width = 557
-        Height = 89
-        TabOrder = 4
-      end
-      object btnVisualizacaoIdentificada: TButton
-        Left = 423
-        Top = 403
-        Width = 137
-        Height = 25
-        Caption = 'Visualiza'#231#227'o Identificada'
-        TabOrder = 5
-        OnClick = btnVisualizacaoIdentificadaClick
       end
     end
     object TabSheet8: TTabSheet
@@ -1901,37 +1885,36 @@ object Form1: TForm1
         end
       end
       object grpLeituraCartao: TGroupBox
-        Left = 24
+        Left = 40
         Top = 303
-        Width = 525
-        Height = 138
+        Width = 489
+        Height = 150
         Caption = 'Leitura de Cart'#245'es'
         TabOrder = 3
         object lblLeituraCartao: TLabel
-          Left = 16
+          Left = 48
           Top = 32
           Width = 76
           Height = 13
           Caption = 'Digite o registro:'
         end
         object lblRetorno: TLabel
-          Left = 16
+          Left = 48
           Top = 80
           Width = 48
           Height = 13
           Caption = 'Resposta:'
         end
         object btnLeituraCartao: TButton
-          Left = 422
-          Top = 99
+          Left = 390
+          Top = 107
           Width = 91
           Height = 25
           Caption = 'Ler Cart'#227'o'
           TabOrder = 2
-          OnClick = btnLeituraCartaoClick
         end
         object edtLeituraCartao: TEdit
-          Left = 98
+          Left = 144
           Top = 24
           Width = 121
           Height = 21
@@ -1939,7 +1922,7 @@ object Form1: TForm1
           TabOrder = 0
         end
         object edtRetorno: TEdit
-          Left = 98
+          Left = 144
           Top = 72
           Width = 337
           Height = 21

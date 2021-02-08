@@ -467,10 +467,6 @@ function patrickFunction(patrickString: String):ShortString;stdcall;export;
 function  presetIdf(bico: Byte; tag:AnsiString; frentista, autoriza, dinheiro: Boolean; valor: PChar; tempo: Integer):ShortString; stdcall; export;
 function PB_sendReceiveText(var st: WideString; timeout: Integer):Integer; stdcall; export;
 Function Preset2(bico:string;valor:double):Error; stdcall; export;
-Function C_SendReceiveText(comando:shortstring):shortstring;
-Function HRSGetSalePAF():PChar;
-function lerTagIdf(indice: Integer):ShortString; stdcall;
-
 
 {$ENDIF}
 
@@ -631,9 +627,6 @@ function patrickFunction; external 'companytec.dll' name 'patrickFunction';
 function presetIdf; external 'companytec.dll' name 'presetIdf';
 function PB_sendReceiveText; external 'companytec.dll' name 'PB_sendReceiveText';
 function preset; external 'companytec.dll' name 'Preset';
-Function C_SendReceiveText; external 'companytec.dll' name 'C_SendReceiveText';
-function HRSGetSalePAF; external 'companytec.dll'name 'HRSGetSalePAF';
-function lerTagIdf; external 'companytec.dll' name 'lerTagIdf';
 {$ENDIF}
 
 end.
