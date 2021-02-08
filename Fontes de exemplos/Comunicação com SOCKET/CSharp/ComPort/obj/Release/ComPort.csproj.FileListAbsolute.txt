@@ -1,0 +1,26 @@
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\OpenGate\ComPort\bin\Release\ComPort.exe.config
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\OpenGate\ComPort\bin\Release\ComPort.exe.manifest
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\OpenGate\ComPort\bin\Release\ComPort.application
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\OpenGate\ComPort\bin\Release\ComPort.exe
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\OpenGate\ComPort\bin\Release\ComPort.pdb
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\OpenGate\ComPort\obj\Release\ComPort.Form1.resources
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\OpenGate\ComPort\obj\Release\ComPort.Properties.Resources.resources
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\OpenGate\ComPort\obj\Release\ComPort.csproj.GenerateResource.Cache
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\OpenGate\ComPort\obj\Release\ComPort.exe.manifest
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\OpenGate\ComPort\obj\Release\ComPort.application
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\OpenGate\ComPort\obj\Release\ComPort.exe
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\OpenGate\ComPort\obj\Release\ComPort.pdb
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\OpenGate\ComPort\obj\Release\ComPort.csprojResolveAssemblyReference.cache
+C:\Users\desenvolvimento\Desktop\ComunicaçãoSocket\ComPort\bin\Release\ComPort.exe.config
+C:\Users\desenvolvimento\Desktop\ComunicaçãoSocket\ComPort\obj\Release\ComPort.exe
+C:\Users\desenvolvimento\Desktop\ComunicaçãoSocket\ComPort\obj\Release\ComPort.pdb
+C:\Users\desenvolvimento\Desktop\ComunicaçãoSocket\ComPort\bin\Release\ComPort.exe.manifest
+C:\Users\desenvolvimento\Desktop\ComunicaçãoSocket\ComPort\bin\Release\ComPort.application
+C:\Users\desenvolvimento\Desktop\ComunicaçãoSocket\ComPort\bin\Release\ComPort.exe
+C:\Users\desenvolvimento\Desktop\ComunicaçãoSocket\ComPort\bin\Release\ComPort.pdb
+C:\Users\desenvolvimento\Desktop\ComunicaçãoSocket\ComPort\obj\Release\ComPort.csprojResolveAssemblyReference.cache
+C:\Users\desenvolvimento\Desktop\ComunicaçãoSocket\ComPort\obj\Release\ComPort.Form1.resources
+C:\Users\desenvolvimento\Desktop\ComunicaçãoSocket\ComPort\obj\Release\ComPort.Properties.Resources.resources
+C:\Users\desenvolvimento\Desktop\ComunicaçãoSocket\ComPort\obj\Release\ComPort.csproj.GenerateResource.Cache
+C:\Users\desenvolvimento\Desktop\ComunicaçãoSocket\ComPort\obj\Release\ComPort.exe.manifest
+C:\Users\desenvolvimento\Desktop\ComunicaçãoSocket\ComPort\obj\Release\ComPort.application
