@@ -13,3 +13,15 @@ Versão 5.2.0 - 11/09/2020
 - Ajustada a função VB_SendReceiveText pois estava ocorrendo erros;
 - Implementada função para leitura da porta de comunicação nos comandos de abertura de socket e separadas as DLL's com portas diferentes;
 *******************************************************************
+Versão 5.3.0 - 09/02/2021
+- Corrigido comando C_ReadRegister;
+- Corrigido comando C_StopPump;
+- Implementado comando C_ReadIdf;
+- Implementado comando C_IncrementIdf;
+- Implementado comando C_SaveTagIdf;
+- Implementado comando C_DeleteTagIdf;
+- Implementado comando C_ClearMemoryIdf;
+- Implementado comando C_PushIdfBlackList;
+- Implementado comando C_RemoveIdfBlackList;
+- Implementado comando C_ReadRegisterIdf.
+*******************************************************************
