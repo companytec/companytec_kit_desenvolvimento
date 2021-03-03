@@ -48,3 +48,7 @@ Vr 1.1.11 - 08/02/2021:
 Vr 1.1.12 - 09/02/2021:
 - Implementados comandos na DLL Companytec.
 *******************************************************************
+Vr 1.1.13 - 03/03/2021:
+- Implementado comando na DLL para retornar os ponteiros de escrita e leitura de abastecimentos da automação;
+- Alterado software de teste da DLL em Delphi para coletar tais informações.
+*******************************************************************

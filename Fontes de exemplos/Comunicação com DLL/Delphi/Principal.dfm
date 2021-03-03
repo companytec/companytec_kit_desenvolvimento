@@ -1,11 +1,11 @@
 object Form1: TForm1
-  Left = 315
-  Top = 215
+  Left = 818
+  Top = 315
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = 'Companytec Automa'#231#227'o e Controle - Desenvolvimento de Software'
-  ClientHeight = 589
-  ClientWidth = 733
+  ClientHeight = 598
+  ClientWidth = 940
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,17 +20,14 @@ object Form1: TForm1
   object Shape1: TShape
     Left = 0
     Top = 0
-    Width = 733
+    Width = 940
     Height = 83
     Align = alTop
     Brush.Color = clBlack
-    ExplicitLeft = -8
-    ExplicitTop = 99
-    ExplicitWidth = 751
   end
   object Label34: TLabel
-    Left = 4
-    Top = 65
+    Left = 348
+    Top = 33
     Width = 244
     Height = 16
     Caption = 'Exemplo de integra'#231#227'o utilizando DLL'
@@ -43,7 +40,7 @@ object Form1: TForm1
     Transparent = True
   end
   object Image1: TImage
-    Left = 575
+    Left = 831
     Top = 0
     Width = 95
     Height = 81
@@ -136,18 +133,19 @@ object Form1: TForm1
       A2803FFFD9}
   end
   object PageControl: TPageControl
-    Left = 4
-    Top = 87
-    Width = 571
+    Left = 6
+    Top = 88
+    Width = 770
     Height = 490
     ActivePage = Abastecimentos
     TabOrder = 0
     object Abastecimentos: TTabSheet
       Caption = 'Abastecimentos'
+      ExplicitTop = 23
       object GroupBox5: TGroupBox
-        Left = 4
-        Top = 1
-        Width = 549
+        Left = 106
+        Top = 6
+        Width = 553
         Height = 162
         Color = clBtnFace
         ParentColor = False
@@ -398,244 +396,196 @@ object Form1: TForm1
       end
       object PageControl2: TPageControl
         Left = 3
-        Top = 169
-        Width = 557
+        Top = 177
+        Width = 756
         Height = 206
-        ActivePage = TabSheet3
+        ActivePage = TabSheet20
         TabOrder = 1
         object TabSheet18: TTabSheet
-          Caption = 'LeAbastecimentoPAF'
+          Caption = 'Leitura Abast. PAF'
           ImageIndex = 12
           object Memo8: TMemo
-            Left = 0
+            Left = 95
             Top = 0
-            Width = 348
-            Height = 129
+            Width = 546
+            Height = 144
             ScrollBars = ssVertical
             TabOrder = 0
           end
           object Button43: TButton
-            Left = 354
-            Top = 64
-            Width = 150
+            Left = 20
+            Top = 150
+            Width = 52
             Height = 25
             Caption = 'LeAbastecimentoPAF2'
             TabOrder = 1
+            Visible = False
             OnClick = Button43Click
           end
           object Button47: TButton
-            Left = 354
-            Top = 18
-            Width = 150
+            Left = 80
+            Top = 150
+            Width = 63
             Height = 25
             Caption = 'LeAbastecimentoPAF1Fix'
             TabOrder = 2
+            Visible = False
           end
           object Button51: TButton
-            Left = 354
-            Top = 95
-            Width = 150
+            Left = 149
+            Top = 150
+            Width = 51
             Height = 25
             Caption = 'LeAbastecimentoTWC'
             TabOrder = 3
+            Visible = False
             OnClick = Button51Click
           end
           object Button53: TButton
-            Left = 354
-            Top = 126
-            Width = 150
+            Left = 508
+            Top = 150
+            Width = 133
             Height = 25
-            Caption = 'C_GetSalePAF'
+            Caption = 'Enviar (C_GetSalePaf)'
             TabOrder = 4
             OnClick = Button53Click
           end
         end
         object TabSheet3: TTabSheet
-          Caption = 'LeAbastecimento'
-          object Panel2: TPanel
-            Left = 0
-            Top = 147
-            Width = 549
-            Height = 31
-            Align = alBottom
-            BevelOuter = bvNone
+          Caption = 'Leitura Abast.'
+          object Button4: TButton
+            Left = 522
+            Top = 150
+            Width = 119
+            Height = 25
+            Caption = 'Enviar Comando'
             TabOrder = 0
-            object Button4: TButton
-              Left = 423
-              Top = 3
-              Width = 119
-              Height = 25
-              Caption = 'Enviar Comando'
-              TabOrder = 0
-              OnClick = Button4Click
-            end
+            OnClick = Button4Click
           end
-          object Panel3: TPanel
-            Left = 0
+          object Memo1: TMemo
+            Left = 95
             Top = 0
-            Width = 549
-            Height = 102
-            Align = alTop
-            BevelOuter = bvNone
+            Width = 546
+            Height = 145
+            ScrollBars = ssVertical
             TabOrder = 1
-            object Memo1: TMemo
-              Left = 0
-              Top = 0
-              Width = 545
-              Height = 100
-              ScrollBars = ssVertical
-              TabOrder = 0
-            end
           end
         end
         object TabSheet7: TTabSheet
-          Caption = 'LeRegistro'
+          Caption = 'Leitura de registro'
           ImageIndex = 4
           object Memo5: TMemo
-            Left = 0
+            Left = 95
             Top = 0
             Width = 546
-            Height = 100
+            Height = 120
             ScrollBars = ssVertical
             TabOrder = 0
           end
-          object Panel7: TPanel
-            Left = 0
-            Top = 106
-            Width = 549
-            Height = 72
-            Align = alBottom
-            BevelOuter = bvNone
+          object Button52: TButton
+            Left = 522
+            Top = 150
+            Width = 119
+            Height = 25
+            Caption = 'LeRegistroPAF'
             TabOrder = 1
-            object Button9: TButton
-              Left = 427
-              Top = 0
-              Width = 119
-              Height = 25
-              Caption = 'LeRegistro'
-              TabOrder = 0
-              OnClick = Button9Click
-            end
-            object SpinEdit2: TSpinEdit
-              Left = 360
-              Top = 0
-              Width = 61
-              Height = 26
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -13
-              Font.Name = 'MS Sans Serif'
-              Font.Style = []
-              MaxValue = 9999
-              MinValue = 0
-              ParentFont = False
-              TabOrder = 1
-              Value = 0
-            end
-            object Button52: TButton
-              Left = 427
-              Top = 31
-              Width = 119
-              Height = 25
-              Caption = 'LeRegistroPAF'
-              TabOrder = 2
-              OnClick = Button52Click
-            end
+            OnClick = Button52Click
+          end
+          object Button9: TButton
+            Left = 522
+            Top = 123
+            Width = 119
+            Height = 25
+            Caption = 'LeRegistro'
+            TabOrder = 2
+            OnClick = Button9Click
+          end
+          object SpinEdit2: TSpinEdit
+            Left = 455
+            Top = 136
+            Width = 61
+            Height = 26
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -13
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            MaxValue = 9999
+            MinValue = 0
+            ParentFont = False
+            TabOrder = 3
+            Value = 0
           end
         end
         object TabSheet4: TTabSheet
           Caption = 'LeStructSt'
           ImageIndex = 1
-          object Panel4: TPanel
-            Left = 0
-            Top = 147
-            Width = 549
-            Height = 31
-            Align = alBottom
-            BevelOuter = bvNone
-            TabOrder = 0
-            object Button5: TButton
-              Left = 424
-              Top = 3
-              Width = 119
-              Height = 25
-              Caption = 'Enviar Comando'
-              TabOrder = 0
-              OnClick = Button5Click
-            end
-          end
+          TabVisible = False
           object Memo2: TMemo
             Left = 0
             Top = 0
             Width = 546
-            Height = 100
-            ScrollBars = ssVertical
-            TabOrder = 1
-          end
-        end
-        object TabSheet5: TTabSheet
-          Caption = 'LeAbFix'
-          ImageIndex = 2
-          object Memo3: TMemo
-            Left = 0
-            Top = 0
-            Width = 546
-            Height = 100
+            Height = 144
             ScrollBars = ssVertical
             TabOrder = 0
           end
-          object Panel5: TPanel
-            Left = 0
-            Top = 147
-            Width = 549
-            Height = 31
-            Align = alBottom
-            BevelOuter = bvNone
+          object Button5: TButton
+            Left = 427
+            Top = 150
+            Width = 119
+            Height = 25
+            Caption = 'Enviar Comando'
             TabOrder = 1
-            object Button7: TButton
-              Left = 415
-              Top = 3
-              Width = 119
-              Height = 25
-              Caption = 'Enviar Comando'
-              TabOrder = 0
-              OnClick = Button7Click
-            end
+            OnClick = Button5Click
+          end
+        end
+        object TabSheet5: TTabSheet
+          Caption = 'Leitura Abast. sem incremento'
+          ImageIndex = 2
+          object Memo3: TMemo
+            Left = 95
+            Top = 0
+            Width = 546
+            Height = 144
+            ScrollBars = ssVertical
+            TabOrder = 0
+          end
+          object Button7: TButton
+            Left = 522
+            Top = 150
+            Width = 119
+            Height = 25
+            Caption = 'Enviar Comando'
+            TabOrder = 1
+            OnClick = Button7Click
           end
         end
         object TabSheet6: TTabSheet
           Caption = 'CobLeStructSt'
           ImageIndex = 3
+          TabVisible = False
           object Memo4: TMemo
             Left = 0
             Top = 0
             Width = 546
-            Height = 100
+            Height = 144
             ScrollBars = ssVertical
             TabOrder = 0
           end
-          object Panel6: TPanel
-            Left = 0
-            Top = 147
-            Width = 549
-            Height = 31
-            Align = alBottom
-            BevelOuter = bvNone
+          object Button8: TButton
+            Left = 427
+            Top = 150
+            Width = 119
+            Height = 25
+            Caption = 'Enviar Comando'
             TabOrder = 1
-            object Button8: TButton
-              Left = 424
-              Top = 3
-              Width = 119
-              Height = 25
-              Caption = 'Enviar Comando'
-              TabOrder = 0
-              OnClick = Button8Click
-            end
+            OnClick = Button8Click
           end
         end
         object TabSheet11: TTabSheet
           Caption = 'Le'
           ImageIndex = 5
+          TabVisible = False
           object Edit20: TEdit
             Left = 4
             Top = 4
@@ -672,11 +622,11 @@ object Form1: TForm1
           end
         end
         object TabSheet12: TTabSheet
-          Caption = 'LeAbastecimentoFid'
+          Caption = 'Leitura Abast. com identicdor'
           ImageIndex = 6
           object Label35: TLabel
-            Left = 80
-            Top = 22
+            Left = 186
+            Top = 56
             Width = 34
             Height = 16
             Caption = 'TAG :'
@@ -687,18 +637,18 @@ object Form1: TForm1
             Font.Style = []
             ParentFont = False
           end
-          object Button26: TButton
-            Left = 427
-            Top = 104
+          object LeFid: TButton
+            Left = 438
+            Top = 98
             Width = 75
             Height = 25
-            Caption = 'Button26'
+            Caption = 'Enviar'
             TabOrder = 0
-            OnClick = Button26Click
+            OnClick = LeFidClick
           end
           object EditTag: TEdit
-            Left = 127
-            Top = 18
+            Left = 232
+            Top = 55
             Width = 281
             Height = 21
             ReadOnly = True
@@ -708,18 +658,19 @@ object Form1: TForm1
         object TabSheet13: TTabSheet
           Caption = 'CobLeStructIDSt'
           ImageIndex = 7
+          TabVisible = False
           object Button28: TButton
             Left = 471
             Top = 150
             Width = 75
             Height = 25
-            Caption = 'Button28'
+            Caption = 'Enviar'
             TabOrder = 0
             OnClick = Button28Click
           end
           object Memo7: TMemo
             Left = 0
-            Top = 0
+            Top = 3
             Width = 546
             Height = 129
             Font.Charset = DEFAULT_CHARSET
@@ -735,6 +686,7 @@ object Form1: TForm1
         object TabSheet15: TTabSheet
           Caption = 'WriteSerial/ReadSerial'
           ImageIndex = 8
+          TabVisible = False
           object Edit26: TEdit
             Left = 5
             Top = 20
@@ -772,6 +724,7 @@ object Form1: TForm1
         object TabSheet16: TTabSheet
           Caption = 'LeRegistroFid'
           ImageIndex = 9
+          TabVisible = False
           object Button39: TButton
             Left = 425
             Top = 102
@@ -801,6 +754,7 @@ object Form1: TForm1
         object pc10: TTabSheet
           Caption = 'TxRxSerial'
           ImageIndex = 10
+          TabVisible = False
           object Label41: TLabel
             Left = 8
             Top = 15
@@ -841,42 +795,42 @@ object Form1: TForm1
           end
         end
         object TabSheet17: TTabSheet
-          Caption = 'LeAbastecimentoFid2'
+          Caption = 'Leitura Abast. Dupla Identifica'#231#227'o'
           ImageIndex = 11
           object Label44: TLabel
-            Left = 111
-            Top = 28
+            Left = 240
+            Top = 40
             Width = 31
             Height = 13
             Caption = 'TAG1:'
           end
           object Label45: TLabel
-            Left = 111
-            Top = 52
+            Left = 240
+            Top = 69
             Width = 31
             Height = 13
             Caption = 'TAG2:'
           end
           object Edit32: TEdit
-            Left = 152
-            Top = 24
+            Left = 281
+            Top = 37
             Width = 184
             Height = 21
             TabOrder = 0
           end
           object Edit33: TEdit
-            Left = 152
-            Top = 48
+            Left = 281
+            Top = 64
             Width = 184
             Height = 21
             TabOrder = 1
           end
           object Button42: TButton
-            Left = 152
-            Top = 80
-            Width = 185
+            Left = 281
+            Top = 96
+            Width = 184
             Height = 25
-            Caption = 'LeAbastecimentoFid2'
+            Caption = 'Enviar'
             TabOrder = 2
             OnClick = Button42Click
           end
@@ -884,6 +838,7 @@ object Form1: TForm1
         object TabSheet19: TTabSheet
           Caption = 'FIX'
           ImageIndex = 13
+          TabVisible = False
           object Button44: TButton
             Left = 5
             Top = 3
@@ -919,44 +874,103 @@ object Form1: TForm1
             TabOrder = 3
           end
         end
+        object TabSheet20: TTabSheet
+          Caption = 'Leitura Ponteiros da Mem'#243'ria'
+          ImageIndex = 14
+          ExplicitLeft = 25
+          ExplicitTop = 16
+          object Label51: TLabel
+            Left = 222
+            Top = 99
+            Width = 91
+            Height = 13
+            Caption = 'Ponteiro de escrita:'
+          end
+          object Label62: TLabel
+            Left = 222
+            Top = 136
+            Width = 88
+            Height = 13
+            Caption = 'Ponteiro de leitura:'
+          end
+          object btn_SendCommandReadPointersMemory: TButton
+            Left = 299
+            Top = 40
+            Width = 134
+            Height = 25
+            Caption = 'Enviar comando'
+            TabOrder = 0
+            OnClick = btn_SendCommandReadPointersMemoryClick
+          end
+          object edt_AnswerWritePointerMemory: TEdit
+            Left = 384
+            Top = 91
+            Width = 97
+            Height = 21
+            TabOrder = 1
+          end
+          object edt_AnswerReadPointerMemory: TEdit
+            Left = 384
+            Top = 128
+            Width = 97
+            Height = 21
+            TabOrder = 2
+          end
+        end
       end
     end
     object TabSheet1: TTabSheet
       Caption = 'Visualiza'#231#227'o'
       ImageIndex = 1
       object ListBox1: TListBox
-        Left = 0
+        Left = 92
         Top = 0
-        Width = 560
+        Width = 557
         Height = 204
         Columns = 3
         ItemHeight = 13
         TabOrder = 0
       end
       object Button6: TButton
-        Left = 380
-        Top = 210
+        Left = 469
+        Top = 208
         Width = 180
         Height = 25
-        Caption = 'LeVisualizacao'
+        Caption = 'Visualiza'#231#227'o'
         TabOrder = 1
         OnClick = Button6Click
       end
       object Button10: TButton
-        Left = 380
+        Left = 469
         Top = 277
         Width = 180
         Height = 25
-        Caption = 'STVisualizacao'
+        Caption = 'Visualiza'#231#227'o (string)'
         TabOrder = 2
         OnClick = Button10Click
       end
       object Memo6: TMemo
-        Left = 3
+        Left = 92
         Top = 237
         Width = 557
         Height = 34
         TabOrder = 3
+      end
+      object memoVisualizacaoIdentificada: TMemo
+        Left = 92
+        Top = 308
+        Width = 557
+        Height = 89
+        TabOrder = 4
+      end
+      object btnVisualizacaoIdentificada: TButton
+        Left = 512
+        Top = 403
+        Width = 137
+        Height = 25
+        Caption = 'Visualiza'#231#227'o Identificada'
+        TabOrder = 5
+        OnClick = btnVisualizacaoIdentificadaClick
       end
     end
     object TabSheet8: TTabSheet
@@ -970,8 +984,8 @@ object Form1: TForm1
         Caption = 'Label47'
       end
       object ListBox2: TListBox
-        Left = 3
-        Top = 0
+        Left = 109
+        Top = 13
         Width = 557
         Height = 214
         Columns = 4
@@ -979,46 +993,48 @@ object Form1: TForm1
         TabOrder = 0
       end
       object Button11: TButton
-        Left = 380
-        Top = 219
+        Left = 485
+        Top = 233
         Width = 180
         Height = 25
-        Caption = 'LeStatus'
+        Caption = 'Leitura Status'
         TabOrder = 1
         OnClick = Button11Click
       end
       object Edit1: TEdit
-        Left = 0
-        Top = 250
+        Left = 105
+        Top = 264
         Width = 560
         Height = 21
         TabOrder = 2
       end
       object Button12: TButton
-        Left = 380
-        Top = 277
+        Left = 486
+        Top = 291
         Width = 180
         Height = 25
-        Caption = 'LeStStatus'
+        Caption = 'Leitura Status (string)'
         TabOrder = 3
         OnClick = Button12Click
       end
       object Button27: TButton
-        Left = 198
-        Top = 219
+        Left = 297
+        Top = 233
         Width = 180
         Height = 25
         Caption = 'LeStatusFid'
         TabOrder = 4
+        Visible = False
         OnClick = Button27Click
       end
       object Button34: TButton
-        Left = 198
-        Top = 277
+        Left = 298
+        Top = 291
         Width = 180
         Height = 25
         Caption = 'LeStStatus2'
         TabOrder = 5
+        Visible = False
         OnClick = Button34Click
       end
     end
@@ -1026,8 +1042,8 @@ object Form1: TForm1
       Caption = 'Comandos IdentFid'
       ImageIndex = 3
       object Label12: TLabel
-        Left = 4
-        Top = 16
+        Left = 130
+        Top = 34
         Width = 65
         Height = 16
         Caption = 'Resposta :'
@@ -1039,8 +1055,8 @@ object Form1: TForm1
         ParentFont = False
       end
       object Label13: TLabel
-        Left = 4
-        Top = 44
+        Left = 130
+        Top = 62
         Width = 65
         Height = 16
         Caption = 'Resposta :'
@@ -1052,8 +1068,8 @@ object Form1: TForm1
         ParentFont = False
       end
       object Label14: TLabel
-        Left = 4
-        Top = 70
+        Left = 130
+        Top = 88
         Width = 65
         Height = 16
         Caption = 'Endere'#231'o :'
@@ -1065,8 +1081,8 @@ object Form1: TForm1
         ParentFont = False
       end
       object Label15: TLabel
-        Left = 132
-        Top = 70
+        Left = 258
+        Top = 88
         Width = 41
         Height = 16
         Caption = 'Modo: '
@@ -1078,8 +1094,8 @@ object Form1: TForm1
         ParentFont = False
       end
       object Label16: TLabel
-        Left = 4
-        Top = 98
+        Left = 130
+        Top = 116
         Width = 65
         Height = 16
         Caption = 'Endere'#231'o :'
@@ -1091,8 +1107,8 @@ object Form1: TForm1
         ParentFont = False
       end
       object Label17: TLabel
-        Left = 132
-        Top = 98
+        Left = 258
+        Top = 116
         Width = 34
         Height = 16
         Caption = 'Mins.:'
@@ -1104,8 +1120,8 @@ object Form1: TForm1
         ParentFont = False
       end
       object Label18: TLabel
-        Left = 214
-        Top = 97
+        Left = 340
+        Top = 115
         Width = 38
         Height = 16
         Caption = 'Segs.:'
@@ -1117,8 +1133,8 @@ object Form1: TForm1
         ParentFont = False
       end
       object Label19: TLabel
-        Left = 44
-        Top = 126
+        Left = 170
+        Top = 144
         Width = 24
         Height = 16
         Caption = 'Dia:'
@@ -1130,8 +1146,8 @@ object Form1: TForm1
         ParentFont = False
       end
       object Label20: TLabel
-        Left = 132
-        Top = 126
+        Left = 258
+        Top = 144
         Width = 33
         Height = 16
         Caption = 'Hora:'
@@ -1143,8 +1159,8 @@ object Form1: TForm1
         ParentFont = False
       end
       object Label21: TLabel
-        Left = 228
-        Top = 126
+        Left = 354
+        Top = 144
         Width = 24
         Height = 16
         Caption = 'Min:'
@@ -1156,8 +1172,8 @@ object Form1: TForm1
         ParentFont = False
       end
       object Label22: TLabel
-        Left = 4
-        Top = 154
+        Left = 130
+        Top = 172
         Width = 65
         Height = 16
         Caption = 'Endere'#231'o :'
@@ -1169,8 +1185,8 @@ object Form1: TForm1
         ParentFont = False
       end
       object Label23: TLabel
-        Left = 132
-        Top = 154
+        Left = 258
+        Top = 172
         Width = 27
         Height = 16
         Caption = 'Rta.:'
@@ -1182,8 +1198,8 @@ object Form1: TForm1
         ParentFont = False
       end
       object Button14: TButton
-        Left = 426
-        Top = 8
+        Left = 552
+        Top = 26
         Width = 116
         Height = 25
         Caption = 'FidIdent'
@@ -1191,8 +1207,8 @@ object Form1: TForm1
         OnClick = Button14Click
       end
       object Button15: TButton
-        Left = 426
-        Top = 36
+        Left = 552
+        Top = 54
         Width = 116
         Height = 25
         Caption = 'FidStatus'
@@ -1200,8 +1216,8 @@ object Form1: TForm1
         OnClick = Button15Click
       end
       object Button16: TButton
-        Left = 426
-        Top = 64
+        Left = 552
+        Top = 82
         Width = 116
         Height = 25
         Caption = 'FidModo'
@@ -1209,8 +1225,8 @@ object Form1: TForm1
         OnClick = Button16Click
       end
       object Button17: TButton
-        Left = 426
-        Top = 92
+        Left = 552
+        Top = 110
         Width = 116
         Height = 25
         Caption = 'FidAciona'
@@ -1218,8 +1234,8 @@ object Form1: TForm1
         OnClick = Button17Click
       end
       object Button18: TButton
-        Left = 426
-        Top = 120
+        Left = 552
+        Top = 138
         Width = 116
         Height = 25
         Caption = 'FidSetClock'
@@ -1227,8 +1243,8 @@ object Form1: TForm1
         OnClick = Button18Click
       end
       object Button19: TButton
-        Left = 426
-        Top = 148
+        Left = 552
+        Top = 166
         Width = 116
         Height = 25
         Caption = 'FidLeRegistro'
@@ -1236,8 +1252,8 @@ object Form1: TForm1
         OnClick = Button19Click
       end
       object Button20: TButton
-        Left = 426
-        Top = 176
+        Left = 552
+        Top = 194
         Width = 116
         Height = 25
         Caption = 'FidIncrementa'
@@ -1245,30 +1261,30 @@ object Form1: TForm1
         OnClick = Button20Click
       end
       object Edit2: TEdit
-        Left = 84
-        Top = 12
+        Left = 210
+        Top = 30
         Width = 309
         Height = 21
         TabOrder = 7
       end
       object Edit3: TEdit
-        Left = 84
-        Top = 39
+        Left = 210
+        Top = 57
         Width = 309
         Height = 21
         TabOrder = 8
       end
       object Edit4: TEdit
-        Left = 84
-        Top = 66
+        Left = 210
+        Top = 84
         Width = 41
         Height = 21
         MaxLength = 2
         TabOrder = 9
       end
       object ComboBox1: TComboBox
-        Left = 176
-        Top = 66
+        Left = 302
+        Top = 84
         Width = 109
         Height = 21
         TabOrder = 10
@@ -1278,102 +1294,102 @@ object Form1: TForm1
           'B - Bloqueia')
       end
       object RadioButton3: TRadioButton
-        Left = 295
-        Top = 68
+        Left = 421
+        Top = 86
         Width = 99
         Height = 17
         Caption = 'Comando Aceito'
         TabOrder = 11
       end
       object Edit5: TEdit
-        Left = 84
-        Top = 94
+        Left = 210
+        Top = 112
         Width = 41
         Height = 21
         MaxLength = 2
         TabOrder = 12
       end
       object Edit6: TEdit
-        Left = 176
-        Top = 94
+        Left = 302
+        Top = 112
         Width = 33
         Height = 21
         MaxLength = 2
         TabOrder = 13
       end
       object Edit7: TEdit
-        Left = 254
-        Top = 94
+        Left = 380
+        Top = 112
         Width = 33
         Height = 21
         MaxLength = 2
         TabOrder = 14
       end
       object RadioButton4: TRadioButton
-        Left = 295
-        Top = 96
+        Left = 421
+        Top = 114
         Width = 99
         Height = 17
         Caption = 'Comando Aceito'
         TabOrder = 15
       end
       object Edit8: TEdit
-        Left = 84
-        Top = 122
+        Left = 210
+        Top = 140
         Width = 41
         Height = 21
         MaxLength = 2
         TabOrder = 16
       end
       object Edit9: TEdit
-        Left = 176
-        Top = 122
+        Left = 302
+        Top = 140
         Width = 33
         Height = 21
         MaxLength = 2
         TabOrder = 17
       end
       object Edit10: TEdit
-        Left = 256
-        Top = 122
+        Left = 382
+        Top = 140
         Width = 33
         Height = 21
         MaxLength = 2
         TabOrder = 18
       end
       object RadioButton5: TRadioButton
-        Left = 295
-        Top = 124
+        Left = 421
+        Top = 142
         Width = 99
         Height = 17
         Caption = 'Comando Aceito'
         TabOrder = 19
       end
       object Edit11: TEdit
-        Left = 176
-        Top = 151
+        Left = 302
+        Top = 169
         Width = 217
         Height = 21
         TabOrder = 20
       end
       object Edit12: TEdit
-        Left = 84
-        Top = 150
+        Left = 210
+        Top = 168
         Width = 41
         Height = 21
         MaxLength = 2
         TabOrder = 21
       end
       object Memo9: TMemo
-        Left = 3
-        Top = 178
+        Left = 129
+        Top = 196
         Width = 390
         Height = 205
         TabOrder = 22
       end
       object Button48: TButton
-        Left = 426
-        Top = 207
+        Left = 552
+        Top = 225
         Width = 117
         Height = 25
         Caption = 'HRSReadTag'
@@ -1382,12 +1398,12 @@ object Form1: TForm1
       end
     end
     object TabSheet10: TTabSheet
-      Caption = 'Comandos CBC'
+      Caption = 'Gerenciamento de bombas'
       ImageIndex = 4
       object GroupBox2: TGroupBox
-        Left = 21
-        Top = 2
-        Width = 519
+        Left = 107
+        Top = 26
+        Width = 532
         Height = 61
         Caption = 'ConsultaEncerrantes'
         TabOrder = 0
@@ -1450,9 +1466,9 @@ object Form1: TForm1
         end
       end
       object GroupBox4: TGroupBox
-        Left = 22
-        Top = 165
-        Width = 519
+        Left = 108
+        Top = 125
+        Width = 531
         Height = 61
         Caption = 'Modo de opera'#231#227'o'
         TabOrder = 1
@@ -1524,9 +1540,9 @@ object Form1: TForm1
         end
       end
       object GroupBox6: TGroupBox
-        Left = 22
-        Top = 238
-        Width = 519
+        Left = 108
+        Top = 214
+        Width = 531
         Height = 61
         Caption = 'Leitura de eventos '
         TabOrder = 2
@@ -1571,9 +1587,9 @@ object Form1: TForm1
         end
       end
       object GroupBox8: TGroupBox
-        Left = 22
+        Left = 108
         Top = 308
-        Width = 519
+        Width = 531
         Height = 93
         Caption = 'EnviaComando'
         TabOrder = 3
@@ -1624,54 +1640,13 @@ object Form1: TForm1
           OnClick = Button40Click
         end
       end
-      object GroupBox12: TGroupBox
-        Left = 21
-        Top = 71
-        Width = 519
-        Height = 81
-        Caption = 'Rel'#243'gio'
-        TabOrder = 4
-        object Label51: TLabel
-          Left = 14
-          Top = 21
-          Width = 48
-          Height = 13
-          Caption = 'Resposta:'
-        end
-        object Button49: TButton
-          Left = 366
-          Top = 16
-          Width = 150
-          Height = 25
-          Caption = 'Leitura Rel'#243'gio'
-          TabOrder = 0
-          OnClick = Button49Click
-        end
-        object Button50: TButton
-          Left = 366
-          Top = 43
-          Width = 150
-          Height = 25
-          Caption = 'Atualizar Rel'#243'gio'
-          TabOrder = 1
-          OnClick = Button50Click
-        end
-        object Edit37: TEdit
-          Left = 13
-          Top = 40
-          Width = 270
-          Height = 21
-          MaxLength = 2
-          TabOrder = 2
-        end
-      end
     end
     object savetagFidpage: TTabSheet
       Caption = 'Identifica'#231#227'o'
       ImageIndex = 5
       object GroupBox9: TGroupBox
-        Left = 269
-        Top = 154
+        Left = 348
+        Top = 173
         Width = 280
         Height = 143
         Caption = 'Lista Negra'
@@ -1686,9 +1661,9 @@ object Form1: TForm1
         object Label49: TLabel
           Left = 24
           Top = 69
-          Width = 43
+          Width = 45
           Height = 13
-          Caption = 'resultado'
+          Caption = 'Resposta'
         end
         object Edt_TagBlackList: TEdit
           Left = 24
@@ -1733,75 +1708,10 @@ object Form1: TForm1
           MaxLength = 16
           TabOrder = 4
         end
-        object GroupBox15: TGroupBox
-          Left = 0
-          Top = 0
-          Width = 280
-          Height = 143
-          Caption = 'Lista Negra'
-          TabOrder = 5
-          object Label62: TLabel
-            Left = 24
-            Top = 13
-            Width = 19
-            Height = 13
-            Caption = 'Tag'
-          end
-          object Label63: TLabel
-            Left = 24
-            Top = 69
-            Width = 43
-            Height = 13
-            Caption = 'resultado'
-          end
-          object Edit45: TEdit
-            Left = 24
-            Top = 32
-            Width = 121
-            Height = 21
-            MaxLength = 16
-            TabOrder = 0
-          end
-          object Button56: TButton
-            Left = 151
-            Top = 53
-            Width = 121
-            Height = 25
-            Caption = 'Remover da Lista'
-            TabOrder = 1
-            OnClick = Btn_RemoveBlackListClick
-          end
-          object Button57: TButton
-            Left = 151
-            Top = 84
-            Width = 121
-            Height = 25
-            Caption = 'Limpar Lista Negra'
-            TabOrder = 2
-            OnClick = Btn_BlackListClearClick
-          end
-          object Button58: TButton
-            Left = 151
-            Top = 27
-            Width = 121
-            Height = 25
-            Caption = 'Adicionar a Lista'
-            TabOrder = 3
-            OnClick = Btn_AddBlackListClick
-          end
-          object Edit46: TEdit
-            Left = 24
-            Top = 88
-            Width = 121
-            Height = 21
-            MaxLength = 16
-            TabOrder = 4
-          end
-        end
       end
       object GroupBox10: TGroupBox
-        Left = 24
-        Top = 3
+        Left = 101
+        Top = 12
         Width = 215
         Height = 294
         Caption = 'Cadastro de cart'#245'es'
@@ -1858,10 +1768,10 @@ object Form1: TForm1
         end
       end
       object GroupBox11: TGroupBox
-        Left = 269
+        Left = 346
         Top = 3
         Width = 280
-        Height = 143
+        Height = 171
         Caption = 'Leitura do buffer de cart'#245'es'
         Color = clWhite
         ParentBackground = False
@@ -1883,38 +1793,48 @@ object Form1: TForm1
           TabOrder = 1
           OnClick = Button38Click
         end
+        object btnFidIncrementa: TButton
+          Left = 130
+          Top = 137
+          Width = 146
+          Height = 25
+          Caption = 'FidIncrementa'
+          TabOrder = 2
+          OnClick = btnFidIncrementaClick
+        end
       end
       object grpLeituraCartao: TGroupBox
-        Left = 40
-        Top = 303
-        Width = 489
-        Height = 150
+        Left = 101
+        Top = 315
+        Width = 525
+        Height = 138
         Caption = 'Leitura de Cart'#245'es'
         TabOrder = 3
         object lblLeituraCartao: TLabel
-          Left = 48
+          Left = 16
           Top = 32
           Width = 76
           Height = 13
           Caption = 'Digite o registro:'
         end
         object lblRetorno: TLabel
-          Left = 48
+          Left = 16
           Top = 80
           Width = 48
           Height = 13
           Caption = 'Resposta:'
         end
         object btnLeituraCartao: TButton
-          Left = 390
-          Top = 107
+          Left = 422
+          Top = 99
           Width = 91
           Height = 25
           Caption = 'Ler Cart'#227'o'
           TabOrder = 2
+          OnClick = btnLeituraCartaoClick
         end
         object edtLeituraCartao: TEdit
-          Left = 144
+          Left = 98
           Top = 24
           Width = 121
           Height = 21
@@ -1922,7 +1842,7 @@ object Form1: TForm1
           TabOrder = 0
         end
         object edtRetorno: TEdit
-          Left = 144
+          Left = 98
           Top = 72
           Width = 337
           Height = 21
@@ -1934,7 +1854,7 @@ object Form1: TForm1
       Caption = 'Altera'#231#227'o de Pre'#231'o'
       ImageIndex = 6
       object GroupBox3: TGroupBox
-        Left = 0
+        Left = 92
         Top = 0
         Width = 560
         Height = 61
@@ -1999,7 +1919,6 @@ object Form1: TForm1
           Width = 69
           Height = 21
           MaxLength = 4
-          NumbersOnly = True
           TabOrder = 3
         end
         object SpinEdit3: TSpinEdit
@@ -2014,7 +1933,7 @@ object Form1: TForm1
         end
       end
       object GroupBox13: TGroupBox
-        Left = 0
+        Left = 92
         Top = 166
         Width = 560
         Height = 74
@@ -2086,7 +2005,6 @@ object Form1: TForm1
           Width = 69
           Height = 21
           MaxLength = 4
-          NumbersOnly = True
           TabOrder = 3
         end
         object SpinEdit7: TSpinEdit
@@ -2111,7 +2029,7 @@ object Form1: TForm1
         end
       end
       object GroupBox14: TGroupBox
-        Left = 0
+        Left = 92
         Top = 246
         Width = 560
         Height = 158
@@ -2205,7 +2123,7 @@ object Form1: TForm1
         end
       end
       object GroupBox7: TGroupBox
-        Left = 1
+        Left = 93
         Top = 61
         Width = 559
         Height = 59
@@ -2256,9 +2174,9 @@ object Form1: TForm1
       Caption = 'Predetermina'#231#227'o'
       ImageIndex = 7
       object grp_preset: TGroupBox
-        Left = 24
-        Top = 24
-        Width = 529
+        Left = 113
+        Top = 17
+        Width = 532
         Height = 177
         Caption = 'Predetermina'#231#227'o em valor'
         TabOrder = 0
@@ -2317,9 +2235,9 @@ object Form1: TForm1
         end
       end
       object grp_presetId: TGroupBox
-        Left = 24
-        Top = 219
-        Width = 529
+        Left = 113
+        Top = 212
+        Width = 532
         Height = 234
         Caption = 'Predetermina'#231#227'o com identifica'#231#227'o'
         TabOrder = 1
@@ -2441,9 +2359,190 @@ object Form1: TForm1
         end
       end
     end
+    object tsRelogio: TTabSheet
+      Caption = 'Rel'#243'gio'
+      ImageIndex = 8
+      object grpRelogio: TGroupBox
+        Left = 104
+        Top = 31
+        Width = 532
+        Height = 81
+        Caption = 'Rel'#243'gio Autom'#225'tico'
+        TabOrder = 0
+        object lblResposta: TLabel
+          Left = 14
+          Top = 21
+          Width = 48
+          Height = 13
+          Caption = 'Resposta:'
+        end
+        object btnLeituraRelogio: TButton
+          Left = 366
+          Top = 16
+          Width = 150
+          Height = 25
+          Caption = 'Leitura Rel'#243'gio'
+          TabOrder = 0
+          OnClick = btnLeituraRelogioClick
+        end
+        object btnAtualizaRelogio: TButton
+          Left = 366
+          Top = 43
+          Width = 150
+          Height = 25
+          Caption = 'Atualizar Rel'#243'gio'
+          TabOrder = 1
+          OnClick = btnAtualizaRelogioClick
+        end
+        object edtResposta: TEdit
+          Left = 13
+          Top = 40
+          Width = 270
+          Height = 21
+          MaxLength = 2
+          TabOrder = 2
+        end
+      end
+      object grpRelogioExtendido: TGroupBox
+        Left = 105
+        Top = 128
+        Width = 532
+        Height = 121
+        Caption = 'Rel'#243'gio Extendido'
+        TabOrder = 1
+        object lblAno: TLabel
+          Left = 149
+          Top = 16
+          Width = 19
+          Height = 13
+          Caption = 'Ano'
+        end
+        object lblMes: TLabel
+          Left = 84
+          Top = 16
+          Width = 20
+          Height = 13
+          Caption = 'M'#234's'
+        end
+        object lblDia: TLabel
+          Left = 18
+          Top = 16
+          Width = 16
+          Height = 13
+          Caption = 'Dia'
+        end
+        object lblDiaSemana: TLabel
+          Left = 213
+          Top = 16
+          Width = 51
+          Height = 13
+          Caption = 'D. semana'
+        end
+        object lblHora: TLabel
+          Left = 285
+          Top = 16
+          Width = 23
+          Height = 13
+          Caption = 'Hora'
+        end
+        object lblMinuto: TLabel
+          Left = 360
+          Top = 16
+          Width = 32
+          Height = 13
+          Caption = 'Minuto'
+        end
+        object lblSegundo: TLabel
+          Left = 436
+          Top = 16
+          Width = 43
+          Height = 13
+          Caption = 'Segundo'
+        end
+        object lblRespostaRelogioEstendido: TLabel
+          Left = 24
+          Top = 68
+          Width = 45
+          Height = 13
+          Caption = 'Resposta'
+        end
+        object btnAtualizarRelogioExtendido: TButton
+          Left = 376
+          Top = 76
+          Width = 131
+          Height = 25
+          Caption = 'Atualizar'
+          TabOrder = 7
+          OnClick = btnAtualizarRelogioExtendidoClick
+        end
+        object edtAno: TEdit
+          Left = 147
+          Top = 32
+          Width = 50
+          Height = 21
+          MaxLength = 2
+          TabOrder = 2
+        end
+        object edtMes: TEdit
+          Left = 83
+          Top = 32
+          Width = 50
+          Height = 21
+          MaxLength = 2
+          TabOrder = 1
+        end
+        object edtDia: TEdit
+          Left = 17
+          Top = 32
+          Width = 50
+          Height = 21
+          MaxLength = 2
+          TabOrder = 0
+        end
+        object edtDiaSemana: TEdit
+          Left = 214
+          Top = 32
+          Width = 50
+          Height = 21
+          MaxLength = 2
+          TabOrder = 3
+        end
+        object edtHora: TEdit
+          Left = 284
+          Top = 32
+          Width = 50
+          Height = 21
+          MaxLength = 2
+          TabOrder = 4
+        end
+        object edtMinuto: TEdit
+          Left = 359
+          Top = 32
+          Width = 50
+          Height = 21
+          MaxLength = 2
+          TabOrder = 5
+        end
+        object edtSegundo: TEdit
+          Left = 436
+          Top = 32
+          Width = 50
+          Height = 21
+          MaxLength = 2
+          TabOrder = 6
+        end
+        object edtRespostaRelogioEstendido: TEdit
+          Left = 26
+          Top = 88
+          Width = 213
+          Height = 21
+          TabOrder = 8
+        end
+      end
+    end
   end
   object PageControl1: TPageControl
-    Left = 575
+    Left = 778
     Top = 87
     Width = 154
     Height = 354
@@ -2579,7 +2678,7 @@ object Form1: TForm1
         Caption = 'Digite porta:'
       end
       object Edit23: TEdit
-        Left = 3
+        Left = 2
         Top = 24
         Width = 141
         Height = 21
@@ -2650,13 +2749,13 @@ object Form1: TForm1
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 570
-    Width = 733
+    Top = 579
+    Width = 940
     Height = 19
     Panels = <>
   end
   object CheckBox1: TCheckBox
-    Left = 582
+    Left = 675
     Top = 547
     Width = 97
     Height = 17
@@ -2666,7 +2765,7 @@ object Form1: TForm1
     OnClick = CheckBox1Click
   end
   object timer1: TTimer
-    Left = 672
+    Left = 728
     Top = 504
   end
 end

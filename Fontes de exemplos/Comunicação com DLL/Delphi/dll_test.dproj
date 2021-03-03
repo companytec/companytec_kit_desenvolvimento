@@ -2,7 +2,7 @@
     <PropertyGroup>
         <ProjectGuid>{76B1F2D3-C331-4E02-9ED2-1A42428B7907}</ProjectGuid>
         <MainSource>dll_test.dpr</MainSource>
-        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Config Condition="'$(Config)'==''">Release</Config>
         <DCC_DCCCompiler>DCC32</DCC_DCCCompiler>
         <ProjectVersion>15.4</ProjectVersion>
         <FrameworkType>VCL</FrameworkType>

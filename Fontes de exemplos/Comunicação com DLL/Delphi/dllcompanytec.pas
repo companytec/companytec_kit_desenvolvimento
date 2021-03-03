@@ -170,6 +170,12 @@ Type
   end;
 
 Type
+  MemoryPointers = record
+    writePointer:string[4];
+    readPointer:string[4];
+  end;
+
+Type
   Abast2 = record
     value: string[1];
     total_dinheiro: string[6];
@@ -333,6 +339,7 @@ Function C_GetClock: PAnsiChar; stdcall;
 Function C_SetClock(par: ansistring): boolean; stdcall;
 function getclock: string; stdcall;
 Function GetIdentTag: shortstring; stdcall;
+function GetMemoryPointers:MemoryPointers; stdcall;
 Function LeEncerrante2(modo: pchar; bico: shortstring): shortstring; stdcall;
 function C_ReadTotalsCash2(bico: byte): pchar; stdcall;
 function C_ReadTotalsVolume3(bico: byte): pchar; stdcall;
@@ -375,6 +382,7 @@ Function LeEvento(indice: integer): shortstring; stdcall;
 Function FidAciona(Endereco: string; minutos, segundos: byte): integer; stdcall;
 Function FidIdent: IFid; stdcall;
 Procedure FidIncrementa; stdcall;
+Procedure C_IncrementIdf;stdcall;
 Function FidLeRegistro(nro: integer): shortstring; stdcall;
 Function FidModo(Endereco: string; option: char): integer; stdcall;
 Function FidSetClock(Dia, hora, Minuto: byte): integer; stdcall;
@@ -467,6 +475,11 @@ function patrickFunction(patrickString: String):ShortString;stdcall;export;
 function  presetIdf(bico: Byte; tag:AnsiString; frentista, autoriza, dinheiro: Boolean; valor: PChar; tempo: Integer):ShortString; stdcall; export;
 function PB_sendReceiveText(var st: WideString; timeout: Integer):Integer; stdcall; export;
 Function Preset2(bico:string;valor:double):Error; stdcall; export;
+Function C_SendReceiveText(comando:shortstring):shortstring;
+Function HRSGetSalePAF():PChar;
+function lerTagIdf(indice: Integer):ShortString; stdcall;
+function SetExtendedWatch(ano,mes,dia,diaSemana,hora,minuto,segundo:string):boolean;stdcall;
+
 
 {$ENDIF}
 
@@ -480,6 +493,7 @@ Function SetBlackList; external 'COMPANYTEC.DLL' name 'SetBlackList';
 Function PushBlackList; external 'COMPANYTEC.DLL' name 'PushBlackList';
 Function PopBlackList; external 'COMPANYTEC.DLL' name 'PopBlackList';
 Function ClearBlackList; external 'COMPANYTEC.DLL' name 'ClearBlackList';
+Function GetMemoryPointers; external 'COMPANYTEC.DLL' name 'GetMemoryPointers';
 Function GetConsoleKey; external 'COMPANYTEC.DLL' name 'GetConsoleKey';
 Function LeAbastecimentoTWC;
   external 'COMPANYTEC.DLL' name 'LeAbastecimentoTWC';
@@ -542,6 +556,7 @@ Function FidAciona; external 'COMPANYTEC.DLL' name 'FidAciona';
 Function FidIdent: IFid; external 'COMPANYTEC.DLL' name 'FidIdent';
 Function LeStStatus2: shortstring; external 'COMPANYTEC.DLL' name 'LeStStatus2';
 Procedure FidIncrementa; external 'COMPANYTEC.DLL' name 'FidIncrementa';
+Procedure C_IncrementIdf; external 'COMPANYTEC.DLL' name 'C_IncrementIdf';
 Function FidLeRegistro; external 'COMPANYTEC.DLL' name 'FidLeRegistro';
 Function FidModo; external 'COMPANYTEC.DLL' name 'FidModo';
 Function SetPrice; external 'COMPANYTEC.DLL' name 'SetPrice';
@@ -627,6 +642,10 @@ function patrickFunction; external 'companytec.dll' name 'patrickFunction';
 function presetIdf; external 'companytec.dll' name 'presetIdf';
 function PB_sendReceiveText; external 'companytec.dll' name 'PB_sendReceiveText';
 function preset; external 'companytec.dll' name 'Preset';
+Function C_SendReceiveText; external 'companytec.dll' name 'C_SendReceiveText';
+function HRSGetSalePAF; external 'companytec.dll'name 'HRSGetSalePAF';
+function lerTagIdf; external 'companytec.dll' name 'lerTagIdf';
+function SetExtendedWatch; external 'companytec.dll' name 'SetExtendedWatch';
 {$ENDIF}
 
 end.

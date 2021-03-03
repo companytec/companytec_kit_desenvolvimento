@@ -48,25 +48,19 @@ type
     integridade: TCheckBox;
     PageControl2: TPageControl;
     TabSheet3: TTabSheet;
-    Panel2: TPanel;
     Button4: TButton;
-    Panel3: TPanel;
     Memo1: TMemo;
     TabSheet4: TTabSheet;
-    Panel4: TPanel;
     Button5: TButton;
     Memo2: TMemo;
     TabSheet5: TTabSheet;
     TabSheet6: TTabSheet;
     TabSheet7: TTabSheet;
     Memo3: TMemo;
-    Panel5: TPanel;
     Button7: TButton;
     Memo4: TMemo;
-    Panel6: TPanel;
     Button8: TButton;
     Memo5: TMemo;
-    Panel7: TPanel;
     Button9: TButton;
     SpinEdit2: TSpinEdit;
     ListBox1: TListBox;
@@ -142,7 +136,7 @@ type
     Button25: TButton;
     Button27: TButton;
     TabSheet12: TTabSheet;
-    Button26: TButton;
+    LeFid: TButton;
     Label35: TLabel;
     EditTag: TEdit;
     TabSheet13: TTabSheet;
@@ -237,12 +231,7 @@ type
     Button21: TButton;
     Edit17: TEdit;
     SpinEdit3: TSpinEdit;
-    GroupBox12: TGroupBox;
-    Button49: TButton;
-    Button50: TButton;
     Edit14: TEdit;
-    Edit37: TEdit;
-    Label51: TLabel;
     Button40: TButton;
     GroupBox13: TGroupBox;
     Label52: TLabel;
@@ -274,14 +263,6 @@ type
     Edit24: TEdit;
     Edit25: TEdit;
     Button33: TButton;
-    GroupBox15: TGroupBox;
-    Label62: TLabel;
-    Label63: TLabel;
-    Edit45: TEdit;
-    Button56: TButton;
-    Button57: TButton;
-    Button58: TButton;
-    Edit46: TEdit;
     grpLeituraCartao: TGroupBox;
     btnLeituraCartao: TButton;
     edtLeituraCartao: TEdit;
@@ -316,6 +297,39 @@ type
     lbl_tempo: TLabel;
     edt_tempo: TEdit;
     timer1: TTimer;
+    memoVisualizacaoIdentificada: TMemo;
+    btnVisualizacaoIdentificada: TButton;
+    tsRelogio: TTabSheet;
+    grpRelogio: TGroupBox;
+    lblResposta: TLabel;
+    btnLeituraRelogio: TButton;
+    btnAtualizaRelogio: TButton;
+    edtResposta: TEdit;
+    grpRelogioExtendido: TGroupBox;
+    btnAtualizarRelogioExtendido: TButton;
+    edtAno: TEdit;
+    edtMes: TEdit;
+    edtDia: TEdit;
+    edtDiaSemana: TEdit;
+    edtHora: TEdit;
+    edtMinuto: TEdit;
+    edtSegundo: TEdit;
+    lblAno: TLabel;
+    lblMes: TLabel;
+    lblDia: TLabel;
+    lblDiaSemana: TLabel;
+    lblHora: TLabel;
+    lblMinuto: TLabel;
+    lblSegundo: TLabel;
+    edtRespostaRelogioEstendido: TEdit;
+    lblRespostaRelogioEstendido: TLabel;
+    btnFidIncrementa: TButton;
+    TabSheet20: TTabSheet;
+    btn_SendCommandReadPointersMemory: TButton;
+    edt_AnswerWritePointerMemory: TEdit;
+    Label51: TLabel;
+    edt_AnswerReadPointerMemory: TEdit;
+    Label62: TLabel;
     function ErrorToString(Erro: Error): string;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
@@ -342,7 +356,7 @@ type
     procedure Button23Click(Sender: TObject);
     procedure Button24Click(Sender: TObject);
     procedure Button25Click(Sender: TObject);
-    procedure Button26Click(Sender: TObject);
+    procedure LeFidClick(Sender: TObject);
     procedure Button27Click(Sender: TObject);
     procedure Button28Click(Sender: TObject);
     procedure Button29Click(Sender: TObject);
@@ -366,8 +380,6 @@ type
     procedure Button48Click(Sender: TObject);
     procedure Button38Click(Sender: TObject);
     procedure Btn_SaveTagClick(Sender: TObject);
-    procedure Button49Click(Sender: TObject);
-    procedure Button50Click(Sender: TObject);
     procedure Button51Click(Sender: TObject);
     procedure Btn_AddBlackListClick(Sender: TObject);
     procedure Btn_RemoveBlackListClick(Sender: TObject);
@@ -382,6 +394,13 @@ type
     procedure Button54Click(Sender: TObject);
     procedure btn_enviaPresetIdClick(Sender: TObject);
     procedure btn_presetClick(Sender: TObject);
+    procedure btnLeituraCartaoClick(Sender: TObject);
+    procedure btnVisualizacaoIdentificadaClick(Sender: TObject);
+    procedure btnLeituraRelogioClick(Sender: TObject);
+    procedure btnAtualizaRelogioClick(Sender: TObject);
+    procedure btnAtualizarRelogioExtendidoClick(Sender: TObject);
+    procedure btnFidIncrementaClick(Sender: TObject);
+    procedure btn_SendCommandReadPointersMemoryClick(Sender: TObject);
 
     // procedure Button47Click(Sender: TObject);
     // procedure Button48Click(Sender: TObject);
@@ -445,6 +464,7 @@ begin
   ab := LeAbastecimento;
   EditTotaisDin.Text := floattostr(ab.total_dinheiro);
   EditString.Text := ab.st_full;
+  Memo1.Lines.Add(ab.st_full);
   EditTotaisLT.Text := floattostr(ab.total_litros);
   EditPPL.Text := floattostr(ab.PU);
   EditTempo.Text := ab.tempo;
@@ -468,6 +488,7 @@ begin
   ab := LeRegistro(SpinEdit2.value);
   EditTotaisDin.Text := floattostr(ab.total_dinheiro);
   EditString.Text := ab.st_full;
+  Memo5.Lines.Add(ab.st_full);
   EditTotaisLT.Text := floattostr(ab.total_litros);
   EditPPL.Text := floattostr(ab.PU);
   EditTempo.Text := ab.tempo;
@@ -498,16 +519,6 @@ begin
   Incrementa;
 end;
 
-// ------------------------------------------------------------------------------
-// Atualizar relógio                                                            -
-// ------------------------------------------------------------------------------
-procedure TForm1.Button50Click(Sender: TObject);
-begin
-  if (C_SetClock(AnsiString('AUTO'))) then
-    Edit37.Text := 'Sucesso'
-  else
-    Edit37.Text := 'Falha!';
-end;
 
 // ------------------------------------------------------------------------------
 // Lê abastecimento TWC                                                         -
@@ -543,7 +554,7 @@ begin
   EditCanal.Text := ab.codbico;
   EditPPL.Text := floattostr(ab.PU);
 
-  EditData.Text := DateToStr(ab.datetime).Substring(0, 10);
+  EditData.Text := DateToStr(ab.datetime);//.Substring(0, 10); Comentado por erro no tal do Record
   // String( ab.data).Substring(1,8) ;
   EditHora.Text := Format('%.2d:%.2d', [myHour, myMin]);
   EditTempo.Text := inttostr(ab.tempo);
@@ -552,6 +563,7 @@ begin
   EditRegistro.Text := inttostr(ab.registro);
   EditTotaisLT.Text := floattostr(ab.total_litros);
   EditString.Text := ab.st_full;
+  Memo5.Lines.Add(ab.st_full);
 end;
 
 // ------------------------------------------------------------------------------
@@ -654,6 +666,7 @@ begin
   ab := LeAbFix;
   EditTotaisDin.Text := floattostr(ab.total_dinheiro);
   EditString.Text := ab.st_full;
+  Memo3.Lines.Add(ab.st_full);
   EditTotaisLT.Text := floattostr(ab.total_litros);
   EditPPL.Text := floattostr(ab.PU);
   EditTempo.Text := ab.tempo;
@@ -708,6 +721,7 @@ var
   a: byte;
 begin
   ol := LeVisualizacao;
+  ListBox1.Clear;
   for a := 1 to 48 do
     ListBox1.Items.Add(ol.bico[a] + ' - ' + floattostr(ol.Litragem[a]));
 end;
@@ -715,6 +729,27 @@ end;
 // ------------------------------------------------------------------------------
 // Adiciona cartão a lista negra                                                -
 // ------------------------------------------------------------------------------
+procedure TForm1.btnLeituraCartaoClick(Sender: TObject);
+var
+  indice: Integer;
+  resposta: ShortString;
+begin
+  indice := StrToInt(edtLeituraCartao.Text);
+
+  resposta := lerTagIdf(indice);
+
+  edtRetorno.Text := resposta;
+end;
+
+procedure TForm1.btnVisualizacaoIdentificadaClick(Sender: TObject);
+var
+  stvis: ShortString;
+begin
+  memoVisualizacaoIdentificada.Clear;
+  stvis := GetVisualizacaoId();
+  memoVisualizacaoIdentificada.Lines.Add(stvis);
+end;
+
 procedure TForm1.Btn_AddBlackListClick(Sender: TObject);
 var
   tag: AnsiString;
@@ -878,6 +913,15 @@ begin
 
 end;
 
+procedure TForm1.btn_SendCommandReadPointersMemoryClick(Sender: TObject);
+var
+  answer: MemoryPointers;
+begin
+  answer := GetMemoryPointers();
+  edt_AnswerWritePointerMemory.Text := answer.writePointer;
+  edt_AnswerReadPointerMemory.Text := answer.readPointer;
+end;
+
 // ------------------------------------------------------------------------------
 // Visualização retornando a string inteira                                     -
 // ------------------------------------------------------------------------------
@@ -898,6 +942,7 @@ var
   a: byte;
 begin
   ms := LeStatus;
+  ListBox2.Clear;
   for a := 1 to 32 do
   begin
     case ms.Status[a] of
@@ -1111,7 +1156,7 @@ begin
   Edit20.Text := LeStStatus2;
 end;
 
-procedure TForm1.Button26Click(Sender: TObject);
+procedure TForm1.LeFidClick(Sender: TObject);
 var
   ab: abastFid;
 begin
@@ -1138,6 +1183,7 @@ var
   a: byte;
 begin
   ms := LeStatusFid;
+  ListBox2.Clear;
   for a := 1 to 32 do
   begin
     case ms.Status[a] of
@@ -1377,19 +1423,10 @@ procedure TForm1.Button40Click(Sender: TObject);
 // Meus testes para o paraguai
 //---------------------------------------------------------
 var
-  command: WideString;
-  timeout: Integer;
-  retorno: Integer;
+  retorno: PChar;
 begin
-  command := Edit29.Text;
-  timeout := StrToInt(Edit36.Text);
-
-  retorno := PB_sendReceiveText(command, timeout);
-
-
-//  ShowMessage(retorno);
-  Edit35.Text := command;
-
+  retorno := HRSGetSalePAF();
+  edit35.text := retorno;
 end;
 
 procedure TForm1.Button41Click(Sender: TObject);
@@ -1537,7 +1574,7 @@ begin
     EditCanal.Text := ab.codbico;
     EditPPL.Text := floattostr(ab.PU);
 
-    EditData.Text := DateToStr(ab.datetime).Substring(0, 10);
+    EditData.Text := DateToStr(ab.datetime);//.Substring(0, 10); Comentado por erro no tal do Record
     // String( ab.data).Substring(1,8) ;
     EditHora.Text := Format('%.2d:%.2d', [myHour, myMin]);
     EditTempo.Text := inttostr(ab.tempo);
@@ -1584,14 +1621,6 @@ begin
 
   // HRSReadTAG(indice:integer;var tag:ansistring; var level:integer);
 
-end;
-
-procedure TForm1.Button49Click(Sender: TObject);
-var
-  st: PAnsiChar;
-begin
-  st := C_GetClock;
-  Edit37.Text := st;
 end;
 
 {
@@ -1644,4 +1673,47 @@ end;
   leregistro3(1);
   end;
 }
+procedure TForm1.btnLeituraRelogioClick(Sender: TObject);
+var
+  st: PAnsiChar;
+begin
+  st := C_GetClock;
+  edtResposta.Text := st;
+end;
+
+procedure TForm1.btnAtualizaRelogioClick(Sender: TObject);
+begin
+   if (C_SetClock(AnsiString('AUTO'))) then
+    edtResposta.Text := 'Sucesso'
+  else
+    edtResposta.Text := 'Falha!';
+end;
+
+procedure TForm1.btnAtualizarRelogioExtendidoClick(Sender: TObject);
+var
+  stAno,stMes,stDia,stDiaSemana,stHora,stMinuto,stSegundo:string[2];
+  retorno: boolean;
+begin
+  stAno := edtAno.Text;
+  stMes := edtMes.Text;
+  stDia := edtDia.Text;
+  stDiaSemana := edtDiaSemana.Text;
+  stHora := edtHora.Text;
+  stMinuto := edtMinuto.Text;
+  stSegundo := edtSegundo.Text;
+
+  retorno := SetExtendedWatch(stAno,stMes,stDia,stDiaSemana,stHora,stMinuto,stSegundo);
+
+  if retorno then
+    edtRespostaRelogioEstendido.Text := 'Sucesso'
+    else
+    edtRespostaRelogioEstendido.Text := 'False'
+
+end;
+
+procedure TForm1.btnFidIncrementaClick(Sender: TObject);
+begin
+  C_IncrementIdf;
+end;
+
 end.
