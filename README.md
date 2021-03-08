@@ -52,3 +52,21 @@ Vr 1.1.13 - 03/03/2021:
 - Implementado comando na DLL para retornar os ponteiros de escrita e leitura de abastecimentos da automação;
 - Alterado software de teste da DLL em Delphi para coletar tais informações.
 *******************************************************************
+Vr 1.1.14 - 08/03/2021:
+- Altualizados os manuais da DLL e dos protocolos Horustech e Companytec. As alterações foram as seguintes:
+	* Manual da DLL:
+		- GetMemoryPointers;
+		- C_ReadRegister;
+		- C_ReadIdf;
+		- C_IncrementIdf;
+		- C_SaveTagIdf;
+		- C_DeleteTagIdf;
+		- C_ClearMemoryIdf;
+		- C_PushIdfBlackList;
+		- C_RemoveIdfBlackList;
+		- C_ReadRegisterIdf.
+	* Manual Protocolo Companytec:
+		- Corrigido comando de leitura de registro de abastecimento, comandos para automações CBC06 estavam com informações erradas.
+	* Manual Protocolo Horustech:
+		- Alterada estrutura da resposta do comando Leitura de registro de abastecimento, estava sem informações de casas decimais e sem o tempo de abastecimento.
+*******************************************************************
