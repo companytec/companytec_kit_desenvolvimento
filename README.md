@@ -70,3 +70,6 @@ Vr 1.1.14 - 08/03/2021:
 	* Manual Protocolo Horustech:
 		- Alterada estrutura da resposta do comando Leitura de registro de abastecimento, estava sem informações de casas decimais e sem o tempo de abastecimento.
 *******************************************************************
+Vr 1.1.15 - 10/03/2021:
+- Implementado comando de ajuste de calendário estendido no simulador CBC.
+*******************************************************************
