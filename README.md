@@ -1,4 +1,4 @@
-#Atualizações kit desenvolvimento concentradores
+# Atualizações kit desenvolvimento concentradores
 Este arquivo contém todas as datas e descrições das atualizações realizadas no kit desenvolvimento da Companytec.
 
 Vr 1.1.00 - 10/02/2020:
