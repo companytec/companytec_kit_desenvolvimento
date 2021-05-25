@@ -73,3 +73,6 @@ Vr 1.1.14 - 08/03/2021:
 Vr 1.1.15 - 10/03/2021:
 - Implementado comando de ajuste de calendário estendido no simulador CBC.
 *******************************************************************
+Vr 1.1.16 - 25/05/2021:
+- Realizada a correção do comando de leitura de abastecimento com identificador na DLL, as casas decimais dos campos total a pagar, volume e preço por litro estavam erradas.
+*******************************************************************

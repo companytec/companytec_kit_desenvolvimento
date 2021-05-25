@@ -10,3 +10,6 @@ C:\Users\Desenvolvimento.COMPANYTEC\Desktop\EXEMPLOS COMPRIMIDOS\Visual Basic\Pr
 C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\Documentos\Kit desenvolvimento concentradores Vr 1.1.12\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\obj\Debug\Project1.exe
 C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\Documentos\Kit desenvolvimento concentradores Vr 1.1.12\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\obj\Debug\Project1.xml
 C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\Documentos\Kit desenvolvimento concentradores Vr 1.1.12\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\obj\Debug\Project1.pdb
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\Documentos\Kit desenvolvimento concentradores Vr 1.1.15\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\obj\Debug\Project1.exe
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\Documentos\Kit desenvolvimento concentradores Vr 1.1.15\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\obj\Debug\Project1.xml
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\Documentos\Kit desenvolvimento concentradores Vr 1.1.15\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\obj\Debug\Project1.pdb
