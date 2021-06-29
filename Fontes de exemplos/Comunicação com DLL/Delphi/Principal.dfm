@@ -137,11 +137,10 @@ object Form1: TForm1
     Top = 88
     Width = 770
     Height = 490
-    ActivePage = Abastecimentos
+    ActivePage = TabSheet10
     TabOrder = 0
     object Abastecimentos: TTabSheet
       Caption = 'Abastecimentos'
-      ExplicitTop = 23
       object GroupBox5: TGroupBox
         Left = 106
         Top = 6
@@ -399,7 +398,7 @@ object Form1: TForm1
         Top = 177
         Width = 756
         Height = 206
-        ActivePage = TabSheet20
+        ActivePage = TabSheet16
         TabOrder = 1
         object TabSheet18: TTabSheet
           Caption = 'Leitura Abast. PAF'
@@ -547,6 +546,7 @@ object Form1: TForm1
             Top = 0
             Width = 546
             Height = 144
+            ReadOnly = True
             ScrollBars = ssVertical
             TabOrder = 0
           end
@@ -638,7 +638,7 @@ object Form1: TForm1
             ParentFont = False
           end
           object LeFid: TButton
-            Left = 438
+            Left = 440
             Top = 98
             Width = 75
             Height = 25
@@ -877,8 +877,6 @@ object Form1: TForm1
         object TabSheet20: TTabSheet
           Caption = 'Leitura Ponteiros da Mem'#243'ria'
           ImageIndex = 14
-          ExplicitLeft = 25
-          ExplicitTop = 16
           object Label51: TLabel
             Left = 222
             Top = 99
@@ -915,6 +913,27 @@ object Form1: TForm1
             Width = 97
             Height = 21
             TabOrder = 2
+          end
+        end
+        object TabSheet21: TTabSheet
+          Caption = 'Leit. Abast. PAF1'
+          ImageIndex = 15
+          object memo_AbastPaf1: TMemo
+            Left = 99
+            Top = 16
+            Width = 546
+            Height = 128
+            ReadOnly = True
+            TabOrder = 0
+          end
+          object btn_ReadSalePaf1: TButton
+            Left = 570
+            Top = 150
+            Width = 75
+            Height = 25
+            Caption = 'Enviar'
+            TabOrder = 1
+            OnClick = btn_ReadSalePaf1Click
           end
         end
       end
@@ -1415,7 +1434,7 @@ object Form1: TForm1
           Caption = 'Bico'
         end
         object Label25: TLabel
-          Left = 48
+          Left = 55
           Top = 16
           Width = 27
           Height = 13
@@ -1437,7 +1456,7 @@ object Form1: TForm1
           TabOrder = 0
         end
         object ComboBox2: TComboBox
-          Left = 48
+          Left = 55
           Top = 32
           Width = 120
           Height = 21
@@ -1445,7 +1464,8 @@ object Form1: TForm1
           Text = 'L - Litros'
           Items.Strings = (
             'L - Litros'
-            '$ - Dinheiro')
+            '$ - Dinheiro'
+            'l - Litros Ext.')
         end
         object Button13: TButton
           Left = 419
@@ -2683,7 +2703,7 @@ object Form1: TForm1
         Width = 141
         Height = 21
         TabOrder = 0
-        Text = '192.168.0.101'
+        Text = '192.168.0.74'
       end
       object Button30: TButton
         Left = 2

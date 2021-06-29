@@ -79,3 +79,6 @@ Vr 1.1.16 - 25/05/2021:
 Vr 1.1.17 - 26/05/2021:
 - Realizada a correção do comando de verificação de comunicação na DLL que sempre retornava como comunicando.
 *******************************************************************
+Vr 1.1.18 - 29/06/2021:
+- Implementada a opção de leitura de totalizador em volume extendido no software de teste da DLL em Delphi. Função já estava funcionando só não havia a opção no software.
+*******************************************************************

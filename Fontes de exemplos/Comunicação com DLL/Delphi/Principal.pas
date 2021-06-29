@@ -330,6 +330,9 @@ type
     Label51: TLabel;
     edt_AnswerReadPointerMemory: TEdit;
     Label62: TLabel;
+    TabSheet21: TTabSheet;
+    memo_AbastPaf1: TMemo;
+    btn_ReadSalePaf1: TButton;
     function ErrorToString(Erro: Error): string;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
@@ -401,6 +404,7 @@ type
     procedure btnAtualizarRelogioExtendidoClick(Sender: TObject);
     procedure btnFidIncrementaClick(Sender: TObject);
     procedure btn_SendCommandReadPointersMemoryClick(Sender: TObject);
+    procedure btn_ReadSalePaf1Click(Sender: TObject);
 
     // procedure Button47Click(Sender: TObject);
     // procedure Button48Click(Sender: TObject);
@@ -513,6 +517,8 @@ end;
 // ------------------------------------------------------------------------------
 // Quando enviar o comando para ler abastecimento, após ele incrementa ponteiro -
 // ------------------------------------------------------------------------------
+
+
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
   Button4Click(Sender);
@@ -844,6 +850,19 @@ begin
   edt_retorno.Text := erro;
 end;
 
+procedure TForm1.btn_ReadSalePaf1Click(Sender: TObject);
+var
+  ab: AbastPAF1;
+begin
+  try
+    ab := LeAbastecimentoPAF1();
+    ShowMessage(ab.st_full);
+    memo_AbastPaf1.Lines.Add(ab.st_full);
+  except on E : Exception do
+      ShowMessage(E.ClassName+' razão do erro, messagem : '+E.Message);
+  end;
+end;
+
 // ------------------------------------------------------------------------------
 // Remove cartão da lista negra                                                 -
 // ------------------------------------------------------------------------------
@@ -1079,7 +1098,14 @@ begin
 
   if (Length(str) > 0) and (str[1] = '(') then
   begin
-    str := copy(str, 6, 6) + ',' + copy(str, 12, 2);
+    if(str2 = 'L') then
+    begin
+      str := copy(str, 6, 6) + ',' + copy(str, 12, 2);
+    end
+    else
+      str := copy(str, 6, 8) + ',' + copy(str, 14, 2);
+    begin
+    end;
     Edit14.Text := str;
   end;
 end;
@@ -1239,17 +1265,21 @@ var
   ip: AnsiString;
 begin
   // if InicializaSocket(Edit23.Text) then
-  if InicializaSocket2(Edit23.Text, StrToInt(Edit28.Text)) then
-  begin
-    RadioButton6.Checked := true;
-    Button30.Enabled := false;
-    Button31.Enabled := true;
-  end
-  else
-  begin
-    RadioButton7.Checked := true;
-    Button31.Enabled := false;
-    Button30.Enabled := true;
+  try
+    if InicializaSocket2(Edit23.Text, StrToInt(Edit28.Text)) then
+    begin
+      RadioButton6.Checked := true;
+      Button30.Enabled := false;
+      Button31.Enabled := true;
+    end
+    else
+    begin
+      RadioButton7.Checked := true;
+      Button31.Enabled := false;
+      Button30.Enabled := true;
+    end;
+  except on E : Exception do
+      ShowMessage(E.ClassName+' razão do erro, messagem : '+E.Message);
   end;
 end;
 
