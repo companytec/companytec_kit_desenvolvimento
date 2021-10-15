@@ -82,3 +82,6 @@ Vr 1.1.17 - 26/05/2021:
 Vr 1.1.18 - 29/06/2021:
 - Implementada a opção de leitura de totalizador em volume extendido no software de teste da DLL em Delphi. Função já estava funcionando só não havia a opção no software.
 *******************************************************************
+Vr 1.1.19 - 15/10/2021:
+- Implementada função AlteraPrecoEstendidoNivel na DLL que recebe o valor do preço por litro com até 6 casas.
+*******************************************************************

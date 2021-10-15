@@ -333,6 +333,18 @@ type
     TabSheet21: TTabSheet;
     memo_AbastPaf1: TMemo;
     btn_ReadSalePaf1: TButton;
+    GroupBox12: TGroupBox;
+    Label63: TLabel;
+    Label64: TLabel;
+    Label65: TLabel;
+    Label66: TLabel;
+    Label67: TLabel;
+    Edit37: TEdit;
+    Edit45: TEdit;
+    Edit46: TEdit;
+    SpinEdit8: TSpinEdit;
+    SpinEdit9: TSpinEdit;
+    Button26: TButton;
     function ErrorToString(Erro: Error): string;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
@@ -405,6 +417,7 @@ type
     procedure btnFidIncrementaClick(Sender: TObject);
     procedure btn_SendCommandReadPointersMemoryClick(Sender: TObject);
     procedure btn_ReadSalePaf1Click(Sender: TObject);
+    procedure Button26Click(Sender: TObject);
 
     // procedure Button47Click(Sender: TObject);
     // procedure Button48Click(Sender: TObject);
@@ -1180,6 +1193,22 @@ end;
 procedure TForm1.Button25Click(Sender: TObject);
 begin
   Edit20.Text := LeStStatus2;
+end;
+
+procedure TForm1.Button26Click(Sender: TObject);
+var
+  bico, preco: AnsiString;
+  nivel, decimals: Integer;
+  Erro: Error;
+
+begin
+  bico := Edit37.Text;
+  preco := Edit46.Text;
+  decimals := SpinEdit9.value;
+  nivel := SpinEdit8.value;
+
+  Erro := AlteraPrecoEstendidoNivel(bico, strtofloat(preco), decimals, nivel);
+  Edit45.Text := ErrorToString(Erro);
 end;
 
 procedure TForm1.LeFidClick(Sender: TObject);

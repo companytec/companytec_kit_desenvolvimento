@@ -28,3 +28,6 @@ Versão 5.3.0 - 09/02/2021
 Versão 5.4.0 - 25/05/2021
 - Realizada a correção do comando de leitura de abastecimento com identificador na DLL, as casas decimais dos campos total a pagar, volume e preço por litro estavam erradas.
 *******************************************************************
+Versão 5.5.0 - 15/10/2021
+- Implementada função para enviar a troca de preço com 6 casas, usada a função AlteraPrecoEstendidoNivel.
+*******************************************************************

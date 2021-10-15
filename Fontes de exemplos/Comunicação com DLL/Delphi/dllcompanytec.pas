@@ -360,6 +360,7 @@ Function AlteraPreco(bico: string; preco: double; decimais: byte)
   : Error; stdcall;
 Function AlteraPrecoNivel(bico: ansistring; preco: double; decimais: byte;
   nivel: integer): Error; stdcall;
+Function AlteraPrecoEstendidoNivel(bico:ansistring;preco:double;decimais:byte;nivel:integer):error; stdcall;
 Function SetPrice(bico: byte; preco: double; decimais: byte): Error; stdcall;
 Function AutoLibera(bico: string): Error; stdcall;
 Function AutorizaAbast(bico: string): Error; stdcall;
@@ -525,6 +526,7 @@ Function InicializaSerial; external 'COMPANYTEC.DLL' name 'InicializaSerial';
 Function InicializaSocket; external 'COMPANYTEC.DLL' name 'InicializaSocket';
 Function AlteraPreco; external 'COMPANYTEC.DLL' name 'AlteraPreco';
 Function AlteraPrecoNivel; external 'COMPANYTEC.DLL' name 'AlteraPrecoNivel';
+Function AlteraPrecoEstendidoNivel; external 'COMPANYTEC.DLL' name 'AlteraPrecoEstendidoNivel';
 Function LeAbastecimentoFid;
   external 'COMPANYTEC.DLL' name 'LeAbastecimentoFid';
 Function LeAbastecimentoFid2;

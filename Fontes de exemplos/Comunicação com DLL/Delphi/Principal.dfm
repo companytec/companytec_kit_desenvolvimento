@@ -137,7 +137,7 @@ object Form1: TForm1
     Top = 88
     Width = 770
     Height = 490
-    ActivePage = TabSheet10
+    ActivePage = ChangePrice
     TabOrder = 0
     object Abastecimentos: TTabSheet
       Caption = 'Abastecimentos'
@@ -1888,7 +1888,7 @@ object Form1: TForm1
           Caption = 'Bico'
         end
         object Label28: TLabel
-          Left = 57
+          Left = 60
           Top = 16
           Width = 43
           Height = 13
@@ -1902,7 +1902,7 @@ object Form1: TForm1
           Caption = 'Resposta:'
         end
         object Label30: TLabel
-          Left = 105
+          Left = 110
           Top = 16
           Width = 28
           Height = 13
@@ -1926,15 +1926,15 @@ object Form1: TForm1
         end
         object Button21: TButton
           Left = 460
-          Top = 32
-          Width = 97
-          Height = 21
+          Top = 28
+          Width = 95
+          Height = 25
           Caption = 'Envia'
           TabOrder = 2
           OnClick = Button21Click
         end
         object Edit17: TEdit
-          Left = 105
+          Left = 110
           Top = 32
           Width = 69
           Height = 21
@@ -1942,8 +1942,8 @@ object Form1: TForm1
           TabOrder = 3
         end
         object SpinEdit3: TSpinEdit
-          Left = 57
-          Top = 32
+          Left = 60
+          Top = 31
           Width = 45
           Height = 22
           MaxValue = 3
@@ -1954,58 +1954,58 @@ object Form1: TForm1
       end
       object GroupBox13: TGroupBox
         Left = 92
-        Top = 166
+        Top = 127
         Width = 560
-        Height = 74
+        Height = 61
         Caption = 'AlteraPrecoNivel'
         TabOrder = 1
         object Label52: TLabel
-          Left = 9
-          Top = 12
+          Left = 17
+          Top = 15
           Width = 21
           Height = 13
           Caption = 'Bico'
         end
         object Label54: TLabel
-          Left = 264
-          Top = 12
+          Left = 235
+          Top = 15
           Width = 48
           Height = 13
           Caption = 'Resposta:'
         end
         object Label55: TLabel
-          Left = 98
-          Top = 12
+          Left = 110
+          Top = 15
           Width = 28
           Height = 13
           Caption = 'Pre'#231'o'
         end
         object Label61: TLabel
-          Left = 49
-          Top = 12
+          Left = 60
+          Top = 15
           Width = 24
           Height = 13
           Caption = 'Nivel'
         end
         object Label53: TLabel
-          Left = 173
-          Top = 11
+          Left = 184
+          Top = 15
           Width = 43
           Height = 13
           Caption = 'Decimais'
         end
         object Edit38: TEdit
-          Left = 9
-          Top = 28
+          Left = 17
+          Top = 32
           Width = 37
           Height = 21
           MaxLength = 2
           TabOrder = 0
         end
         object Edit39: TEdit
-          Left = 264
-          Top = 28
-          Width = 190
+          Left = 235
+          Top = 32
+          Width = 219
           Height = 21
           MaxLength = 2
           TabOrder = 1
@@ -2013,23 +2013,23 @@ object Form1: TForm1
         object Button54: TButton
           Left = 460
           Top = 28
-          Width = 97
-          Height = 21
+          Width = 95
+          Height = 25
           Caption = 'Envia'
           TabOrder = 2
           OnClick = Button54Click
         end
         object Edit40: TEdit
-          Left = 98
-          Top = 28
+          Left = 110
+          Top = 32
           Width = 69
           Height = 21
           MaxLength = 4
           TabOrder = 3
         end
         object SpinEdit7: TSpinEdit
-          Left = 49
-          Top = 28
+          Left = 60
+          Top = 31
           Width = 45
           Height = 22
           MaxValue = 2
@@ -2038,8 +2038,8 @@ object Form1: TForm1
           Value = 1
         end
         object SpinEdit5: TSpinEdit
-          Left = 173
-          Top = 27
+          Left = 184
+          Top = 31
           Width = 45
           Height = 22
           MaxValue = 3
@@ -2050,35 +2050,35 @@ object Form1: TForm1
       end
       object GroupBox14: TGroupBox
         Left = 92
-        Top = 246
+        Top = 261
         Width = 560
-        Height = 158
+        Height = 148
         Caption = 'Leitura de Pre'#231'o Nivel'
         TabOrder = 2
         object Label57: TLabel
-          Left = 57
+          Left = 60
           Top = 15
           Width = 29
           Height = 13
           Caption = 'Niveis'
         end
         object Label58: TLabel
-          Left = 152
+          Left = 111
           Top = 15
           Width = 36
           Height = 13
           Caption = 'Nivel 0:'
         end
         object Label56: TLabel
-          Left = 153
-          Top = 101
+          Left = 111
+          Top = 99
           Width = 36
           Height = 13
           Caption = 'Nivel 2:'
         end
         object Label59: TLabel
-          Left = 152
-          Top = 55
+          Left = 111
+          Top = 57
           Width = 36
           Height = 13
           Caption = 'Nivel 1:'
@@ -2091,9 +2091,9 @@ object Form1: TForm1
           Caption = 'Bico'
         end
         object Edit42: TEdit
-          Left = 153
+          Left = 111
           Top = 74
-          Width = 302
+          Width = 344
           Height = 21
           MaxLength = 2
           TabOrder = 0
@@ -2101,15 +2101,15 @@ object Form1: TForm1
         object Button55: TButton
           Left = 460
           Top = 32
-          Width = 97
-          Height = 21
+          Width = 95
+          Height = 25
           Caption = 'Envia'
           TabOrder = 1
           OnClick = Button55Click
         end
         object SpinEdit6: TSpinEdit
-          Left = 57
-          Top = 32
+          Left = 60
+          Top = 31
           Width = 45
           Height = 22
           MaxValue = 3
@@ -2118,17 +2118,17 @@ object Form1: TForm1
           Value = 2
         end
         object Edit41: TEdit
-          Left = 153
-          Top = 34
-          Width = 302
+          Left = 111
+          Top = 32
+          Width = 344
           Height = 21
           MaxLength = 2
           TabOrder = 3
         end
         object Edit43: TEdit
-          Left = 153
+          Left = 111
           Top = 116
-          Width = 302
+          Width = 344
           Height = 21
           MaxLength = 2
           TabOrder = 4
@@ -2144,49 +2144,145 @@ object Form1: TForm1
       end
       object GroupBox7: TGroupBox
         Left = 93
-        Top = 61
+        Top = 64
         Width = 559
         Height = 59
         Caption = 'LePPL'
         TabOrder = 3
         object Label39: TLabel
-          Left = 8
+          Left = 16
           Top = 15
           Width = 21
           Height = 13
           Caption = 'Bico'
         end
         object Label40: TLabel
-          Left = 52
+          Left = 59
           Top = 15
           Width = 48
           Height = 13
           Caption = 'Resposta:'
         end
         object Edit24: TEdit
-          Left = 8
-          Top = 31
+          Left = 16
+          Top = 32
           Width = 37
           Height = 21
           MaxLength = 2
           TabOrder = 0
         end
         object Edit25: TEdit
-          Left = 52
-          Top = 31
-          Width = 357
+          Left = 59
+          Top = 32
+          Width = 394
           Height = 21
           MaxLength = 2
           TabOrder = 1
         end
         object Button33: TButton
           Left = 459
-          Top = 27
-          Width = 97
+          Top = 28
+          Width = 95
           Height = 25
           Caption = 'Envia'
           TabOrder = 2
           OnClick = Button33Click
+        end
+      end
+      object GroupBox12: TGroupBox
+        Left = 92
+        Top = 194
+        Width = 560
+        Height = 61
+        Caption = 'AlteraPrecoEstendidoNivel'
+        TabOrder = 4
+        object Label63: TLabel
+          Left = 17
+          Top = 15
+          Width = 21
+          Height = 13
+          Caption = 'Bico'
+        end
+        object Label64: TLabel
+          Left = 235
+          Top = 15
+          Width = 48
+          Height = 13
+          Caption = 'Resposta:'
+        end
+        object Label65: TLabel
+          Left = 110
+          Top = 15
+          Width = 28
+          Height = 13
+          Caption = 'Pre'#231'o'
+        end
+        object Label66: TLabel
+          Left = 60
+          Top = 15
+          Width = 24
+          Height = 13
+          Caption = 'Nivel'
+        end
+        object Label67: TLabel
+          Left = 184
+          Top = 15
+          Width = 43
+          Height = 13
+          Caption = 'Decimais'
+        end
+        object Edit37: TEdit
+          Left = 17
+          Top = 32
+          Width = 37
+          Height = 21
+          MaxLength = 2
+          TabOrder = 0
+        end
+        object Edit45: TEdit
+          Left = 235
+          Top = 32
+          Width = 219
+          Height = 21
+          MaxLength = 2
+          TabOrder = 1
+        end
+        object Edit46: TEdit
+          Left = 110
+          Top = 32
+          Width = 69
+          Height = 21
+          MaxLength = 6
+          TabOrder = 2
+        end
+        object SpinEdit8: TSpinEdit
+          Left = 60
+          Top = 31
+          Width = 45
+          Height = 22
+          MaxValue = 2
+          MinValue = 0
+          TabOrder = 3
+          Value = 1
+        end
+        object SpinEdit9: TSpinEdit
+          Left = 184
+          Top = 31
+          Width = 45
+          Height = 22
+          MaxValue = 3
+          MinValue = 2
+          TabOrder = 4
+          Value = 2
+        end
+        object Button26: TButton
+          Left = 460
+          Top = 28
+          Width = 95
+          Height = 25
+          Caption = 'Envia'
+          TabOrder = 5
+          OnClick = Button26Click
         end
       end
     end
