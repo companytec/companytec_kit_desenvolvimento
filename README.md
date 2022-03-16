@@ -109,3 +109,8 @@ Este arquivo contém todas as datas e descrições das atualizações realizadas
 ```
 - Corrigido problema na função AlteraPreco onde estava retornando sempre erro de string.
 ```
+### Versão 1.1.21 - 16/03/2021:
+```
+- Função AlteraPrecoEstendidoNivel estava dando erro de string. Problema estava na função de verificação de casas decimais no preço passado.
+- DLL feita em C implementada no kit desenvolvimento.
+```
