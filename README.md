@@ -114,3 +114,7 @@ Este arquivo contém todas as datas e descrições das atualizações realizadas
 - Função AlteraPrecoEstendidoNivel estava dando erro de string. Problema estava na função de verificação de casas decimais no preço passado.
 - DLL feita em C implementada no kit desenvolvimento.
 ```
+### Versão 1.1.22 - 23/03/2021:
+```
+- Atualizado simulador CBC para a versão 1.3.0. Foi implementado o comando de leitura de quantidade de casas decimais configuradas (&TBBCKK).
+```
