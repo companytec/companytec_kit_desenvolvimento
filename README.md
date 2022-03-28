@@ -116,5 +116,9 @@ Este arquivo contém todas as datas e descrições das atualizações realizadas
 ```
 ### Versão 1.1.22 - 23/03/2021:
 ```
-- Atualizado simulador CBC para a versão 1.3.0. Foi implementado o comando de leitura de quantidade de casas decimais configuradas (&TBBCKK).
+- Atualizado simulador CBC para a versão 2.3.0. Foi implementado o comando de leitura de quantidade de casas decimais configuradas (&TBBCKK).
+```
+### Versão 1.1.23 - 28/03/2021:
+```
+- Atualizado simulador CBC para a versão 2.3.1. Corrigido problema de não enviar ")" ao final da string de abastecimento.
 ```
