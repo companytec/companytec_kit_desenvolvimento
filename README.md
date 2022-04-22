@@ -122,3 +122,7 @@ Este arquivo contém todas as datas e descrições das atualizações realizadas
 ```
 - Atualizado simulador CBC para a versão 2.3.1. Corrigido problema de não enviar ")" ao final da string de abastecimento.
 ```
+### Versão 1.1.24 - 22/04/2021:
+```
+- Atualizado simulador CBC para a versão 2.3.3. Corrigido problema na leitura de identificador para o indíce 0000 e adicionado o comando de leitura de calendário estendido.
+```
