@@ -126,3 +126,7 @@ Este arquivo contém todas as datas e descrições das atualizações realizadas
 ```
 - Atualizado simulador CBC para a versão 2.3.3. Corrigido problema na leitura de identificador para o indíce 0000 e adicionado o comando de leitura de calendário estendido.
 ```
+### Versão 1.1.25 - 25/04/2021:
+```
+- Atualizado simulador CBC para a versão 2.3.4. Corrigido problema de preset identificado em total a pagar, agora todo o endereço está sendo liberado.
+```
