@@ -130,3 +130,7 @@ Este arquivo contém todas as datas e descrições das atualizações realizadas
 ```
 - Atualizado simulador CBC para a versão 2.3.4. Corrigido problema de preset identificado em total a pagar, agora todo o endereço está sendo liberado.
 ```
+### Versão 1.1.25 - 29/04/2021:
+```
+- Atualizado simulador CBC para a versão 2.3.5. Corrigido problemas nos comandos de leitura de registro (LR) e leitura de registro paf (LC).
+```
