@@ -1,0 +1,2874 @@
+//------------------------------------------------------------------------------------------------------------
+// Denis Henrique Arndt                                                                                      -
+// Companytec Automação e controle                                                                           -
+// Criação: Sexta-Feira - 30 de Novembro de 2001                                                             -
+// Ultima compilação: Terça, 09/02/2010                                                                      -
+// DLL para automação de bombas                                                                              -
+// Versão 2.7                                                                                                -
+//------------------------------------------------------------------------------------------------------------
+
+library companytec;
+
+uses
+  windows,
+  SysUtils,
+  dialogs,
+  Classes,
+  gets in 'gets.pas',
+  io in 'io.pas',
+  tray in 'tray.pas',
+  dllcompanytec in 'dllcompanytec.pas';
+
+{$R dllcompanytec.res}
+
+var Version:Info;
+
+
+//------------------------------------------------------------------------------------------------------------
+// Função FormatBackup                                                                                       -
+// Entrada: tx/rx, date, codfuncao, len, data                                                                -
+// Saída: arquivo hexa                                                                                       -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+procedure FormatBackup(fluxo:boolean;datetime:tdatetime;codfuncao:byte;data:string);
+var a:byte;
+    st:string;
+    stout,stoutdata:string;
+begin
+st:=formatdatetime('hh:mm:ss:zzz',datetime);
+for a:=2 to length(data) do stoutdata:=stoutdata + data[a];
+if fluxo then stout:=' -> ' else stout:=' <- ';
+stout:=st + stout + data;
+PutLogFile(stOut);
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Procedimento LimpaSerial                                                                                  -
+// Entrada:                                                                                                  -
+// Saída:                                                                                                    -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Procedure LimpaSerial;stdcall; export;
+var trash:string;
+begin
+trash:=Get('LimpaSerial','',1);
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Procedimento ReadSerial                                                                                   -
+// Entrada: timeout                                                                                          -
+// Saída: estrutura Retorno                                                                                  -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function ReadSerial(timeout:integer):String;stdcall; export;
+var st:string;
+begin
+if timeout>3000 then timeout:=3000;
+st:=Get('ReadSerial','',timeout);
+result:=st;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Procedimento ReadSocket                                                                                   -
+// Entrada: timeout                                                                                          -
+// Saída: estrutura Retorno                                                                                  -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function ReadSocket(timeout:cardinal):ShortString;stdcall; export;
+begin
+result:=Get('ReadSerial','',timeout);
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Procedimento WriteSerial                                                                                  =
+// Entrada: Comando a ser escrito na serial                                                                  =
+// Saída: Nill                                                                                               =
+// Sub-Functions: None                                                                                       =
+//------------------------------------------------------------------------------------------------------------
+Procedure WriteSerial(comando:string;len:integer);stdcall;export;
+begin
+if SendText('WriteSerial',comando) then sleep(1);
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função EnviaComando                                                                                       =
+// Entrada: string de comando,tempo máximo de espera (timeout)                                               =
+// Saída: string lida da serial                                                                              =
+// Sub-Functions: None                                                                                       =
+//------------------------------------------------------------------------------------------------------------
+Function EnviaComando(comando:string;timeout:cardinal):ShortString;stdcall; export;
+begin
+result:=Get('EnviaComando',comando,timeout);
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função InicializaSerial                                                                                   =
+// Entrada: Número da porta a ser aberta                                                                     =
+// Saída: resposta se abriu ou naum a porta                                                                  =
+// Sub-Functions: cvbinario32,bintodec                                                                       =
+//------------------------------------------------------------------------------------------------------------
+Function InicializaSerial(np:byte): Boolean; stdcall; export;
+var rta:boolean;
+begin
+rta:=OpenSerial(np);
+result:=rta;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função FOXInicializaSerial                                                                                =
+// Entrada: Número da porta a ser aberta                                                                     =
+// Saída: resposta se abriu ou naum a porta                                                                  =
+// Sub-Functions: cvbinario32,bintodec                                                                       =
+//------------------------------------------------------------------------------------------------------------
+Function FOX_InicializaSerial(np:integer):integer; stdcall; export;
+var rta:boolean;
+begin
+rta:=OpenSerial(np);
+if rta then result:=1 else result:=0;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função InicializaSocket                                                                                   =
+// Entrada: Número do IP a ser aberto                                                                        =
+// Saída: resposta se abriu ou naum a porta                                                                  =
+// Sub-Functions: cvbinario32,bintodec                                                                       =
+//------------------------------------------------------------------------------------------------------------
+Function InicializaSocket(ip:pchar):Boolean; stdcall; export;
+var st:string;
+begin
+result:=OpenSocket(ip);
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função InicializaLogSerial                                                                                -
+// Entrada: Número da porta / arquivo a ser gerado                                                           -
+// Saída: Boolean se abriu ou não a porta                                                                    -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function InicializaLogSerial(np:byte;LogFile:string):boolean; stdcall; export;
+begin
+if CreateLogFile(LogFile) then
+  begin
+  if InicializaSerial(np) then
+    result:=true
+  else
+    result:=false;
+  end
+else
+  result:=false;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função FormataFloat                                                                                       -
+// Entrada: valor:float / caracteres,casas decimais:byte                                                     -
+// Saída: String de tam. variável conf. a entrada caracteres                                                 -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function FormataFloat(val:real;caracteres,decimais:byte):string;
+var STVal,pa,pb:string;
+    a:byte;
+    fl_dec:boolean;
+    saida:string[4];
+begin
+pa:='';pb:='';
+fl_dec:=false;
+STVal:=floattostr(val);
+for a:=1 to length(STVal) do
+    begin
+    if STVal[a]=',' then fl_dec:=true;
+    if fl_dec=false then pa:=pa + STVal[a]
+    else if STVal[a]<>',' then pb:=pb + STVal[a];
+    end;
+for a:=length(pb)+1 to decimais do pb:=pb + '0';
+for a:=length(pa)+1 to caracteres-decimais do pa:='0' + pa;
+saida:=pa + pb;
+Result:=saida;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função AdicionaCheck                                                                                      -
+// Entrada: String a ser adicionado o check                                                                  -
+// Saída: String com o check ja adicionado                                                                   -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function AdicionaCheck(STin:string):string;
+var a,check:byte;
+begin
+check:=0;
+for a:=2 to length(STin) do
+    check:=check + ord(STin[a]);
+result:=STin + inttohex(check,2) + ')';
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função ConsultaEncerrante                                                                                 -
+// Entrada: Nº do bico                                                                                       -
+// Saída: Estrutura Encerrante (bico:string[2],valor:real)                                                   -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function ConsultaEncerrante(modo:char;bico:string):Encerrante;stdcall; export;
+var comando,resposta:string[50];
+    Total:encerrante;
+begin
+bico:=copy(bico,1,2);
+Total.Bico:='00';
+Total.Valor:=0;
+if modo<>'$' then modo:='L';
+comando:=AdicionaCheck('(&T' + bico + modo);
+resposta:=Get('ConsultaEncerrante',comando,3000);
+if (length(resposta)=16) and (resposta<>'PORTA NAO ABERTA') then
+  begin
+  Total.Bico:=copy(resposta,4,2);
+  Total.Valor:= strtofloat(copy(resposta,6,6) + ',' + copy(resposta,12,2));
+  end
+else if resposta='DESCONECTADO' then
+  begin
+  total.Bico:='00';
+  total.Valor:=-2;
+  end
+else
+  begin
+  total.bico:='00';
+  total.Valor:=-1;
+  end;
+result:=Total;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função LeSTEncerrante                                                                                     -
+// Entrada: Nº do bico, tipo do pedido                                                                       -
+// Saída: String com o valor                                                                                 -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function LeSTEncerrante(modo:string;bico:string):ShortString;stdcall; export;
+var comando,resposta,rt:string;
+begin
+bico:=copy(bico,1,2);
+if modo<>'$' then modo:='L';
+comando:=AdicionaCheck('(&T' + bico + modo);
+resposta:=Get('LeSTEncerrante',comando,2500);
+if length(resposta)=16 then
+  rt:=copy(resposta,6,6) + ',' + copy(resposta,12,2)
+else
+  rt:='FALHA';
+result:=rt;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função ComparaCheck                                                                                       -
+// Entrada: String de rta da placa                                                                           -
+// Saída: Boolean                                                                                            -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function ComparaCheck(st:string):boolean;
+var a,posicao:byte;
+    check:byte;
+    checksum:string[2];
+begin
+check:=0;
+result:=false;
+if (st='(0)') or (st[length(st)]<>')') then exit;
+checksum:=copy(st,length(st)-2,2);
+if length(st)=34 then
+    begin
+    posicao:=2;
+    while posicao<=31 do
+        begin
+        check:=check + strtoint('$' + copy(st,posicao,2));
+        posicao:=posicao+2;
+        end;
+    end
+else for a:=2 to length(st)-3 do check:=check + ord(st[a]);
+if checksum=inttohex(check,2) then result:=true else result:=false;
+end;
+
+
+//------------------------------------------------------------------------------------------------------------
+// Função Incrementa                                                                                         -
+// Entrada: Nill                                                                                             -
+// Saída: Nill                                                                                               -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Procedure Incrementa;stdcall; export;
+begin
+Get('Incrementa','(&I)',1);
+end;
+
+
+Function FormataTempo(StTempo:string):string;
+var tpabast,hora,minuto,segundos:integer;
+    STHora,STMinuto,STSegundo:string[2];
+begin
+hora:=0;minuto:=0;segundos:=0;
+tpabast:=strtoint('$' + StTempo);
+if tpabast>3600 then
+    begin
+    hora:=trunc(tpabast/3600);
+    tpabast:=(tpabast-(hora*3600));
+    end;
+    if tpabast>60 then
+        begin
+        minuto:=trunc(tpabast/60);
+        segundos:=(tpabast-(minuto*60));
+        end;
+    if tpabast<60 then segundos:=tpabast;
+    STHora:=inttostr(hora);
+    STMinuto:=inttostr(minuto);
+    STSegundo:=inttostr(segundos);
+    if length(STHora)<2 then STHora:='0' + STHora;
+    if length(STMinuto)<2 then STMinuto:='0' + STMinuto;
+    if length(STSegundo)<2 then STSegundo:='0' + STSegundo;
+    result:= STHora + ':' + STMinuto + ':' + STSegundo;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função StrtoAbast                                                                                         -
+// Entrada: String de abastecimento                                                                          -
+// Saída: Estrutura Abast                                                                                    -
+// Sub-Functions: LeVirgula                                                                                  -
+// (ATTTTTTLLLLLLPPPPVVCCCCBBDDHHMMNNRRRREEEEEEEEEESSXXXXXXXXXXXXXXXXZZZZYYKK)                               -
+//------------------------------------------------------------------------------------------------------------
+Function StrToAbastFid(SAbast:string):abastFid;
+    //--------------------------------------------------------------------------------------------------------
+    Function LeVirgula(code:string):virgula;
+    var code_pass:virgula;
+        par1,par2:char;
+    begin
+    par1:=code[1];
+    par2:=code[2];
+    code_pass.ppu:=4 - strtoint(par1);
+    if par2='A' then
+        begin
+        code_pass.ptotal:=4;
+        code_pass.litragem:=4;
+        end
+    else if par2='E' then
+        begin
+        code_pass.ptotal:=4;
+        code_pass.litragem:=3;
+        end
+    else if par2='F' then
+        begin
+        code_pass.ptotal:=3;
+        code_pass.litragem:=3;
+        end
+    else if par2='B' then
+        begin
+        code_pass.ptotal:=3;
+        code_pass.litragem:=4;
+        end;
+    result:=code_pass;
+    end;
+    //--------------------------------------------------------------------------------------------------------
+var virg:virgula;
+    abastecimento: abastFid;
+    a,inicio,fim: byte;
+begin
+inicio:=0;fim:=0;
+for a:=1 to length(SAbast) do
+    begin
+    if SAbast[a]='(' then inicio:=a else
+    if SAbast[a]=')' then fim:=a+1;
+    end;
+SAbast:=copy(SAbast,inicio+1,fim-inicio);
+virg:=LeVirgula(copy(SAbast,18,2));
+abastecimento.st_full:='('+ SAbast;
+abastecimento.value:=true;
+abastecimento.canal:=copy(SAbast,24,2);
+abastecimento.total_litros:=strtofloat(copy(SAbast,8,virg.litragem) + ',' + copy(SAbast,8+virg.litragem,6-virg.litragem));
+abastecimento.PU:=strtofloat(copy(SAbast,14,virg.ppu) + ',' + copy(SAbast,14+virg.ppu,4-virg.ppu));
+abastecimento.total_dinheiro:=strtofloat(copy(SAbast,2,virg.ptotal) + ',' + copy(SAbast,2+virg.ptotal,6-virg.ptotal));
+abastecimento.data:=copy(SAbast,26,2) + '/' + formatdatetime('mm/yyyy',now);
+abastecimento.hora:=copy(SAbast,28,2) + ':' + copy(SAbast,30,2);
+abastecimento.tempo:=FormataTempo(copy(SAbast,20,4));
+abastecimento.registro:=0;
+abastecimento.encerrante:=0;
+abastecimento.integridade:=true;
+abastecimento.tag:=copy(SAbast,50,16);
+abastecimento.checksum:=ComparaCheck(SAbast);
+if length(SAbast)>=52 then
+    begin
+    abastecimento.registro:=strtoint(copy(SAbast,34,4));
+    abastecimento.encerrante:=strtofloat(copy(SAbast,38,8) + ',' + copy(SAbast,46,2));
+    abastecimento.data:=copy(SAbast,26,2) + '/' + copy(SAbast,32,2) + '/' + formatdatetime('yyyy',now);
+    if copy(SAbast,48,2)='00' then
+        abastecimento.integridade:=true
+    else
+        abastecimento.integridade:=false;
+    end;
+result:=abastecimento;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função StrtoAbast                                                                                         -
+// Entrada: String de abastecimento                                                                          -
+// Saída: Estrutura Abast                                                                                    -
+// Sub-Functions: LeVirgula                                                                                  -
+//------------------------------------------------------------------------------------------------------------
+Function StrToAbast(SAbast:string):abast;
+    Function LeVirgula(code:string):virgula;
+    var code_pass:virgula;
+        par1,par2:char;
+    begin
+    par1:=code[1];
+    par2:=code[2];
+    code_pass.ppu:=4 - strtoint(par1);
+    if par2='A' then
+        begin
+        code_pass.ptotal:=4;
+        code_pass.litragem:=4;
+        end
+    else if par2='E' then
+        begin
+        code_pass.ptotal:=4;
+        code_pass.litragem:=3;
+        end
+    else if par2='F' then
+        begin
+        code_pass.ptotal:=3;
+        code_pass.litragem:=3;
+        end
+    else if par2='B' then
+        begin
+        code_pass.ptotal:=3;
+        code_pass.litragem:=4;
+        end;
+    result:=code_pass;
+    end;
+
+var virg:virgula;
+    abastecimento: abast;
+    a,inicio,fim: byte;
+begin
+inicio:=0;fim:=0;
+for a:=1 to length(SAbast) do
+    begin
+    if SAbast[a]='(' then inicio:=a else
+    if SAbast[a]=')' then fim:=a+1;
+    end;
+SAbast:= copy(SAbast,inicio,fim-inicio);
+virg:=LeVirgula(copy(SAbast,18,2));
+abastecimento.st_full:=SAbast;
+abastecimento.value:=true;
+abastecimento.canal:=copy(SAbast,24,2);
+abastecimento.total_litros:=strtofloat(copy(SAbast,8,virg.litragem) + ',' + copy(SAbast,8+virg.litragem,6-virg.litragem));
+abastecimento.PU:=strtofloat(copy(SAbast,14,virg.ppu) + ',' + copy(SAbast,14+virg.ppu,4-virg.ppu));
+abastecimento.total_dinheiro:=strtofloat(copy(SAbast,2,virg.ptotal) + ',' + copy(SAbast,2+virg.ptotal,6-virg.ptotal));
+abastecimento.data:=copy(SAbast,26,2) + '/' + formatdatetime('mm/yyyy',now);
+abastecimento.hora:=copy(SAbast,28,2) + ':' + copy(SAbast,30,2);
+abastecimento.tempo:= FormataTempo(copy(SAbast,20,4));
+abastecimento.registro:=0;
+abastecimento.encerrante:=0;
+abastecimento.integridade:=true;
+abastecimento.checksum:=ComparaCheck(SAbast);
+if length(SAbast)=52 then
+    begin
+    abastecimento.registro:=strtoint(copy(SAbast,34,4));
+    abastecimento.encerrante:=strtofloat(copy(SAbast,38,8) + ',' + copy(SAbast,46,2));
+    abastecimento.data:=copy(SAbast,26,2) + '/' + copy(SAbast,32,2) + '/' + formatdatetime('yyyy',now);
+    if copy(SAbast,48,2)='00' then
+        abastecimento.integridade:=true
+    else
+        abastecimento.integridade:=false;
+    end;
+result:=abastecimento;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função ABNill                                                                                             -
+// Entrada: Nill                                                                                             -
+// Saída: Estrutura de abastecimento zerado                                                                  -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function ABNill():abast;
+var AbastNull:abast;
+begin
+with AbastNull do
+    begin
+    canal:='00';
+    value:=false;
+    total_dinheiro:=0;
+    total_litros:=0;
+    PU:=0;
+    data:='00/00/0000';
+    hora:='00:00';
+    tempo:= '00:00:00';
+    registro:=0;
+    encerrante:=0;
+    integridade:=false;
+    checksum:=false;
+    st_full:='(0000000000000000000000000000000000)';
+    end;
+result:=AbastNull;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função ABNill                                                                                             -
+// Entrada: Nill                                                                                             -
+// Saída: Estrutura de abastecimento zerado                                                                  -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function ABFidNill():abastFid;
+var AbastNull:abastFid;
+begin
+with AbastNull do
+    begin
+    canal:='00';
+    value:=false;
+    total_dinheiro:=0;
+    total_litros:=0;
+    PU:=0;
+    data:='00/00/0000';
+    hora:='00:00';
+    tempo:= '00:00:00';
+    registro:=0;
+    encerrante:=0;
+    integridade:=false;
+    checksum:=false;
+    tag:='0000000000000000';
+    st_full:='(0000000000000000000000000000000000)';
+    end;
+result:=AbastNull;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função LeAbastecimento                                                                                    -
+// Entrada: Nill                                                                                             -
+// Saída: Variável formato Tabastecimento                                                                    -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function LeAbastecimento():abast; stdcall; export;
+var resposta:string[75];
+begin
+resposta:=Get('LeAbastecimento','(&A)',1000);
+if (resposta='(0)') or (resposta='SEM RESPOSTA') then
+    result:=ABNill
+else if copy(resposta,2,12)='000000000000' then
+    begin
+    incrementa;
+    result:=ABNill;
+    end
+else if (length(resposta)=34) or (length(resposta)=52) then
+    begin
+    incrementa;
+    result:=StrToAbast(resposta);
+    end
+else
+  result:=ABNill;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Procedure FidIncrementaAbast;stdcall; export;
+begin
+Get('FidIncrementaAbast',AdicionaCheck('(&I'),1);
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função LeAbastecimentoVB                                                                                  -
+// Entrada: Nill                                                                                             -
+// Saída: Variável formato Tabastecimento                                                                    -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function VBLeAbastecimento:AbastVB; stdcall; export;
+var ab:abast;
+    abOut:abastVB;
+begin
+ab:=LeAbastecimento;
+abOut.value:=ab.value;
+abOut.registro:=ab.registro;
+abOut.integridade:=ab.integridade;
+abOut.checksum:=ab.checksum;
+abOut.encerrante:=ab.encerrante;
+abOut.total_dinheiro:=ab.total_dinheiro;
+abOut.total_litros:=ab.total_litros;
+abOut.PU:=ab.PU;
+abOut.tempo:=ab.tempo;
+abOut.canal:=ab.canal;
+abOut.data:=ab.data;
+abOut.hora:=ab.hora;
+abOut.st_full:=ab.st_full;
+result:=abOut;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função VBLeVisualizacao                                                                                   -
+// Entrada: Nill                                                                                             -
+// Saída: Variável formato Tabastecimento                                                                    -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function VBLeVisualizacao:VBOnLine; stdcall; export;
+var ol:OnLine;
+    Visualizacao:VBOnLine;
+    a:byte;
+begin
+ol:=LeVisualizacao;
+for a:=1 to 48 do
+  begin
+  Visualizacao. bico[a]:=ol.bico[a];
+  Visualizacao.volume[a]:=ol.Litragem[a];
+  end;
+result:=Visualizacao;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função LeAbastecimentoFid                                                                                 -
+// Entrada: Nill                                                                                             -
+// Saída: Variável formato Tabastecimento                                                                    -
+// Sub-Functions: None                                                                                       -
+// (A00000000045312343A000B04190931030002001190497200B3CFECD5D280E5E2043800BB)                               -
+// (ATTTTTTLLLLLLPPPPVVCCCCBBDDHHMMNNRRRREEEEEEEEEESSXXXXXXXXXXXXXXXXZZZZYYKK)                               -
+// 123456789012345678901234567890123456789012345678901234567890123456789012345                               -
+// (A00018800016711233A0010041409530800010000000167001234123412341234000100F6)                               -
+//          1         2         3         4         5         6         7                                    -
+//------------------------------------------------------------------------------------------------------------
+Function LeAbastecimentoFid:AbastFid; stdcall; export;
+var resposta:string[75];
+    comando:string[6];
+begin
+comando:=AdicionaCheck('(&A');
+resposta:=Get('LeAbastecimentoFid',comando,1500);
+if (length(resposta)=75) then
+    begin
+    FidIncrementaAbast;
+    result:=StrToAbastFid(resposta);
+    end
+else
+    result:=ABFidNill;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função saveTagFid
+// Comando   (?FCCGttttttttttttttttAAAAaaaaBBBBbbbbKK)
+// Resposta: (FGP[6]M[6]T[16]AAAAaaaaBBBBbbbbCCKK)
+{
+--------------------------------------------
+Controle 1
+--------------------------------------------
+1  TAG Veículo
+2  TAG Máquina de Lavar
+3  Reservado
+4  Cliente Nível 1
+5  Cliente Nível 2
+6  Cliente Nível 3
+7  Funcionário Nível 1
+8  Funcionário Nível 2
+9  Funcionário Nível 3
+A  Funcionário Nível 4
+B  Funcionário Nível 5
+C  Funcionário Nível 6
+D  Gerente Nível 1
+E  Gerente Nível 2
+F  Controle Total
+--------------------------------------------
+Controle 2
+--------------------------------------------
+1  Reservado
+2  Libera Bombas
+4  Respeita turnos
+8  Liga máquina de lavagem
+6  Libera bombas / Respeita turnos
+A  Libera bombas / Liga máquina de lavar
+--------------------------------------------
+txin/txout: HHMM
+}
+Function saveTagFid(controle1,controle2:char;tag,t1in,t1out,t2in,t2out:string):integer; stdcall; export;
+var controle:string[2];
+    comando:string;
+    resposta:string;
+begin
+controle:=controle2 + controle1;
+comando:=AdicionaCheck('(?F'+controle+'G'+tag+t1in+t1out+t2in+t2out);
+if length(comando)=41 then
+  begin
+  resposta:=Get('SaveTagFid',comando,2000);
+  //(FGppppppMMMMMMttttttttttttttttAAAAaaaaBBBBbbbbCCKK)
+  //1234567890123456789012345678901234567890123456789012
+  //0        1         2         3         4         5
+  if (length(resposta)=52) then
+    begin
+    if copy(resposta,1,3)='(FG' then
+      result:=strtoint(copy(resposta,4,6))
+    else
+      result:=0;
+    end
+  end
+else
+  result:=0;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função deleteTagFid                                                                                       -
+// Entrada: Tag,Indice                                                                                       -
+// Saída: 1-apagou, 0=não apagou
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+{
+Comando:  
+(?FXXATTTTTTTTTTTTTTTT00RRRRRR00000000KK)
+12345678901234567890123456789012345678901
+0        1         2         3         4
+Resposta:
+(FAXXXXXXSSSSSSCCCCCCCCCCCCCCCCIIIIIIIIFFFFFFFFXXKK)
+1234567890123456789012345678901234567890123456789012
+0        1         2         3         4         5
+}
+Function deleteTagFid(posicao:integer;tag:string):integer; stdcall; export;
+var stPosicao:string[6];
+    comando,resposta:string;
+begin
+stPosicao:=inttostr(posicao);
+while length(stPosicao)<6 do stPosicao:='0'+stPosicao;
+comando:=AdicionaCheck('(?FFFA'+tag+'00'+stPosicao+'00000000');
+if length(comando)=41 then
+  begin
+  resposta:=Get('deleteTagFid',comando,2000);
+  if length(resposta)=52 then
+    begin
+    result:=strtoint(copy(resposta,4,6));
+    end
+  else
+    result:=0;
+  end
+else
+  result:=0;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função clearTagFid                                                                                       -
+// Entrada: none
+// Saída: none
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+{Comando: (?F00L0000000000000000000000010000000032) }
+procedure clearTagFid; stdcall; export;
+begin
+Get('clearTagFid','(?F00L0000000000000000000000010000000032)',5000);
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função readTagFid                                                                                       -
+// Entrada: indice
+// Saída: none
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+{Comando: (?FLxxxxxxKK) }
+function readTagFid(indice:integer;var tag,controle,t1in,t1out,t2in,t2out:string):integer;  stdcall; export;
+var comando,resposta:string;
+    stIndice:string[6];
+begin
+stIndice:=inttostr(indice);
+while length(stIndice)<6 do stIndice:='0' + stIndice;
+comando:=adicionacheck('(?LF'+stIndice);
+resposta:=Get('readTagFid',comando,2000);
+if length(resposta)=52 then
+  begin
+  tag:=copy(resposta,16,16);
+  controle:=copy(resposta,48,2);
+  t1in:=copy(Resposta,32,4);
+  t1out:=copy(Resposta,36,4);
+  t2in:=copy(Resposta,40,4);
+  t2out:=copy(Resposta,44,4);
+  result:=1;
+  end
+else
+  result:=0;
+end;
+
+
+
+//------------------------------------------------------------------------------------------------------------
+// Função LeAbFix                                                                                            -
+// Entrada: Nill                                                                                             -
+// Saída: Variável formato Tabastecimento                                                                    -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function LeAbFix():abast; stdcall; export;
+var   resposta:string[75];
+begin
+resposta:=Get('LeAbFix','(&A)',1000);
+if (resposta='(0)') then
+    result:=ABNill
+else if copy(resposta,2,12)='000000000000' then
+    begin
+    incrementa;
+    result:=ABNill;
+    end
+else if (length(resposta)=34) or (length(resposta)=52) then
+    result:=StrToAbast(resposta)
+else result:=abnill;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Procedimento FormataStructAb (interno)                                                                    -
+// Entrada: struct Ab (ref)                                                                                  -
+// saída: Referencial                                                                                        -
+// Sub-functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Procedure FormataStructAb(resposta:string;var ab:abast2);
+begin
+if ((length(resposta)=34) or (length(resposta)=52)) then
+    begin
+    ab.value:='1';
+    ab.total_dinheiro:=copy(resposta,2,6);
+    ab.total_litros:=copy(resposta,8,6);
+    ab.PU:=copy(resposta,14,4);
+    ab.tempo:=formatatempo(copy(resposta,20,4));
+    ab.canal:=copy(resposta,24,2);
+    if length(resposta)=34 then ab.data:=copy(resposta,26,2) + '/' + formatdatetime('mm/yyyy',now) else
+    if length(resposta)=52 then ab.data:=copy(resposta,26,2) + '/' + copy(resposta,32,2) + '/' + formatdatetime('yyyy',now);
+    ab.hora:=copy(resposta,28,2) + ':' + copy(resposta,30,2);
+    ab.st_full:=resposta;
+    if length(resposta)=52 then ab.registro:=copy(resposta,34,4) else
+    if length(resposta)=34 then ab.registro:='0000';
+    if length(resposta)=52 then ab.encerrante:=copy(resposta,38,10) else
+    if length(resposta)=34 then ab.encerrante:='0000000000';
+    if length(resposta)=52 then ab.integridade:=resposta[49] else
+    if length(resposta)=34 then ab.integridade:='1';
+    if ComparaCheck(resposta)=true then ab.checksum:='1' else ab.checksum:='0';
+    incrementa;
+    end
+else
+    begin
+    ab.value:='0';
+    ab.total_dinheiro:='0';
+    ab.total_litros:='0';
+    ab.PU:='0';
+    ab.tempo:='00:00:00';
+    ab.canal:='00';
+    ab.data:='00/00/0000';
+    ab.hora:='00:00';
+    ab.st_full:='(0000000000000000000000000000000000)';
+    ab.registro:='0';
+    ab.encerrante:='0';
+    ab.integridade:='0';
+    ab.checksum:='0';
+    end;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função LeStructSt                                                                                         -
+// Entrada: variável strutura (referencia)                                                                   -
+// Saída: variável estrutura (referencia)                                                                    -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Procedure LeStructSt(var ab:abast2);stdcall; export;
+var resposta:string[75];
+begin
+resposta:=Get('LeStructSt','(&A)',1000);
+FormataStructAb(resposta,ab);
+resposta:='';
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Procedimento FechaPorta                                                                                   -
+// Entrada: Nill                                                                                             -
+// Saída: Nill                                                                                               -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function FechaSerial: DWORD; stdcall; export;
+begin
+if CloseSerial then result:=0 else result:=1;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Procedimento FechaSocket                                                                                  -
+// Entrada: Nill                                                                                             -
+// Saída: Nill                                                                                               -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function FechaSocket: boolean; stdcall; export;
+begin
+result:=CloseSocket;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Procedimento FechaPortaVB                                                                                 -
+// Entrada: Nill                                                                                             -
+// Saída: Nill                                                                                               -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function FechaSerialVB: boolean; stdcall; export;
+begin
+if FechaSerial=0 then result:=true else result:=false;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função LeStatus                                                                                           -
+// Entrada: Nill                                                                                             -
+// Saída: Estrutura de status                                                                                -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+procedure EscreveSerial(st:ansistring);stdcall; export;
+begin
+SendText('EscreveSerial',st);
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função LeStatus                                                                                           -
+// Entrada: Nill                                                                                             -
+// Saída: Estrutura de status                                                                                -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function LeStatus():multistatus; stdcall; export;
+var stbomba:multistatus;
+    resposta:string[75];
+    a:integer;
+begin
+resposta:=Get('LeStatus','(&S)',1000);
+For a:=1 to 32 do stbomba.Status[a]:=Falha;
+if (resposta<>'') and (resposta[2]='S') then
+    begin
+    For a:=3 to length(resposta)-1 do
+        begin
+        case resposta[a] of
+            'L':stbomba.Status[a-2]:= Livre;
+            'P':stbomba.Status[a-2]:= Pronta;
+            'F':stbomba.Status[a-2]:= Falha;
+            'C':stbomba.Status[a-2]:= Concluiu;
+            'A':stbomba.Status[a-2]:= Abastecendo;
+            'B':stbomba.Status[a-2]:= Bloqueada;
+            'E':stbomba.Status[a-2]:= SolicitaLib;
+            end;
+        end;
+    end
+else if resposta<>'SEM RESPOSTA' then
+    begin
+    for a:=1 to 32 do stbomba.Status[a-2]:=Falha;
+    end;
+result:=stbomba;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função LeStatus                                                                                           -
+// Entrada: Nill                                                                                             -
+// Saída: Estrutura de status                                                                                -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function LeStatusFid():multistatus; stdcall; export;
+var stbomba:multistatus;
+    resposta:string[75];
+    comando:string[6];
+    a:integer;
+begin
+comando:=AdicionaCheck('(&S');
+resposta:=Get('LeStatusFid',comando,1000);
+For a:=1 to 32 do stbomba.Status[a]:=Falha;
+if (resposta<>'') and (resposta[2]='S') then
+    begin
+    For a:=3 to length(resposta)-1 do
+        begin
+            case resposta[a] of
+            'L':stbomba.Status[a-2]:= Livre;
+            'P':stbomba.Status[a-2]:= Pronta;
+            'F':stbomba.Status[a-2]:= Falha;
+            'C':stbomba.Status[a-2]:= Concluiu;
+            'A':stbomba.Status[a-2]:= Abastecendo;
+            'B':stbomba.Status[a-2]:= Bloqueada;
+            'E':stbomba.Status[a-2]:= SolicitaLib;
+            else
+            stbomba.Status[a-2]:= Falha;
+            end;
+        end;
+    end
+else if resposta<>'SEM RESPOSTA' then
+    begin
+    for a:=1 to 32 do stbomba.Status[a]:=SolicitaLib;
+    end;
+result:=stbomba;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função LeStatusVB                                                                                         -
+// Entrada: Nill                                                                                             -
+// Saída: Estrutura de status                                                                                -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function LeStatusVB():StStatus2; stdcall; export;
+var stbomba:StStatus2;
+    resposta:string[75];
+    comando:string[4];
+    a:integer;
+begin
+comando:='(&S)';
+resposta:=Get('LeStatusVB','(&S)',1000);
+For a:=1 to 48 do stbomba.Posicao[a]:='Falha';
+if resposta[1]='(' then
+    begin
+    if resposta[2]='S' then
+        begin
+        For a:=3 to length(resposta)-1 do
+            begin
+            case resposta[a] of
+                'L':stbomba.Posicao[a-2]:=('Livre');
+                'P':stbomba.Posicao[a-2]:=('Pronta');
+                'F':stbomba.Posicao[a-2]:=('Falha');
+                'C':stbomba.Posicao[a-2]:=('Concluiu');
+                'A':stbomba.Posicao[a-2]:=('Abastecendo');
+                'B':stbomba.Posicao[a-2]:=('Bloqueada');
+                'E':stbomba.Posicao[a-2]:=('SolicitaLib');
+                end;
+            end;
+        end;
+    end;
+result:=stbomba;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função SetClock                                                                                           -
+// Entrada: ddhhmm  ->  dd=dia hh=Hora mm=Minuto ou auto=automatico                                          -
+// Saída: True se acertou senão False                                                                        -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function SetClock(par:string):boolean; stdcall; export;
+var     resposta,comando:string;
+        cont:byte;
+begin
+if (uppercase(par)='AUTO') then
+  comando:='(&H' + formatdatetime('ddhhnn',now) + ')'
+else
+  comando:='(&H' + par + ')';
+cont:=0;resposta:='';
+while (resposta<>'(&H)') and (cont<3) do
+    begin
+    resposta:=Get('SetClock',comando,5000);
+    inc(cont);
+    end;
+if resposta='(&H)' then result:=true else result:=false;
+end;
+
+
+
+//------------------------------------------------------------------------------------------------------------
+// Função VBInicializaSerial                                                                                 -
+// Entrada: String                                                                                           -
+// Saída: True se acertou senão False                                                                        -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function VBInicializaSerial(porta:string):boolean;stdcall; export;
+begin
+result:=InicializaSerial(strtoint(porta));
+end;
+
+
+//------------------------------------------------------------------------------------------------------------
+// Função SetIntClock                                                                                        -
+// Entrada: ddhhmm  ->  dd=dia hh=Hora mm=Minuto ou auto=automatico                                          -
+// Saída: True se acertou senão False                                                                        -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function SetIntClock(dia,hora,minuto:byte):boolean; stdcall; export;
+var resposta,comando:string;
+    stDia,stHora,stMinuto:string[2];
+    cont:byte;
+begin
+stDia:=inttostr(dia);
+stHora:=inttostr(hora);
+stMinuto:=inttostr(minuto);
+while length(stDia)<2 do stDia:='0' + stDia;
+while length(stHora)<2 do stHora:='0' + stHora;
+while length(stMinuto)<2 do stMinuto:='0' + stMinuto;
+comando:='(&H' + stDia + stHora + stMinuto + ')';
+resposta:='';cont:=0;
+while (resposta<>'(&H)') and (cont<3) do
+    begin
+    resposta:=Get('SetIntClock',comando,500);
+    inc(cont);
+    end;
+if resposta='(&H)' then result:=true else result:=false;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função LeVisualizacao                                                                                     -
+// Entrada: Nill                                                                                             -
+// Saída: Estrutura de visualizacao                                                                          -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function LeVisualizacao():OnLine; stdcall; export;
+var VOnline:online;
+    Resposta:string[200];
+    a,pos_bico,pos_litro:byte;
+    bicos:real;
+begin
+resposta:=Get('LeVisualizacao','(&V)',1000);
+if ((length(resposta)-2) mod 8)=0 then
+    begin
+    For a:=1 to 48 do
+        begin
+        vonline.Litragem[a]:=0;
+        vonline.Bico[a]:='00';
+        end;
+    result:=VOnLine;
+    if resposta[1]='(' then
+        begin
+        try
+            Bicos:=(length(resposta)-2)/8;
+        except
+            exit;
+        end;
+        if bicos>=1 then
+            begin
+            pos_bico:=2;pos_litro:=4;
+            for a:=1 to trunc(bicos) do
+                    begin
+                    VOnLine.Bico[a]:=copy(resposta,pos_bico,2);
+                    VOnLine.Litragem[a]:=strtofloat(copy(resposta,pos_litro,4) + ',' + copy(resposta,pos_litro+4,2));
+                    inc(pos_bico,8);
+                    inc(pos_litro,8);
+                    end;
+            end;
+        end;
+    result:=VOnLine;
+    end
+else
+    begin
+    for a:=1 to 48 do
+        begin
+        VOnLine.Bico[a]:='00';
+        VOnLine.Litragem[a]:=0;
+        end;
+    result:=VOnLine;
+    end;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função InformaErro                                                                                        -
+// Entrada: String de modo / preset / encerrantes / Alteração de PU                                          -
+// Saída: 1-OK 2-Cód. Bico 3-Modo 4-Timeout 5-Bomba                                                          -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function InformaErro(st:string;bico:string):Error;
+begin
+bico:=copy(bico,1,2);
+result:=none;
+if (length(st)=5) then
+    begin
+    if st[3]='?' then
+        begin
+        case st[4] of
+        'b':result:=ErroCodBico;
+        'm':result:=ErroCaracterModo;
+        't':result:=ErroTimeout;
+        'r':result:=ErroResposta;
+        end;
+    end
+    else if (copy(st,3,2)=bico) then result:=None
+    else result:=ErroString;
+    end
+else result:=ErroString;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função AlteraModo                                                                                         -
+// Entrada: Nº do bico,opção L A B S                                                                         -
+// Saída: Estrutura Error                                                                                    -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function AlteraModo(bico:string;option:char):Error;
+var resposta,comando:string[50];
+begin
+bico:=copy(bico,1,2);
+comando:=AdicionaCheck('(&M' + bico + option);
+resposta:=Get('AlteraModo',comando,1000);
+result:=InformaErro(resposta,bico);
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função AutorizaAbast                                                                                      -
+// Entrada: Nº do bico ou '00' para todas bombas                                                             -
+// Saída: 1-OK 2-Cód. Bico 3-Modo 4-Timeout 5-Bomba                                                          -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function AutorizaAbast(bico:string):Error; stdcall; export;
+begin
+result:=AlteraModo(bico,'A');
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função SetAutorizaAbast                                                                                   -
+// Entrada: Nº do bico ou '00' para todas bombas                                                             -
+// Saída: 1-OK 2-Cód. Bico 3-Modo 4-Timeout 5-Bomba                                                          -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function SetAutorizaAbast(bico:string):boolean; stdcall; export;
+begin
+if AlteraModo(bico,'A')=None then
+   result:=true
+else
+   result:=false
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função VBSetAutorizaAbast                                                                                 -
+// Entrada: Nº do bico ou '00' para todas bombas                                                             -
+// Saída: 1-OK 2-Cód. Bico 3-Modo 4-Timeout 5-Bomba                                                          -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+procedure VBSetAutorizaAbast(var bico:string); stdcall; export;
+begin
+if AlteraModo(bico,'A')<>None then bico:='00';
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função BloqueiaBico                                                                                       -
+// Entrada: Nº do bico ou '00' para todas bombas                                                             -
+// Saída: 1-OK 2-Cód. Bico 3-Modo 4-Timeout 5-Bomba                                                          -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function BloqueiaBico(bico:string):Error; stdcall; export;
+begin
+result:=AlteraModo(bico,'B');
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função SetBloqueiaBico                                                                                    -
+// Entrada: Nº do bico ou '00' para todas bombas                                                             -
+// Saída: 1-OK 2-Cód. Bico 3-Modo 4-Timeout 5-Bomba                                                          -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function SetBloqueiaBico(bico:string):boolean; stdcall; export;
+begin
+if AlteraModo(bico,'B')=none then
+   result:=true
+else
+   result:=false;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função VBSetBloqueiaBico                                                                                  -
+// Entrada: Nº do bico                                                                                       -
+// Saída: '00' = erro                                                                                        -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+procedure VBSetBloqueiaBico(var bico:string); stdcall; export;
+begin
+if AlteraModo(bico,'B')<>none then
+   bico:='00';
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função AutoLibera                                                                                         -
+// Entrada: Nº do bico '00' p/ todas bombas                                                                  -
+// Saída: 1-OK 2-Cód. Bico 3-Modo 4-Timeout 5-Bomba                                                          -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function AutoLibera(bico:string):Error; stdcall; export;
+begin
+result:=AlteraModo(bico,'L');
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função SetAutoLibera                                                                                      -
+// Entrada: Nº do bico '00' p/ todas bombas                                                                  -
+// Saída: 1-OK 2-Cód. Bico 3-Modo 4-Timeout 5-Bomba                                                          -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function SetAutoLibera(bico:string):boolean; stdcall; export;
+begin
+if AlteraModo(bico,'L')=none then
+   result:=true
+else
+   result:=false;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função VBSetAutoLibera                                                                                    -
+// Entrada: Nº do bico                                                                                       -
+// Saída: '00' = erro                                                                                        -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+procedure VBSetAutoLibera(var bico:string); stdcall; export;
+begin
+if AlteraModo(bico,'L')<>none then bico:='00';
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função ParaBomba                                                                                          -
+// Entrada: Nº do bico '00' p/ todas bombas                                                                  -
+// Saída: 1-OK 2-Cód. Bico 3-Modo 4-Timeout 5-Bomba                                                          -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function ParaBomba(bico:string):Error; stdcall; export;
+begin
+result:=AlteraModo(bico,'S');
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função SetParaBomba                                                                                       -
+// Entrada: Nº do bico '00' p/ todas bombas                                                                  -
+// Saída: 1-OK 2-Cód. Bico 3-Modo 4-Timeout 5-Bomba                                                          -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function SetParaBomba(bico:string):boolean; stdcall; export;
+begin
+if AlteraModo(bico,'S')=none then result:=true else result:=false;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função LeRegistro                                                                                         -
+// Entrada: Nº do registro                                                                                   -
+// Saída: Estrutura abastecimento                                                                            -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function LeRegistro(NumReg:integer):abast; stdcall; export;
+var STReg:string[4];
+    resposta:string[100];
+    comando:string;
+begin
+STReg:=inttostr(NumReg);
+while length(STReg)<4 do STReg:='0' + STReg;
+comando:=AdicionaCheck('(&LR' + copy(STReg,1,4));
+resposta:=Get('LeRegistro',comando,1000);
+if (copy(resposta,24,2)<>'00') then
+  begin
+  if (length(resposta)>=52) then
+    begin
+    resposta:=copy(resposta,1,51)+')';
+    result:=StrToAbast(resposta);
+    end
+  end
+else
+    result:=ABNill;
+end;
+
+
+
+//------------------------------------------------------------------------------------------------------------
+// Função LeRegistroFid                                                                                      -
+// Entrada: Nº do registro                                                                                   -
+// Saída: Estrutura abastecimento                                                                            -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function LeRegistroFid(NumReg:integer):abastFid; stdcall; export;
+var STReg:string[4];
+    resposta:string[100];
+    comando:string;
+begin
+STReg:=inttostr(NumReg);
+while length(STReg)<4 do STReg:='0' + STReg;
+comando:=AdicionaCheck('(&LR' + copy(STReg,1,4));
+resposta:=Get('LeRegistro',comando,1000);
+if (length(resposta)=75) and (copy(resposta,25,2)<>'00') then
+    result:=StrToAbastFid(resposta)
+else
+    result:=ABFidNill;
+end;
+
+
+//------------------------------------------------------------------------------------------------------------
+// Função LeStRegistro                                                                                       -
+// Entrada: Nº do registro                                                                                   -
+// Saída: string de abastecimento                                                                            -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function LeStRegistro(NumReg:integer):ShortString; stdcall; export;
+var STReg:string[4];
+    resposta:string;
+    comando:string;
+begin
+STReg:=inttostr(NumReg);
+while length(STReg)<4 do STReg:='0' + STReg;
+comando:=AdicionaCheck('(&LR' + copy(STReg,1,4));
+resposta:=Get('LeStRegistro',comando,1000);
+if length(resposta)>=52 then
+    result:=resposta
+else
+    result:='FALHA';
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função LeStRegistroFid                                                                                    -
+// Entrada: Nº do registro                                                                                   -
+// Saída: string de abastecimento                                                                            -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function LeStRegistroFid(NumReg:integer):ShortString; stdcall; export;
+var STReg:string[4];
+    resposta:string;
+    comando:string;
+begin
+STReg:=inttostr(NumReg);
+while length(STReg)<4 do STReg:='0' + STReg;
+comando:=AdicionaCheck('(&LR' + copy(STReg,1,4));
+resposta:=Get('LeStRegistro',comando,1000);
+if length(resposta)>=52 then
+    result:=resposta
+else
+    result:='FALHA';
+end;
+
+
+//------------------------------------------------------------------------------------------------------------
+// Função AlteraPreco                                                                                        -
+// Entrada: Nº do bico / novo preço                                                                          -
+// Saída: Estrutura Error                                                                                    -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function AlteraPreco(bico:string;preco:double;decimais:byte):error; stdcall; export;
+var comando,resposta:string[75];
+    bicost:string;
+    len:integer;
+begin
+comando:= AdicionaCheck('(&U' + bico + '00' + formatafloat(preco,4,decimais));
+resposta:=Get('AlteraPreco',comando,2000);
+Result:=InformaErro(resposta,bico);
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função AlteraPreco                                                                                        -
+// Entrada: Nº do bico / novo preço                                                                          -
+// Saída: Estrutura Error                                                                                    -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function SetPrice(bico:byte;preco:double;decimais:byte):error; stdcall; export;
+var comando,resposta:string[75];
+    bicost:string;
+    len:integer;
+begin
+bicost:=inttohex(bico,2);
+comando:= AdicionaCheck('(&U' + bicost + '00' + formatafloat(preco,4,decimais));
+resposta:=Get('AlteraPreco',comando,2000);
+Result:=InformaErro(resposta,bicost);
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função SetAlteraPreco                                                                                     -
+// Entrada: Nº do bico / novo preço                                                                          -
+// Saída: Estrutura Error                                                                                    -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function SetAlteraPreco(st:string):boolean; stdcall; export;
+var
+    resposta,comando:string;
+    bico:string[2];
+    valor:string[4];
+begin
+bico:=copy(st,1,2);
+valor:=copy(st,3,4);
+comando:=AdicionaCheck('(&U' + bico + '00' + valor);
+resposta:=Get('SetAlteraPreco',comando,2000);
+if InformaErro(resposta,bico)=None then
+    result:=true
+else
+    result:=false;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função Preset                                                                                             -
+// Entrada: Nº do bico, Valor do preset                                                                      -
+// Saída: Estrutura Error                                                                                    -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function Preset(bico:string;valor:double):Error; stdcall; export;
+var comando,resposta:string;
+    stval:string[6];
+begin
+stval:=floattostr(valor);
+while length(stval)<6 do stval:='0'+stval;
+comando:=AdicionaCheck('(&P' + bico + stval);
+resposta:=Get('Preset',comando,1000);
+result:=InformaErro(resposta,bico);
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função SetPreset                                                                                          -
+// Entrada: Nº do bico[2], Valor do preset[6]                                                                -
+// Saída: Estrutura Error                                                                                    -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function SetPreset(st:string):boolean; stdcall; export;
+var
+    comando,resposta:string;
+    bico:string[2];
+    valor:string[6];
+begin
+bico:=copy(st,1,2);
+valor:=copy(st,3,6);
+comando:=AdicionaCheck('(&P' + bico + valor);
+resposta:=Get('SetPreset',comando,1000);
+if InformaErro(resposta,bico)=none then
+    result:=true
+else
+    result:=false;
+end;
+
+
+//------------------------------------------------------------------------------------------------------------
+// Função LePPL                                                                                              -
+// Entrada: Nº do bico                                                                                       -
+// Saída: preço unitário : real                                                                              -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function LePPL(bico:string):real; stdcall; export;
+var comando,resposta:string;
+begin
+comando:=AdicionaCheck('(&T' + bico + 'U');
+resposta:=Get('LePPL',comando,2000);
+if length(resposta)=16 then
+  result:=strtofloat(copy(resposta,10,4))
+else if resposta='DESCONECTADO' then
+  result:=-2
+else
+  result:=-1;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função LeStringAb                                                                                         -
+// Entrada: Nill                                                                                             -
+// Saída: string                                                                                             -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function LeStringAb(var resposta:shortstring):shortstring;stdcall; export;
+begin
+result:=Get('LeStringAb','(&A)',1000);
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função LeStringAbVb                                                                                       -
+// Entrada: Nill                                                                                             -
+// Saída: string                                                                                             -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function LeStringAbVB:ShortString; stdcall; export;
+var rta:ShortString;
+begin
+rta:=Get('LeStringAbVB','(&A)',1000);
+result:=rta;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função LeStatus                                                                                           -
+// Entrada: None                                                                                             -
+// Saída: variável estrutura                                                                                 -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function LeStStatus2:ShortString; stdcall; export;
+var rta:ShortString;
+begin
+rta:=Get('LeStStatus2','(&S)',1000);
+result:=rta;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função STVisualizacao                                                                                     -
+// Entrada: none                                                                                             -
+// Saída: string lida da serial   (referência)                                                               -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function STVisualizacao(var visualizacao:ShortString):ShortString;stdcall; export;
+begin
+Visualizacao:=Get('STVisualizacao','(&V)',800);
+Result:=Visualizacao;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função Comunica                                                                                           -
+// Entrada: nil                                                                                              -
+// Saída: Bool                                                                                               -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function Comunica:boolean;stdcall; export;
+begin
+result:=Alive;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função Ver                                                                                                -
+// Entrada: estrutura Info (referência)                                                                      -
+// Saída: estrutura Info   (referência)                                                                      -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Procedure Ver(var versao:info);stdcall; export;
+begin
+versao.titulo:='Dll Companytec';
+versao.versao:='3.5';
+versao.data:='17/05/2010';
+versao.autor:='Denis Henrique Arndt';
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função LeStringAb                                                                                         -
+// Entrada: Nill                                                                                             -
+// Saída: string                                                                                             -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Procedure LeStringX(var resposta:retorno2);stdcall; export;
+var ab:abast;
+begin
+ab:=LeAbastecimento;
+if ab.value then
+  resposta.value:=ab.st_full
+else
+  resposta.value:='(0)';
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função RefEncerrante                                                                                      -
+// Entradas: Bico,modo = $ ou L,variável por referência                                                      -
+// Saída: Variável por referência                                                                            -
+// sub-functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Procedure RefEncerrante(bico:string;modo:char;var value:ShortString);stdcall; export;
+var comando,resposta:string;
+    rt:string;
+begin
+bico:=copy(bico,1,2);
+if modo<>'$' then modo:='L';
+comando:=AdicionaCheck('(&T' + bico + modo);
+resposta:=Get('RefEncerrante',comando,2000);
+if length(resposta)=16 then
+  rt:='(' + copy(resposta,4,2) + ')' + copy(resposta,6,6) + ',' + copy(resposta,12,2);
+value:=rt;
+End;
+
+// -----------------------------------------------------------------------------------------------------------
+// Função RefAltPreco                                                                                        -
+// Entrada: Nº do bico / novo preço / casas decimais / variável por referencia                               -
+// Saída: variável status por referência                                                                     -
+// Sub-Functions: None                                                                                       -
+// -----------------------------------------------------------------------------------------------------------
+Procedure RefAltPreco(bico:string;preco:double;decimais:byte;var status:error); stdcall; export;
+var comando,resposta:string;
+begin
+comando:=AdicionaCheck('(&U' + bico + '00' + formatafloat(preco,4,decimais));
+resposta:=Get('RefAltPreco',comando,2000);
+status:=InformaErro(Resposta,bico);
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função STRefAltPreco                                                                                      -
+// Entrada: Nº do bico / novo preço / casas decimais / variável por referencia                               -
+// Saída: variável status por referência                                                                     -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function STRefAltPreco(par:ShortString):integer; stdcall; export;
+var comando,resposta:string;
+begin
+comando:=AdicionaCheck('(&U' + par);
+resposta:=Get('STRefAltPreco',comando,2000);
+if InformaErro(Resposta,copy(par,1,2))=None then result:=1 else result:=0;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função RefBloqueiaBico                                                                                    -
+// Entrada: Nº do bico ou '00' para todas bombas                                                             -
+// Saída: 1-OK 2-Cód. Bico 3-Modo 4-Timeout 5-Bomba                                                          -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Procedure RefBloqueiaBico(bico:string;var status:error); stdcall; export;
+begin
+status:=AlteraModo(bico,'B');
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função RefAutorizaAbast                                                                                   -
+// Entrada: Nº do bico ou '00' para todas bombas                                                             -
+// Saída: 1-OK 2-Cód. Bico 3-Modo 4-Timeout 5-Bomba                                                          -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Procedure RefAutorizaAbast(bico:string;var status:error); stdcall; export;
+begin
+status:=AlteraModo(bico,'A');
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função RefAutoLibera                                                                                      -
+// Entrada: Nº do bico '00' p/ todas bombas                                                                  -
+// Saída: 1-OK 2-Cód. Bico 3-Modo 4-Timeout 5-Bomba                                                          -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Procedure RefAutoLibera(bico:string;var status:error); stdcall; export;
+begin
+status:=AlteraModo(bico,'L');
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função RefParaBomba                                                                                       -
+// Entrada: Nº do bico '00' p/ todas bombas                                                                  -
+// Saída: 1-OK 2-Cód. Bico 3-Modo 4-Timeout 5-Bomba                                                          -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Procedure RefParaBomba(bico:string;var status:error); stdcall; export;
+begin
+status:=AlteraModo(bico,'S');
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função RefLePPL                                                                                           -
+// Entrada: Nº do bico                                                                                       -
+// Saída: preço unitário : real                                                                              -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Procedure RefLePPL(bico:string;var value:ShortString); stdcall; export;
+var resposta:string[16];
+    comando:string[10];
+    rt:string;
+begin
+comando:=AdicionaCheck('(&T' + bico + 'U');
+resposta:=Get('RefLePPL',comando,2000);
+if length(resposta)=16 then rt:=copy(resposta,10,4);
+value:=rt;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função RefPreset                                                                                          -
+// Entrada: Nº do bico, Valor do preset , variável por referência                                            -
+// Saída: Estrutura Error                                                                                    -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Procedure RefPreset(bico:string;valor:double;var status:error); stdcall; export;
+var comando,resposta:string;
+    stval:string[6];
+begin
+stval:=floattostr(valor);
+while length(stval)<6 do stval:='0'+stval;
+comando:=AdicionaCheck('(&P' + bico + stval);
+resposta:=Get('RefPreset',comando,1000);
+status:=InformaErro(resposta,bico);
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função LePart                                                                                             -
+// Entrada: L-litros, T-total, P-ppl, E-tempo                                                                -
+// Saída: BB-<resultado do pedido>                                                                           -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function LePart(option:char):ShortString; stdcall; export;
+var st_rta,resposta:string;
+begin
+resposta:=Get('LePart','(&A)',1000);
+if ((length(resposta)=34) or (length(resposta)=52)) and (resposta<>'(0)') then
+    begin
+    if option='L' then
+        st_rta:=copy(resposta,24,2) + '-' + copy(resposta,8,6) else
+    if option='T' then
+        st_rta:=copy(resposta,24,2) + '-' + copy(resposta,2,6) else
+    if option='P' then
+        st_rta:=copy(resposta,24,2) + '-' + copy(resposta,14,4) else
+    if option='C' then
+        st_rta:=copy(resposta,24,2) + '-' + copy(resposta,26,2) + '/' + copy(resposta,28,2) + ':' + copy(resposta,30,2) else
+    if option='E' then
+        st_rta:=copy(resposta,24,2) + '-' + copy(resposta,20,4);
+    result:=st_rta;
+    end
+else
+    result:='00-000000';
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função CobAlteraPreco                                                                                     -
+// Entrada: Nº do bico / novo preço	('BB9999')                                                               -
+// Saída: Estrutura Error                                                                                    -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function CobAlteraPreco(a:ShortString):error; stdcall; export;
+var comando,resposta:string;
+    Bico:string[2];
+    Preco:string[4];
+begin
+Bico:=copy(a,1,2);
+Preco:=copy(a,3,4);
+comando:=AdicionaCheck('(&U' + bico + '00' + Preco);
+resposta:=Get('CobAlteraPreco',comando,2000);
+result:=InformaErro(resposta,bico);
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Procedimento CobLeVis                                                                                     -
+// Entrada: Variavel visualizacao byRef                                                                      -
+// Saída: Variavel visualizacao                                                                              -
+//------------------------------------------------------------------------------------------------------------
+Procedure CobLeVis(var st:visualizacao);stdcall;export;
+var resposta,comando:string;
+begin
+comando:='(&V)';
+resposta:=Get('CobLeVis',comando,1000);
+st.stfull:=resposta;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função CobLeSTEncerrante                                                                                  -
+// Entrada: tipo do pedido,nro. do bico   ('$01')                                                            -
+// Saída: String com o valor              ('01 / 000000,00')                                                 -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Procedure CobLeEnc(var a:enc);stdcall; export;
+var comando,resposta,rt:string;
+begin
+if a.tipo<>'$' then a.tipo:='L';
+comando:=AdicionaCheck('(&T' + a.bico + a.tipo);
+resposta:=Get('CobLeEnc',comando,3000);
+if length(resposta)=16 then rt:=copy(resposta,6,8);
+a.valor:=rt;
+end;
+
+
+//------------------------------------------------------------------------------------------------------------
+// Função CobLePPL                                                                                           -
+// Entrada: Nº do bico ('BB')                                                                                -
+// Saída: preço unitário:string ('0000')                                                                     -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function CobLePPL(var a:ShortString):error; stdcall; export;
+var resposta:string[16];
+    comando:string[10];
+    res:error;
+begin
+comando:=AdicionaCheck('(&T' + a + 'U');
+resposta:=Get('CobLePPL',comando,2000);
+a:='0000';
+if length(resposta)=16 then
+  begin
+  a:=copy(resposta,10,4);
+  res:=None;
+  end
+else
+  res:=ErroResposta;
+result:=res;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função CobPreset                                                                                          -
+// Entrada: Nº do bico, Valor do preset   ('BB999999')                                                       -
+// Saída: Estrutura Error                                                                                    -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function CobPreset(a:ShortString):Error; stdcall; export;
+var comando,resposta:string;
+    Bico:string[2];
+    valor:string[6];
+begin
+Bico:=copy(a,1,2);
+Valor:=copy(a,3,6);
+comando:=AdicionaCheck('(&P' + bico + valor);
+resposta:=Get('CobPreset',comando,1000);
+result:=InformaErro(resposta,bico);
+end;
+
+
+//------------------------------------------------------------------------------------------------------------
+// Função CobSetClock                                                                                        -
+// Entrada: ddhhmm  ->  dd=dia hh=Hora mm=Minuto ou auto=automatico                                          -
+// Saída: True se acertou senão False                                                                        -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function CobSetClock(par:ShortString):boolean; stdcall; export;
+var resposta,comando:string;
+    cont:byte;
+begin
+if (uppercase(par)='AUTO') then
+    comando:='(&H' + formatdatetime('ddhhnn',now) + ')'
+else
+    comando:='(&H' + par + ')';
+cont:=0;resposta:='';
+while (resposta<>'(&H)') and (cont<3) do
+    begin
+    resposta:=Get('CobSetClock',comando,500);
+    inc(cont);
+    end;
+if resposta='(&H)' then result:=true else result:=false;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função VBLePPL                                                                                            -
+// Entrada: string contendo o bico (referencia)                                                              -
+// Saída: string contendo encerrante (referencia)                                                            -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Procedure VBLePPL(var inf:shortstring);stdcall; export;
+var resposta,comando:string;
+begin
+comando:=AdicionaCheck('(&T' + inf + 'U');
+resposta:=Get('VBLePPL',comando,2000);
+if length(resposta)=16 then
+  inf:=copy(resposta,10,4)
+else if resposta='DESCONECTADO' then
+  inf:='0'
+else
+  inf:='-1';
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função VBSetPPL                                                                                           -
+// Entrada: string contendo o bico e o valor BBVVVV (referencia)                                             -
+// Saída: string contendo encerrante (referencia)                                                            -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Procedure VBSetPPL(var inf:string);stdcall; export;
+var resposta,comando:string;
+begin
+comando:= AdicionaCheck('(&U' + copy(inf,1,2) + '00' + copy(inf,3,4));
+resposta:=Get('VBSetPPL',comando,2000);
+if resposta='DESCONECTADO' then
+  inf:='0'
+else
+  inf:=resposta;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função CobLeStructIDSt                                                                                    -
+// Entrada: variável estrutura (referencia)                                                                  -
+// Saída: variável estrutura (referencia)                                                                    -
+// Sub-Functions: None                                                                                       -
+// (A00000000027018993A000908161148040074000091978900000000000000000000740004)                               -
+// 123456789012345678901234567890123456789012345678901234567890123456789012345                               -
+//          1         2         3         4         5         6         7                                    -
+//------------------------------------------------------------------------------------------------------------
+Procedure CobLeStructIDSt(var ab:abast3);stdcall; export;
+var resposta:string[75];
+begin
+resposta:=Get('CobLeStructSt','(&A67)',1000);
+if (length(resposta)=75) then
+    begin
+    if resposta[2]='A' then ab.value:='1' else ab.value:='0';
+    ab.total_dinheiro:=copy(resposta,3,6);
+    ab.total_litros:=copy(resposta,9,6);
+    ab.PU:=copy(resposta,15,4);
+    ab.tempo:=formatatempo(copy(resposta,21,4));
+    ab.canal:=copy(resposta,25,2);
+    ab.data:=copy(resposta,27,2) + '/' + copy(resposta,33,2) + '/' + formatdatetime('yyyy',now);
+    ab.hora:=copy(resposta,29,2) + ':' + copy(resposta,31,2);
+    ab.st_full:=resposta;
+    ab.registro:=copy(resposta,35,4);
+    ab.encerrante:=copy(resposta,39,10);
+    ab.integridade:=resposta[49];
+    ab.id:=copy(resposta,51,16);
+    FidIncrementaAbast;
+    if ComparaCheck(resposta) then ab.checksum:='1' else ab.checksum:='0';
+    end
+else if resposta='(0)' then
+    begin
+    ab.value:='0';
+    ab.total_dinheiro:='0';
+    ab.total_litros:='0';
+    ab.PU:='0';
+    ab.tempo:='00:00:00';
+    ab.canal:='00';
+    ab.data:='00/00/0000';
+    ab.hora:='00:00';
+    ab.st_full:='(0000000000000000000000000000000000)';
+    ab.registro:='0';
+    ab.encerrante:='0';
+    ab.integridade:='0';
+    ab.checksum:='0';
+    end
+else
+    begin
+    ab.value:='0';
+    ab.total_dinheiro:='0';
+    ab.total_litros:='0';
+    ab.PU:='0';
+    ab.tempo:='00:00:00';
+    ab.canal:='99';
+    ab.data:='00/00/0000';
+    ab.hora:='00:00';
+    ab.st_full:=resposta;
+    ab.registro:='0';
+    ab.encerrante:='0';
+    ab.integridade:='0';
+    ab.checksum:='0';
+    end;
+resposta:='';
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função LeStructSt                                                                                         -
+// Entrada: variável estrutura (referencia)                                                                  -
+// Saída: variável estrutura (referencia)                                                                    -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Procedure CobLeStructSt(var ab:abast2);stdcall; export;
+var resposta:string;
+begin
+resposta:=Get('CobLeStructSt','(&A)',1000);
+if (length(resposta)=34) or (length(resposta)=52) then
+    begin
+    ab.value:='1';
+    ab.total_dinheiro:=copy(resposta,2,6);
+    ab.total_litros:=copy(resposta,8,6);
+    ab.PU:=copy(resposta,14,4);
+    ab.tempo:=formatatempo(copy(resposta,20,4));
+    ab.canal:=copy(resposta,24,2);
+    if length(resposta)=34 then ab.data:=copy(resposta,26,2) + '/' + formatdatetime('mm/yyyy',now) else
+    if length(resposta)=52 then ab.data:=copy(resposta,26,2) + '/' + copy(resposta,32,2) + '/' + formatdatetime('yyyy',now);
+    ab.hora:=copy(resposta,28,2) + ':' + copy(resposta,30,2);
+    ab.st_full:=resposta;
+    if length(resposta)=52 then ab.registro:=copy(resposta,34,4) else
+    if length(resposta)=34 then ab.registro:='0000';
+    if length(resposta)=52 then ab.encerrante:=copy(resposta,38,10) else
+    if length(resposta)=34 then ab.encerrante:='0000000000';
+    if length(resposta)=52 then ab.integridade:=resposta[49] else
+    if length(resposta)=34 then ab.integridade:='1';
+    if ComparaCheck(resposta)=true then ab.checksum:='1' else ab.checksum:='0';
+    Incrementa;
+    end
+else if resposta='(0)' then
+    begin
+    ab.value:='0';
+    ab.total_dinheiro:='0';
+    ab.total_litros:='0';
+    ab.PU:='0';
+    ab.tempo:='00:00:00';
+    ab.canal:='00';
+    ab.data:='00/00/0000';
+    ab.hora:='00:00';
+    ab.st_full:='(0000000000000000000000000000000000)';
+    ab.registro:='0';
+    ab.encerrante:='0';
+    ab.integridade:='0';
+    ab.checksum:='0';
+    end
+else
+    begin
+    ab.value:='0';
+    ab.total_dinheiro:='0';
+    ab.total_litros:='0';
+    ab.PU:='0';
+    ab.tempo:='00:00:00';
+    ab.canal:='99';
+    ab.data:='00/00/0000';
+    ab.hora:='00:00';
+    ab.st_full:=resposta;
+    ab.registro:='0';
+    ab.encerrante:='0';
+    ab.integridade:='0';
+    ab.checksum:='0';
+    end;
+resposta:='';
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função LeStatus                                                                                           -
+// Entrada: None                                                                                             -
+// Saída: variável estrutura                                                                                 -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function LeStStatus:StStatus; stdcall; export;
+var a:ststatus;
+begin
+a.value:=Get('LeStStatus','(&S)',800);
+result:=a;
+end;
+
+
+//------------------------------------------------------------------------------------------------------------
+// Função LeStructPPL                                                                                        -
+// Entrada: Bico                                                                                             -
+// Saída: variável estrutura PPL/Bico                                                                        -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function LeStructPPL(bico:string):stPPL; stdcall; export;
+var comando,resposta:string[50];
+begin
+comando:=AdicionaCheck('(&T' + bico + 'U');
+Resposta:=Get('LeStructPPL',comando,2000);
+if length(resposta)=16 then
+  begin
+  Result.Bico:=copy(resposta,4,2);
+  Result.PPL:=copy(resposta,10,4);
+  end
+else if resposta='DESCONECTADO' then
+  begin
+  result.Bico:='00';
+  result.PPL:='9999';
+  end
+else
+  begin
+  Result.Bico:='99';
+  Result.PPL:=resposta;
+  end;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função LeStructEncerrante                                                                                 -
+// Entrada: Bico,Tipo                                                                                        -
+// Saída: variável estrutura Bico/Tipo/Enc                                                                   -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function LeStructEncerrante(modo:string;bico:string):stEncerrante; stdcall; export;
+var comando,resposta:string[50];
+begin
+comando:=AdicionaCheck('(&T' + bico + modo[1]);
+Resposta:=Get('LeStructEncerrante',comando,3000);
+if length(Resposta)=16 then
+  begin
+  Result.Bico:=copy(resposta,4,2);
+  Result.Encerrante:=copy(resposta,6,8);
+  end
+else if resposta='DESCONECTADO' then
+  begin
+  Result.Bico:='00';
+  Result.Encerrante:='99999999';
+  end
+else
+  begin
+  Result.Bico:='99';
+  Result.Encerrante:='99999999';
+  end;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função teste                                                                                              -
+// Entrada: void                                                                                             -
+// Saída: Classe TSAbastecimento                                                                             -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function teste:ShortString;stdcall; export;
+begin
+result:='TESTE OK';
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função LeStReduzida                                                                                       -
+// Entrada: none                                                                                             -
+// Saída: BBTTTTTTEEEEEEEEEE                                                                                 -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function LeStReduzida:ShortString;stdcall; export;
+var Resposta:string;
+begin
+Resposta:=Get('LeStReduzida','(&A)',1000);
+if resposta='(0)' then
+    result:='(0)'
+else if copy(resposta,2,12)='000000000000' then
+    begin
+    incrementa;
+    result:='(0)';
+    end
+else if (length(resposta)=34) or (length(resposta)=52) then
+    begin
+    incrementa;
+    result:=copy(Resposta,24,2) + copy(Resposta,8,6) + copy(Resposta,38,10);
+    end
+else result:='(0)';
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+function LeEvento(indice:integer):shortstring; stdcall; export;
+var comando,resposta:string;
+    stReg:string;
+begin
+stReg:=inttostr(indice);
+while length(stReg)<4 do stReg:='0' + stReg;
+comando:=AdicionaCheck('(&LL' + stReg);
+resposta:=Get('LeEvento',comando,1000);
+result:=resposta;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function FidIdent:IFid; stdcall; export;
+var comando,resposta:string;
+    rta:IFid;
+begin
+comando:=AdicionaCheck('(?A');
+resposta:=Get('LeFidIdent',comando,1000);
+rta.value:=false;
+if length(resposta)=37 then
+    begin
+    rta.value:=true;
+    rta.Codigo:=copy(resposta,3,16);
+    rta.Endereco:=copy(resposta,19,2);
+    rta.Dia:=copy(resposta,21,2);
+    rta.Hora:=copy(resposta,23,2);
+    rta.Minuto:=copy(resposta,25,2);
+    rta.Mes:=copy(resposta,27,2);
+    rta.Registro:=strtoint(copy(resposta,29,4));
+    rta.StFull:=resposta;
+    if copy(resposta,31,2)='00' then rta.Status:=true else rta.Status:=false;
+    end
+else if resposta='(0)' then
+    begin
+    rta.value:=true;
+    rta.Codigo:='0';
+    rta.Endereco:='0';
+    rta.Dia:='0';
+    rta.Hora:='0';
+    rta.Minuto:='0';
+    rta.Mes:='0';
+    rta.Registro:=0;
+    rta.StFull:=resposta;
+    rta.Status:=false;
+    end;
+result:=rta;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function FidStatus:StFid; stdcall; export;
+var comando:string;
+    resposta:string[75];
+    rta:StFid;
+begin
+comando:=AdicionaCheck('(?S');
+resposta:=Get('LeFidStatus',comando,1000);
+if length(resposta)>=34 then
+    rta.Status:=copy(resposta,3,32)
+else
+    rta.Status:='SEM RESPOSTA';
+result:=rta;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Procedure FidIncrementa;stdcall; export;
+var comando:string;
+begin
+comando:=AdicionaCheck('(?I');
+Get('IncrementaFid',comando,1);
+end;
+
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function FidModo(endereco:string;option:char):integer;stdcall; export;
+var resposta,comando:string[75];
+begin
+comando:=AdicionaCheck('(?M' + endereco + option);
+resposta:=Get('FidModo',comando,800);
+if resposta='(M' + endereco + ')' then  result:=1       // 1- comando Ok
+else if resposta='(M?t)' then result:=2                 // 2- erro timeout
+else if resposta='(M?b)' then result:=3                 // 3- erro endereco
+else if resposta='(M?m)' then result:=4                 // 4- erro caracter modo
+else result:=0;                                         // 0- erro desconhecido
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function FidAciona(endereco:string;minutos,segundos:byte):integer; stdcall; export;
+var stminuto,stsegundo:string[2];
+    comando,resposta:string[50];
+begin
+if minutos<10 then stminuto:='0' + inttostr(minutos) else stminuto:=inttostr(minutos);
+if segundos<10 then stsegundo:='0' + inttostr(segundos) else stsegundo:=inttostr(segundos);
+if length(endereco)<2 then endereco:='0' + endereco;
+comando:=AdicionaCheck('(?P' + endereco + stminuto + stsegundo);
+resposta:=Get('FidAciona',comando,800);
+if resposta='(P' + endereco + ')' then  result:=1       // 1- comando Ok
+else if resposta='(P?t)' then result:=2                 // 2- erro timeout
+else if resposta='(P?b)' then result:=3                 // 3- erro endereco
+else if resposta='(P?m)' then result:=4                 // 4- erro caracter modo
+else result:=0;                                         // 0- erro desconhecido
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function FidSetClock(dia,hora,minuto:byte):integer;stdcall; export;
+var stdia,sthora,stminuto:string[2];
+    comando,resposta:string;
+begin
+if dia<10 then stdia:='0' + inttostr(dia) else stdia:=inttostr(dia);
+if hora<10 then sthora:='0' + inttostr(hora) else sthora:=inttostr(hora);
+if minuto<10 then stminuto:='0' + inttostr(minuto) else stminuto:=inttostr(minuto);
+comando:='(?H' + stdia + sthora + stminuto + ')';
+resposta:=Get('FidSetClock',comando,800);
+if resposta='(%H)' then
+    result:=1                                           // 1- comando Ok
+else
+    result:=0;                                          // 0- falha
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function FidLeRegistro(nro:integer):ShortString;stdcall; export;
+var stnro:string[4];
+    resposta,comando:string;
+begin
+stnro:=inttostr(nro);
+while length(stnro)<4 do stnro:='0' + stnro;
+comando:=AdicionaCheck('(?LR' + stnro);
+resposta:=Get('LeFidRegistro',comando,1000);
+result:=resposta;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function IIILeAbast(var st:string):ShortString;
+var comando,resposta:string;
+begin
+comando:=AdicionaCheck('(&A');
+resposta:=Get('LeFid2Abast',comando,1000);
+result:=resposta;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function PortOpen:boolean;stdcall;export;
+begin
+result:=ioPortOpen;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function SocketOpen:boolean;stdcall;export;
+begin
+result:=ioSocketOpen;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+function SendReceiveText(var st:pchar;timeout:integer):integer;stdcall; export;
+var resposta:string;
+begin
+resposta:=Get('SendText',st,timeout);
+st:=pchar(resposta);
+result:=0;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+// Bloco de funções Visual Basic                                                                             -
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function VB_OpenSerial(np:integer):integer;stdcall; export;
+begin
+if InicializaSerial(np) then result:=1 else result:=0;
+end;
+
+Function VB_CloseSerial:integer;stdcall; export;
+begin
+result:=FechaSerial;
+end;
+
+Function VB_SendText(st:shortstring):integer;stdcall; export;
+var a:byte;
+begin
+result:=0;
+st:=trim(st);
+if length(st)>=3 then
+  begin
+  if st[1]<>'(' then st:='(' + st;
+  for a:=2 to length(st) do
+    begin
+    if st[a]=')' then
+      begin
+      st:=copy(st,1,a);
+      if SendText('VB_SendText',st) then result:=1;
+      end;
+    end;
+  end;
+end;
+
+Function VB_ReceiveText(var st:string):integer;stdcall; export;
+var rec:string;
+begin
+rec:=Get('VB_ReceiveText','',1000);
+result:=length(rec);
+st:=rec;
+end;
+
+function VB_SendReceiveText(var st:string;timeout:integer):integer;stdcall;export;
+var rec,comando:string;
+begin
+if timeout<500 then timeout:=500;
+comando:=st;
+rec:=Get('VB_SendReceiveText',comando,timeout);
+st:=rec;
+result:=length(rec);
+end;
+
+Function VB_ReadSale(var st:string):integer;stdcall; export;
+var rec:string;
+begin
+rec:=Get('VB_ReadAbastecimento','(&A)',1000);
+if (length(rec)=52) or (length(rec)=34) then
+    begin
+    st:=rec;
+    result:=1;
+    end
+else if rec='(0)' then
+    begin
+    st:=rec;
+    result:=2;
+    end
+else
+    begin
+    st:='';
+    result:=0;
+    end;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+function VB_NextSale:integer;stdcall; export;
+begin
+result:=VB_SendText('(&I)');
+end;
+
+//------------------------------------------------------------------------------------------------------------
+function VB_SetPrice(bico,price:string):integer;stdcall; export;
+var comando,resposta:string;
+begin
+if ((length(bico))=2) and (length(price)=4) then
+  begin
+  comando:=AdicionaCheck('(&U' + bico + '00' + price);
+  resposta:=Get('AlteraPreco',comando,2000);
+  if resposta='(U'+bico+')' then
+    result:=1
+  else
+    result:=0;
+  end
+else
+  result:=0;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+function VB_PresetPump(bico,cash:string):integer;stdcall; export;
+var comando,resposta:string;
+begin
+if ((length(bico))=2) and (length(cash)=6) then
+  begin
+  comando:=AdicionaCheck('(&P' + bico + cash);
+  resposta:=Get('Preset',comando,1000);
+  if resposta='(P'+bico+')' then
+    result:=1
+  else
+    result:=0;
+  end
+else
+  result:=0;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//(SFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF6V2.3M7.0G8B)                                                        -
+//123456789012345678901234567890123456789012345678901                                                        -
+//------------------------------------------------------------------------------------------------------------
+function VB_ReadState(var st:string):integer;stdcall; export;
+var rec:string;
+begin
+rec:=Get('VB_ReadState','(&S)',1000);
+if length(rec)=51 then
+  begin
+  st:=rec;
+  result:=1;
+  end
+else
+  begin
+  st:='';
+  result:=0;
+  end;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------------------------------------
+Function VB_OpenSocket(ip:string):integer;stdcall; export;
+var pip:pchar;
+begin
+pip:=pchar(ip);
+if InicializaSocket(pip) then result:=1 else result:=0;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------------------------------------
+Function VB_CloseSocket:integer;stdcall; export;
+begin
+if FechaSocket then result:=1 else result:=0;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------------------------------------
+Function VB_SetState(bico,estado:string):integer;stdcall; export;
+var comando,resposta:string;
+begin
+if (length(bico)=2) and ((estado='A') or (estado='B') or (estado='L')) then
+  begin
+  comando:=AdicionaCheck('(&M' + bico + estado);
+  resposta:=Get('AlteraModo',comando,1000);
+  if resposta='(M'+bico+')' then
+    result:=1
+  else
+    result:=0;
+  end
+else
+  result:=0;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//
+//------------------------------------------------------------------------------------------------------------
+Function VB_BlockPump(bico:string):integer;stdcall; export;
+var comando,resposta:string;
+begin
+if length(bico)=2 then
+  begin
+  comando:=AdicionaCheck('(&M' + bico + 'B');
+  resposta:=Get('AlteraModo',comando,1000);
+  if resposta='(M'+bico+')' then
+    result:=1
+  else
+    result:=0;
+  end
+else
+  result:=0;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+Function VB_FreePump(bico:string):integer;stdcall; export;
+var comando,resposta:string;
+begin
+if length(bico)=2 then
+  begin
+  comando:=AdicionaCheck('(&M' + bico + 'L');
+  resposta:=Get('AlteraModo',comando,1000);
+  if resposta='(M'+bico+')' then
+    result:=1
+  else
+    result:=0;
+  end
+else
+  result:=0;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+Function VB_AutPump(bico:string):integer;stdcall; export;
+var comando,resposta:string;
+begin
+if length(bico)=2 then
+  begin
+  comando:=AdicionaCheck('(&M' + bico + 'A');
+  resposta:=Get('AlteraModo',comando,1000);
+  if resposta='(M'+bico+')' then
+    result:=1
+  else
+    result:=0;
+  end
+else
+  result:=0;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// (TL1002732878A6)
+// 1234567890123456
+function VB_ReadTotalsCash(bico:string):integer;stdcall; export;
+var comando,resposta,encerrante:string;
+begin
+if length(bico)=2 then
+  begin
+  comando:=AdicionaCheck('(&T' + bico + '$');
+  resposta:=Get('ConsultaEncerrante',comando,3000);
+  if length(resposta)=16 then
+    begin
+    if (copy(resposta,1,5)='(T$'+bico) then
+      begin
+      encerrante:=copy(resposta,6,8);
+      try
+        result:=strtoint(encerrante);
+      except
+        result:=-1;
+      end;
+      end
+    else
+      result:=-1;
+    end
+  else
+    result:=-1;
+  end
+else
+  result:=-1;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// (TL1002732878A6)
+// 1234567890123456
+function VB_ReadTotalsVolume(bico:string):integer;stdcall; export;
+var comando,resposta,encerrante:string;
+begin
+if length(bico)=2 then
+  begin
+  comando:=AdicionaCheck('(&T' + bico + 'L');
+  resposta:=Get('ConsultaEncerrante',comando,3000);
+  if length(resposta)=16 then
+    begin
+    if (copy(resposta,1,5)='(TL'+bico) then
+      begin
+      encerrante:=copy(resposta,6,8);
+      try
+        result:=strtoint(encerrante);
+      except
+        result:=-1;
+      end;
+      end
+    else
+      result:=-1;
+    end
+  else
+    result:=-1;
+  end
+else
+  result:=-1;
+end;
+
+
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+// GETS                                                                                                      -
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+function GetAbastecimento:shortstring;stdcall;export;
+begin
+result:=Get('GetAbastecimento','(&A)',1000);
+end;
+
+function GetAbastecimentoIdent:shortstring;stdcall;export;
+var comando:string;
+begin
+comando:=adicionacheck('(&A');
+result:=Get('GetAbastecimentoIdent',comando,1000);
+end;
+
+function GetAbastecimento2Ident:shortstring;stdcall;export;
+var comando:string;
+begin
+comando:=adicionacheck('(&@');
+result:=Get('GetAbastecimentoIdent',comando,1000);
+end;
+
+function GetEncerrante(bico:string;tipo:char):shortstring;stdcall;export;
+var comando:string;
+begin
+comando:=adicionacheck('(&T'+bico+tipo);
+result:=Get('GetEncerrante',comando,2000);
+end;
+
+function GetRegistro(nreg:integer):shortstring;stdcall;export;
+var comando:string;
+    stnReg:string;
+begin
+if (nreg>=0) and (nreg<=9999) then
+  begin
+  stnReg:=inttostr(nreg);
+  while length(stnReg)<4 do stnReg:='0'+stnReg;
+  comando:=adicionacheck('(&LR' + stnReg);
+  result:=get('GetRegistro',comando,500);
+  end
+else result:='';
+end;
+
+function GetVisualizacao:shortstring;stdcall;export;
+begin
+result:=Get('GetVisualizacao','(&V)',1000);
+end;
+
+function GetVisualizacaoId:shortstring;stdcall;export;
+begin
+result:=Get('GetVisualizacaoId','(&V95)',1000);
+end;
+
+function Connected:boolean;stdcall;export;
+begin
+result:=ioConnected;
+end;
+
+function XH_Test(var st:pchar):integer;
+var a:string;
+begin
+a:=st + 'Teste';
+result:=1;
+end;
+
+// -----------------------------------------------------------------------------------------------------------
+// EVENTOS                                                                                                   -
+// -----------------------------------------------------------------------------------------------------------
+procedure DLL_Load;
+begin
+try
+  CreateSocket;
+except
+  messagedlg('Erro DLLCompanytec - Falha ao inicializar Sockets',mterror,[mbok],0);
+end;
+try
+  CreateSerial;
+except
+  messagedlg('Erro DLLCompanytec - Falha ao inicializar Serial',mterror,[mbok],0);
+end;
+try
+  Ver(Version);
+  CreateTrayIcon('DLLCompanytec Vr. ' + Version.versao);
+except
+  messagedlg('Erro DLLCompanytec',mterror,[mbok],0);
+end;
+end;
+
+// -----------------------------------------------------------------------------------------------------------
+procedure DLL_Unload;
+begin
+DestroyTrayIcon;
+DestroySocket;
+DestroySerial;
+end;
+
+// -----------------------------------------------------------------------------------------------------------
+procedure DLLEntryPoint(dwReason:DWORD);
+begin
+case dwReason of
+  DLL_PROCESS_ATTACH: DLL_Load;
+  DLL_PROCESS_DETACH: DLL_Unload;
+  end;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+exports
+    VB_OpenSerial,
+    VB_CloseSerial,
+    VB_SendText,
+    VB_ReceiveText,
+    VB_OpenSocket,
+    VB_CloseSocket,
+    FOX_InicializaSerial,
+    teste,
+    ConsultaEncerrante,
+    VBSetPPL,
+    LimpaSerial,
+    InicializaLogSerial,
+    STVisualizacao,
+    LeStStatus,
+    EnviaComando,
+    VBInicializaSerial,
+    LeStringAb,
+    LeAbastecimento,
+    RefEncerrante,
+    LeStReduzida,
+    RefAltPreco,
+    RefBloqueiaBico,
+    RefAutorizaAbast,
+    RefAutoLibera,
+    RefParaBomba,
+    RefLePPL,
+    RefPreset,
+    LeStatus,
+    SetClock,
+    LeStructSt,
+    WriteSerial,
+    LePPL,
+    Incrementa,
+    LeVisualizacao,
+    ReadSerial,
+    LeSTEncerrante,
+    LePart,
+    AutorizaAbast,
+    LeRegistroFid,
+    BloqueiaBico,
+    AutoLibera,
+    ParaBomba,
+    LeRegistro,
+    LeStatus,
+    LeStRegistro,
+    LeStRegistroFid,
+    SetIntClock,
+    AlteraPreco,
+    Comunica,
+    Preset,
+    Ver,
+    LeStatusVB,
+    LeStatusFid,
+    VBLeAbastecimento,
+    InicializaSerial,
+    VBInicializaSerial,
+    CobLeStructIDSt,
+    STRefAltPreco,
+    LeAbFix,
+    FechaSerial,
+    CobLeEnc,
+    CobAlteraPreco,
+    VBLeVisualizacao,
+    LeStringAbVB,
+    CobPreset,
+    CobLePPL,
+    LeStringX,
+    LeStringAb,
+    CobSetClock,
+    clearTagFid,
+    SetPreset,
+    SetParaBomba,
+    SetIntClock,
+    SetAutorizaAbast,
+    SetBloqueiaBico,
+    deleteTagFid,
+    SetAutoLibera,
+    VBSetAutorizaAbast,
+    CobLeStructIDSt,
+    VBSetAutoLibera,
+    VBSetBloqueiaBico,
+    VB_ReadSale,
+    VB_NextSale,
+    SetPrice,
+    VB_SetPrice,
+    VB_ReadState,
+    VB_SetState,
+    VB_AutPump,VB_BlockPump,VB_FreePump,
+    VB_ReadTotalsCash,
+    VB_ReadTotalsVolume,
+    VB_PresetPump,
+    VB_SendReceiveText,
+    SetAlteraPreco,
+    CobLeVis,
+    LeStructPPL,
+    VBLePPL,
+    LeStStatus2,
+    LeStructEncerrante,
+    FechaSerialVB,
+    PortOpen,
+    CobLeStructSt,
+    LeAbastecimentoFid,
+    SendReceiveText,
+    SendReceiveText,
+    FidIdent,
+    XH_Test,
+    FidIncrementa,
+    FidStatus,
+    Connected,
+    FidModo,
+    readTagFid,
+    FidAciona,
+    FidSetClock,
+    EscreveSerial,
+    FidLeRegistro,
+    LeEvento,
+    EscreveSocket,
+    LeSocket,
+    InicializaSocket,
+    FechaSocket,
+    GetAbastecimento,
+    GetAbastecimentoIdent,
+    saveTagFid,
+    SocketOpen,
+    GetVisualizacao,
+    GetVisualizacaoId,
+    GetEncerrante,
+    GetRegistro,
+    GetAbastecimento2Ident,
+    GetAbastecimentoIdent,
+    GetAbastecimento;
+begin
+dllproc:=@DLLEntryPoint;
+DLLEntryPoint(DLL_PROCESS_ATTACH);
+end.
+
+

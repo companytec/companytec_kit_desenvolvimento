@@ -1,0 +1,343 @@
+unit io;
+
+interface
+  Function CreateSocket:boolean;
+  Function CreateSerial:boolean;
+  procedure DestroySerial;
+  procedure DestroySocket;
+  Function ReceiveSocketText(desc:string;timeout:integer):string;
+  Function ReceiveSerialText(desc:string;timeout:cardinal):string;stdcall;export;
+  Function SendText(desc,comando:string):boolean;
+  Function ReceiveText(desc:string;timeout:integer):string;
+  Function Get(desc,comando:string;timeout:integer):string;
+  Function ioPortOpen:boolean;
+  Function ioSocketOpen:boolean;
+  Function OpenSocket(ip:string):boolean;
+  Function OpenSerial(np:byte):boolean;
+  Function CloseSocket:boolean;
+  Function CloseSerial:boolean;
+  Function Alive:boolean;
+  Function CreateLogFile(path:string):boolean;
+  Function PutLogFile(st:string):boolean;
+  Procedure ClearBuffer;
+  function ioConnected:boolean;
+
+implementation
+
+uses
+  cport,
+  windows,
+  SysUtils,
+  forms,
+  dialogs,
+  sockets;
+
+var
+  Serial      :TComport;
+  TCP         :TTcpClient;
+  LogFile     :string='';
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+function ioConnected:boolean;
+begin
+result:=Serial.Connected or tcp.Connected;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function CreateLogFile(path:string):boolean;
+var a:integer;
+begin
+a:=filecreate(path);
+if a<>-1 then
+  begin
+  LogFile:=path;
+  result:=true;
+  end
+else
+  result:=false;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function PutLogFile(st:string):boolean;
+var F:textfile;
+begin
+try
+  if LogFile<>'' then
+    begin
+    assignfile(F,LogFile);
+    append(F);
+    writeln(F,st);
+    CloseFile(F);
+    result:=true;
+    end
+  else
+    result:=false;
+except
+  result:=false;
+end;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function CreateSocket:boolean;
+begin
+try
+  TCP:=TTcpClient.Create(application);
+  TCP.FreeOnRelease;
+  result:=true;
+except
+  result:=false;
+end;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function CreateSerial:boolean;
+begin
+try
+  serial:=tcomport.Create(application);
+  serial.FreeOnRelease;
+  result:=true;
+except
+  result:=false;
+end;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function Alive:boolean;
+var SerialNumber:string;
+begin
+SerialNumber:=Get('SerialNumber','(&T99N3A)',500);
+result:=(SerialNumber<>'') and (SerialNumber<>'DESCONECTADO') and (SerialNumber<>'FALHA ENVIO');
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function CloseSerial:boolean;
+begin
+serial.Close;
+result:=serial.Connected;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function CloseSocket:boolean;
+begin
+TCP.Active:=false;
+sleep(2000);
+result:=not TCP.Connected;
+end;
+
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function OpenSocket(ip:string):boolean;
+begin
+try
+    TCP.Active:=false;
+    TCP.RemoteHost:=ip;
+    TCP.RemotePort:='1771';
+    TCP.Active:=true;
+    result:=TCP.Connected;
+except
+    result:=false;
+end;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function OpenSerial(np:byte):boolean;
+begin
+try
+    serial.Port:='COM' + inttostr(np);
+    serial.CustomBaudRate:=9600;
+//    Serial.Parity.Bits:=prNone;
+//    Serial.StopBits:=sbOneStopBit;
+//    Serial.DataBits:=dbEight;
+    serial.Open;
+    serial.SetDTR(true);
+    serial.SetRTS(false);
+    result:=serial.Connected;
+except
+    result:=false;
+end;
+end;
+
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function ReceiveSocketText(desc:string;timeout:integer):string;
+var bufferRX:array [1..100] of char;
+    resposta:string;
+    a,lenRX:integer;
+begin
+resposta:='';
+if TCP.WaitForData(timeout) then
+  begin
+  lenRX:=tcp.ReceiveBuf(bufferRX,100);
+  resposta:='';
+  for a:=1 to lenRX do resposta:=resposta + bufferRX[a];
+  end
+else
+  resposta:='SEM RESPOSTA';
+result:=resposta;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função ReceiveSerialText                                                                                  -
+// Entrada: tempo máximo de espera (timeout)                                                                 -
+// Saída: string lida da serial                                                                              -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function ReceiveSerialText(desc:string;timeout:cardinal):string;stdcall;export;
+var rec,resposta:string;
+    stop:single;
+begin
+if serial.Connected then
+    begin
+    stop:=gettickcount+timeout;
+    while gettickcount<stop do
+        begin
+        Serial.ReadStr(rec,1);
+        resposta:=resposta+rec;
+        if resposta='' then sleep(50) else sleep(1);
+        //messagedlg(resposta,mterror,[mbok],0);
+        if rec='(' then
+            resposta:='('
+        else if rec=')' then
+            break;
+        end;
+    if (length(resposta)>=3) and (resposta[1]='(') and (resposta[length(resposta)]=')') then
+        begin
+        result:=resposta;
+        end
+    else
+        result:='';
+    end
+else
+    result:='';
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function SendText(desc,comando:string):boolean;
+var bSended:integer;
+begin
+ClearBuffer;
+if TCP.Connected then
+  bSended:=TCP.Sendln(comando,CRLF)-2
+else if Serial.Connected then
+  bSended:=Serial.WriteStr(comando)
+else
+  bSended:=-1;
+result:=bSended=length(comando);
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function ReceiveText(desc:string;timeout:integer):string;
+begin
+if TCP.Connected then
+  result:=ReceiveSocketText(desc,timeout)
+else if Serial.Connected then
+  result:=ReceiveSerialText(desc,timeout);
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+function Get(desc,comando:string;timeout:integer):string;
+var resposta:string;
+begin
+if comando<>'' then
+  begin
+  ClearBuffer;
+  if SendText(desc,comando) then
+    begin
+    if TCP.Connected then
+      resposta:=ReceiveSocketText(desc,timeout)
+    else if Serial.Connected then
+      resposta:=ReceiveSerialText(desc,timeout)
+    else
+      resposta:='DESCONECTADO';
+    end
+  else
+    resposta:='FALHA ENVIO';
+  end
+else
+  begin
+  if TCP.Connected then
+    resposta:=ReceiveSocketText(desc,timeout)
+  else if Serial.Connected then
+    resposta:=ReceiveSerialText(desc,timeout)
+  else
+    resposta:='DESCONECTADO';
+  end;
+result:=resposta;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Procedimento ClearBuffer                                                                                  -
+// Entrada: none                                                                                             -
+// Saída: none                                                                                               -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Procedure ClearBuffer;
+var resposta:string;
+begin
+if TCP.Connected then
+  resposta:=ReceiveSocketText('ClearBuffer',100)
+else if Serial.Connected then
+  resposta:=ReceiveSerialText('ClearBuffer',100);
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função PortOpen                                                                                           -
+// Entrada: none                                                                                             -
+// Saída: booleana                                                                                           -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function ioPortOpen:boolean;
+begin
+result:=Serial.Connected;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função SocketOpen                                                                                         -
+// Entrada: none                                                                                             -
+// Saída: booleana                                                                                           -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function ioSocketOpen:boolean;
+begin
+result:=TCP.Connected;
+end;
+
+procedure DestroySocket;
+begin
+TCP.Destroy;
+end;
+
+procedure DestroySerial;
+begin
+Serial.Destroy;
+end;
+
+end.

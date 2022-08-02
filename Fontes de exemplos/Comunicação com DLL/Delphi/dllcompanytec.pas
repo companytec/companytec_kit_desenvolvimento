@@ -5,532 +5,631 @@ interface
 uses Windows;
 
 Type
-  teste = record
-    v1: double;
-    v2: double;
-    bool: boolean;
-    a: string[2];
-    b: string[2];
-    c: string[2];
-  end;
+    teste=record
+        v1:double;
+        v2:double;
+        bool:boolean;
+        a:string[2];
+        b:string[2];
+        c:string[2];
+        end;
+
+type TInventory=record
+  Calendario  :string[14];  // HH:MM DD/MM/AA
+  Tanque      :string[2];   // TT
+  Produto     :string[1];
+  Volume      :string[10];
+  TCVolvume   :string[10];
+  Ullage      :string[10];
+  Heigth      :string[10];
+  Water       :string[10];
+  Temperatura :string[4]; // xx.x
+  WaterVolume :string[10];
+  FullString  :string[89];
+end;
+
+type 
+    FoxString=record
+      st:string[4];
+      end;
 
 type
-  FoxString = record
-    st: string[4];
-  end;
+  TCallbackFunction = function(sig: integer): boolean;      
 
 Type
-  AbastTWC = record
-    value: boolean;
-    total_dinheiro: currency;
-    total_litros: double;
-    PU: currency;
-    tempo: string[8];
-    codbico: string[2];
-    numbico: integer;
-    numtanque: integer;
-    voltanque: integer;
-    codcombustivel: integer;
-    seriecbc: integer;
-    tipocbc: char;
-    data: string[10];
-    hora: string[5];
-    st_full: string[123];
-    registro: integer;
-    encerranteI: double;
-    encerranteF: double;
-    integridade: boolean;
-    checksum: boolean;
-    tag1: string[16];
-    tag2: string[16];
-    numbicopista: integer;
-    odometro: integer;
-  end;
+    Abast=record
+        value           :boolean;
+        total_dinheiro  :currency;
+        total_litros    :double;
+        PU              :currency;
+        tempo           :string[8];
+        canal           :string[2];
+        data            :string[10];
+        hora            :string[5];
+        st_full         :string[55];
+        registro        :integer;
+        encerrante      :real;
+        integridade     :boolean;
+        checksum        :boolean;
+        end;
 
 Type
-  Abast = record
-    value: boolean;
-    total_dinheiro: currency;
-    total_litros: double;
-    PU: currency;
-    tempo: string[8];
-    canal: string[2];
-    data: string[10];
-    hora: string[5];
-    st_full: string[55];
-    registro: integer;
-    encerrante: real;
-    integridade: boolean;
-    checksum: boolean;
-  end;
+    AbastReg=record
+        value           :boolean;
+        total_dinheiro  :double;
+        total_litros    :double;
+        PU              :currency;
+        tempo           :integer;
+        canal           :string[2];
+        datetime        :tdatetime;
+        st_full         :string[55];
+        registro        :integer;
+        encerrante      :double;
+        integridade     :boolean;
+        checksum        :boolean;
+        end;
 
 Type
-  AbastVB = record
-    registro: integer;
-    value: boolean;
-    integridade: boolean;
-    checksum: boolean;
-    encerrante: double;
-    total_dinheiro: double;
-    total_litros: double;
-    PU: double;
-    tempo: string;
-    canal: string;
-    data: string;
-    hora: string;
-    st_full: string;
-  end;
+    CobAbastId=record
+        value               :string[1];
+        habilitacao         :string[1];
+        serial_console      :string[8];
+        total_dinheiro      :string[6];
+        total_litros        :string[6];
+        PU                  :string[4];
+        cod_virgula         :string[2];
+        tempo               :string[8];
+        canal               :string[2];
+        data                :string[10];
+        hora                :string[5];
+        registro            :string[4];
+        encerrante          :string[10];
+        encerrante_inicial  :string[10];
+        bico_pista          :string[2];
+        tipo_combustivel    :string[2];
+        numero_tanque       :string[2];
+        volume_tanque       :string[8];
+        tag                 :string[16];
+        tag2                :string[16];
+        integridade         :string[1];
+        checksum            :string[1];
+        st_full             :string[123];
+        end;        
 
 Type
-  AbastFid = record
-    value: boolean;
-    total_dinheiro: currency;
-    total_litros: double;
-    PU: currency;
-    tempo: string[8];
-    canal: string[2];
-    data: string[10];
-    hora: string[5];
-    st_full: string[75];
-    registro: integer;
-    encerrante: real;
-    integridade: boolean;
-    checksum: boolean;
-    tag: string[16];
-  end;
+    AbastVB=record
+        registro        :integer;
+        value           :boolean;
+        integridade     :boolean;
+        checksum        :boolean;
+        encerrante      :double;
+        total_dinheiro  :double;
+        total_litros    :double;
+        PU              :double;
+        tempo           :string;
+        canal           :string;
+        data            :string;
+        hora            :string;
+        st_full         :string;
+        end;
 
 Type
-  AbastFid2 = record
-    value: boolean;
-    total_dinheiro: currency;
-    total_litros: double;
-    PU: currency;
-    tempo: string[8];
-    canal: string[2];
-    data: string[10];
-    hora: string[5];
-    st_full: string[87];
-    registro: integer;
-    encerrante: real;
-    integridade: boolean;
-    checksum: boolean;
-    tag: string[16];
-    tag2: string[16];
-  end;
+    AbastFid=record
+        value           :boolean;
+        total_dinheiro  :currency;
+        total_litros    :double;
+        PU              :currency;
+        tempo           :string[8];
+        canal           :string[2];
+        data            :string[10];
+        hora            :string[5];
+        st_full         :string[75];
+        registro        :integer;
+        encerrante      :real;
+        integridade     :boolean;
+        checksum        :boolean;
+        tag             :string[16];
+        end;
+
+
 
 Type
-  AbastPAF1 = record
-    value: boolean;
-    total_dinheiro: currency;
-    total_litros: double;
-    PU: currency;
-    tempo: string[8];
-    codbico: string[2];
-    numbico: integer;
-    numtanque: integer;
-    voltanque: integer;
-    codcombustivel: integer;
-    seriecbc: integer;
-    tipocbc: char;
-    data: string;
-    hora: string;
-    st_full: string;
-    registro: integer;
-    encerranteI: double;
-    encerranteF: double;
-    integridade: boolean;
-    checksum: boolean;
-    tag1: string[16];
-    tag2: string[16];
-  end;
+    AbastTWC=record
+        value           :boolean;
+        total_dinheiro  :currency;
+        total_litros    :double;
+        PU              :currency;
+        tempo           :string[8];
+        codbico         :string[2];
+        numbico         :integer;
+        numtanque       :integer;
+        voltanque       :integer;
+        codcombustivel  :integer;
+        seriecbc        :integer;
+        tipocbc         :char;
+        data            :string[10];
+        hora            :string[5];
+        st_full         :string[123];
+        registro        :integer;
+        encerranteI     :double;
+        encerranteF     :double;
+        integridade     :boolean;
+        checksum        :boolean;
+        tag1            :string[16];
+        tag2            :string[16];
+        numbicopista    :integer;
+        odometro        :integer;
+        end;
+
+
 
 Type
-  AbastPAF2 = record
-    value: boolean;
-    total_dinheiro: currency;
-    total_litros: double;
-    PU: currency;
-    tempo: integer;
-    codbico: string[2];
-    numbico: integer;
-    numtanque: integer;
-    voltanque: integer;
-    codcombustivel: integer;
-    seriecbc: integer;
-    tipocbc: char;
-    datetime: TDatetime;
-    st_full: string[123];
-    registro: integer;
-    encerranteI: double;
-    encerranteF: double;
-    integridade: boolean;
-    checksum: boolean;
-    tag1: string[16];
-    tag2: string[16];
-  end;
+    AbastFid2=record
+        value           :boolean;
+        total_dinheiro  :currency;
+        total_litros    :double;
+        PU              :currency;
+        tempo           :string[8];
+        canal           :string[2];
+        data            :string[10];
+        hora            :string[5];
+        st_full         :string[87];
+        registro        :integer;
+        encerrante      :real;
+        integridade     :boolean;
+        checksum        :boolean;
+        tag             :string[16];
+        tag2            :string[16];
+        end;        
 
 Type
-  MemoryPointers = record
+    AbastPAF1=record
+        value           :boolean;
+        total_dinheiro  :currency;
+        total_litros    :double;
+        PU              :currency;
+        tempo           :string[8];
+        codbico         :string[2];
+        numbico         :integer;
+        numtanque       :integer;
+        voltanque       :integer;
+        codcombustivel  :integer;
+        seriecbc        :integer;
+        tipocbc         :char;
+        data            :string[10];
+        hora            :string[5];
+        st_full         :string[123];
+        registro        :integer;
+        encerranteI     :double;
+        encerranteF     :double;
+        integridade     :boolean;
+        checksum        :boolean;
+        tag1            :string[16];
+        tag2            :string[16];
+        end;
+
+Type
+    AbastPAF1XE=record
+        value           :boolean;
+        total_dinheiro  :currency;
+        total_litros    :double;
+        PU              :currency;
+        tempo           :widestring;
+        codbico         :widestring;
+        numbico         :integer;
+        numtanque       :integer;
+        voltanque       :integer;
+        codcombustivel  :integer;
+        seriecbc        :integer;
+        tipocbc         :widechar;
+        data            :widestring;
+        hora            :widestring;
+        st_full         :widestring;
+        registro        :integer;
+        encerranteI     :double;
+        encerranteF     :double;
+        integridade     :boolean;
+        checksum        :boolean;
+        tag1            :widestring;
+        tag2            :widestring;
+        end;
+
+Type
+    AbastPAF2=record
+        value           :boolean;
+        total_dinheiro  :currency;
+        total_litros    :double;
+        PU              :currency;
+        tempo           :integer;
+        codbico         :string[2];
+        numbico         :integer;
+        numtanque       :integer;
+        voltanque       :integer;
+        codcombustivel  :integer;
+        seriecbc        :integer;
+        tipocbc         :char;
+        datetime        :TDatetime;
+        st_full         :string[123];
+        registro        :integer;
+        encerranteI     :double;
+        encerranteF     :double;
+        integridade     :boolean;
+        checksum        :boolean;
+        tag1            :string[16];
+        tag2            :string[16];
+        end;
+
+//(a2G0000511800040000324212343E00070405114707110008770000555351000055502612345600987654000000000000000000000000000000000081)         
+//123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123
+//0        1         2         3         4         5         6         7         8         9         0         1      
+Type
+    Abast2PAF=record
+        value           :string[1];
+        total_dinheiro  :string[6];
+        total_litros    :string[6];
+        PU              :string[4];
+        tempo           :string[8];
+        codbico         :string[2];
+        numbico         :string[2];        
+        numtanque       :string[2];        
+        voltanque       :string[8];  
+        codcombustivel  :string[2]; 
+        seriecbc        :string[8]; 
+        tipocbc         :string[1];    
+        data            :string[10];
+        hora            :string[5];
+        st_full         :string[123];
+        registro        :string[6];
+        encerranteI     :string[10];
+        encerranteF     :string[10];              
+        integridade     :string[1];
+        checksum        :string[1];
+        tag1            :string[16];
+        tag2            :string[16];        
+        end;                
+
+Type
+    Abast2=record
+        value:string[1];
+        total_dinheiro:string[6];
+        total_litros:string[6];
+        PU:string[4];
+        tempo:string[8];
+        canal:string[2];
+        data:string[10];
+        hora:string[5];
+        st_full:string[55];
+        registro:string[4];
+        encerrante:string[10];
+        integridade:string[1];
+        checksum:string[1];
+        end;
+
+Type
+  MemoryPointers=record
     writePointer:string[4];
     readPointer:string[4];
   end;
+  
+Type
+    Abast3=record
+        value:string[1];
+        total_dinheiro:string[6];
+        total_litros:string[6];
+        PU:string[4];
+        tempo:string[8];
+        canal:string[2];
+        data:string[10];
+        hora:string[5];
+        st_full:string[75];
+        registro:string[4];
+        encerrante:string[10];
+        id:string[16];
+        integridade:string[1];
+        checksum:string[1];
+        end;
 
 Type
-  Abast2 = record
-    value: string[1];
-    total_dinheiro: string[6];
-    total_litros: string[6];
-    PU: string[4];
-    tempo: string[8];
-    canal: string[2];
-    data: string[10];
-    hora: string[5];
-    st_full: string[55];
-    registro: string[4];
-    encerrante: string[10];
-    integridade: string[1];
-    checksum: string[1];
-  end;
+    IFid=record
+        Value:boolean;
+        Codigo:string[16];
+        Endereco:string[2];
+        Dia:string[2];
+        Hora:string[2];
+        Minuto:string[2];
+        Mes:string[2];
+        Registro:integer;
+        Status:boolean;
+        StFull:string[37];
+        end;
 
 Type
-  Abast3 = record
-    value: string[1];
-    total_dinheiro: string[6];
-    total_litros: string[6];
-    PU: string[4];
-    tempo: string[8];
-    canal: string[2];
-    data: string[10];
-    hora: string[5];
-    st_full: string[75];
-    registro: string[4];
-    encerrante: string[10];
-    id: string[16];
-    integridade: string[1];
-    checksum: string[1];
-  end;
+    VBOnLine=record
+      bico:array [1..48] of string;
+      volume:array [1..48] of double;
+    end;
 
 Type
-  IFid = record
-    value: boolean;
-    Codigo: string[16];
-    Endereco: string[2];
-    Dia: string[2];
-    hora: string[2];
-    Minuto: string[2];
-    Mes: string[2];
-    registro: integer;
-    Status: boolean;
-    StFull: string[37];
-  end;
+    StFid=record
+        Status:string[32];
+        end;
+
+Type StStatus2=record
+    Posicao: array [1..48] of string[20];
+    end;
 
 Type
-  VBOnLine = record
-    bico: array [1 .. 48] of string;
-    volume: array [1 .. 48] of double;
-  end;
+    stPPL=record
+        Bico:string[2];
+        PPL:string[4];
+    end;
 
 Type
-  StFid = record
-    Status: string[32];
-  end;
+    PPLNivel=record
+      nivel0 : real;
+      nivel1 : real;
+      nivel2 : real;
+    end;
 
 Type
-  StStatus2 = record
-    Posicao: array [1 .. 48] of string[20];
-  end;
+    stEncerrante=record
+        Bico:string[2];
+        Encerrante:string[8];
+    end;
 
 Type
-  stPPL = record
-    bico: string[2];
-    PPL: string[4];
-  end;
-
-Type
-  PPLNivel = record
-    nivel0: real;
-    nivel1: real;
-    nivel2: real;
-  end;
-
-Type
-  stEncerrante = record
-    bico: string[2];
-    encerrante: string[8];
-  end;
+    stEncerrante2=record
+        Bico:string[2];
+        Encerrante:string[10];
+    end;
 
 type
-  visualizacao = record
-    StFull: string[250];
-  end;
+    visualizacao=record
+        stfull:string[250];
+    end;
 
 type
-  StStatus = record
-    value: string[100];
-  end;
+    StStatus=record
+        value:string[100];
+    end;
+type
+    Retorno=record
+        value:string[100];
+    end;
 
 type
-  Retorno = record
-    value: string[100];
-  end;
-
-type
-  Retorno2 = record
-    value: string[60];
-  end;
+    Retorno2=record
+        value:string[60];
+    end;
 
 Type
-  Virgula = record
-    ptotal: byte;
-    ppu: byte;
-    litragem: byte;
-  end;
-
+    Virgula=record
+        ptotal:byte;
+        ppu:byte;
+        litragem:byte;
+    end;
 type
-  info = record
-    titulo: string[20];
-    versao: string[5];
-    data: string[10];
-    autor: string[20];
-  end;
+    info=record
+        titulo:string[20];
+        versao:string[5];
+        data:string[10];
+        autor:string[20];
+    end;
+    Error       =(ErroString,None,ErroCodBico,ErroCaracterModo,ErroTimeout,ErroResposta);
+    StOptions   =(Livre,Pronta,Falha,Concluiu,Abastecendo,Bloqueada,SolicitaLib);
+    MultiStatus =record
+          Status:array [1..48] of StOptions;
+    end;
+    Online=record
+          Litragem: array [1..48] of real;
+          Bico: array [1..48] of string[2];
+    end;
+    Encerrante=record
+          Bico:string[2];
+          Valor:real;
+    end;
+    canal=record
+          canal: array [1..48] of byte;
+          PuAux: array [1..48] of double;
+    end;
 
-  Error = (ErroString, None, ErroCodBico, ErroCaracterModo, ErroTimeout,
-    ErroResposta);
-  StOptions = (Livre, Pronta, Falha, Concluiu, Abastecendo, Bloqueada,
-    SolicitaLib);
+    Enc=record
+        bico:string[2];
+        tipo:string[1];
+        valor:string[8];
+    end;
 
-  MultiStatus = record
-    Status: array [1 .. 48] of StOptions;
-  end;
+    Enc2=record
+        bico:string[2];
+        tipo:string[1];
+        valor:string[10];
+    end;
 
-  Online = record
-    litragem: array [1 .. 48] of real;
-    bico: array [1 .. 48] of string[2];
-  end;
-
-  encerrante = record
-    bico: string[2];
-    Valor: real;
-  end;
-
-  canal = record
-    canal: array [1 .. 48] of byte;
-    PuAux: array [1 .. 48] of double;
-  end;
-
-  Enc = record
-    bico: string[2];
-    tipo: string[1];
-    Valor: string[8];
-  end;
 
 {$IFNDEF COMPANYTEC}
-
-Function InicializaSocket(ip: ansistring): boolean; stdcall;
-Function InicializaSocket2(ip: ansistring; porta: integer): boolean; stdcall;
-Function C_GetSalePAF(): PAnsiChar; stdcall;
-Function NET_StopPump(bico: WideString): integer; stdcall;
-Function NET_AutoPump(bico: WideString): integer; stdcall;
-Function NET_FreePump(bico: WideString): integer; stdcall;
-Function NET_BlockPump(bico: WideString): integer; stdcall;
-Function C_ReadTagFid(idx: integer): pchar; stdcall;
-function C_BlockPump(bico: pchar): integer; stdcall;
-Function C_GetClock: PAnsiChar; stdcall;
-Function C_SetClock(par: ansistring): boolean; stdcall;
-function getclock: string; stdcall;
-Function GetIdentTag: shortstring; stdcall;
-function GetMemoryPointers:MemoryPointers; stdcall;
-Function LeEncerrante2(modo: pchar; bico: shortstring): shortstring; stdcall;
-function C_ReadTotalsCash2(bico: byte): pchar; stdcall;
-function C_ReadTotalsVolume3(bico: byte): pchar; stdcall;
-Function SendReceiveText(var st: PAnsiChar; timeout: integer): integer; stdcall;
-function TxRxSerial(comando: string; timeout: cardinal): pchar; stdcall;
-function GetVisualizacao: shortstring; stdcall;
-function GetVisualizacaoId: shortstring; stdcall;
-function Connected: boolean; stdcall;
-function GetEncerrante(bico: string; tipo: char): shortstring; stdcall;
-function GetRegistro(nreg: integer): shortstring; stdcall;
-Function saveTagFid(controle1, controle2: char;
-  tag, t1in, t1out, t2in, t2out: ansistring): integer; stdcall;
-function GetAbastecimento: shortstring; stdcall;
-function GetAbastecimentoIdent: shortstring; stdcall;
-function GetAbastecimento2Ident: shortstring; stdcall;
-Function InicializaSerial(np: byte): boolean; stdcall;
-Function AlteraPreco(bico: string; preco: double; decimais: byte)
-  : Error; stdcall;
-Function AlteraPrecoNivel(bico: ansistring; preco: double; decimais: byte;
-  nivel: integer): Error; stdcall;
-Function AlteraPrecoEstendidoNivel(bico:ansistring;preco:double;decimais:byte;nivel:integer):error; stdcall;
-Function SetPrice(bico: byte; preco: double; decimais: byte): Error; stdcall;
-Function AutoLibera(bico: string): Error; stdcall;
-Function AutorizaAbast(bico: string): Error; stdcall;
-Function BloqueiaBico(bico: string): Error; stdcall;
-Function CobAlteraPreco(a: shortstring): Error; stdcall;
-Procedure CobLeEnc(var a: Enc); stdcall;
-Function CobLePPL(var a: shortstring): Error; stdcall;
-Procedure CobLeStructSt(var ab: Abast2); stdcall;
-Procedure CobLeVis(var st: visualizacao); stdcall;
-Function CobPreset(a: shortstring): Error; stdcall;
-Function CobSetClock(par: shortstring): boolean; stdcall;
-Function Comunica: boolean; stdcall;
-Function ConsultaEncerrante(modo: AnsiChar; bico: string): encerrante; stdcall;
-Function EnviaComando(comando: string; timeout: cardinal): shortstring; stdcall;
-Procedure EscreveSocket(desc, comando: string); stdcall;
+Function LePPLNivel(bico:string; niveis: integer):PPLNivel; stdcall;
+Function C_ReadTagFid(idx: integer):pchar;stdcall;
+Function AlteraPrecoNivel(bico:string;preco:double;decimais:byte;nivel:integer):error; stdcall;
+Function AlteraPrecoEstendidoNivel(bico:string;preco:double;decimais:byte;nivel:integer):error; stdcall;
+Function LeAbastecimentoTWC:AbastTWC;stdcall;
+Function SendReceiveText(var st:PAnsiChar;timeout:integer):integer;stdcall;
+function TxRxSerial(comando:string;timeout:cardinal):PChar;stdcall;
+Function HRSReadTAG(indice:integer;var tag:ansistring; var level:integer):integer; stdcall;
+function GetVisualizacao:shortstring;stdcall;
+function GetVisualizacaoId:shortstring;stdcall;
+function Connected:boolean;stdcall;
+function GetEncerrante(bico:string;tipo:char):shortstring;stdcall;
+function GetRegistro(nreg:integer):shortstring;stdcall;
+Function saveTagFid(controle1,controle2:char;tag,t1in,t1out,t2in,t2out:string):integer; stdcall;
+function GetAbastecimento:shortstring;stdcall;
+function GetAbastecimentoIdent:shortstring;stdcall;
+function GetAbastecimento2Ident:shortstring;stdcall;
+Function InicializaSerial(np:byte): Boolean; stdcall;
+Function InicializaSocket(ip:ansistring): Boolean; stdcall;
+Function AlteraPreco(bico:string;preco:double;decimais:byte):error; stdcall;
+Function SetPrice(bico:byte;preco:double;decimais:byte):error; stdcall;
+Function AutoLibera(bico:string):Error; stdcall;
+Function AutorizaAbast(bico:string):Error; stdcall;
+Function BloqueiaBico(bico:string):Error; stdcall;
+Function CobAlteraPreco(a:ShortString):error; stdcall;
+Procedure CobLeEnc(var a:enc); stdcall;
+Function CobLePPL(var a:ShortString):error; stdcall;
+Procedure CobLeStructSt(var ab:abast2);stdcall;
+Procedure CobLeVis(var st:visualizacao);stdcall;
+Function CobPreset(a:ShortString):Error; stdcall;
+Function CobSetClock(par:ShortString):boolean; stdcall;
+Function Comunica:boolean; stdcall;
+Function ConsultaEncerrante(modo:char;bico:string):Encerrante;stdcall;
+Function EnviaComando(comando:string;timeout:cardinal):ShortString;stdcall;
+Procedure EscreveSocket(desc,comando:string);stdcall;
 Function FechaSerial: DWORD; stdcall;
 Function FechaSocket: boolean; stdcall;
 Function FechaSerialVB: boolean; stdcall;
-Function LeEvento(indice: integer): shortstring; stdcall;
-Function FidAciona(Endereco: string; minutos, segundos: byte): integer; stdcall;
-Function FidIdent: IFid; stdcall;
+Function LeEvento(indice:integer):shortString; stdcall;
+Function FidAciona(endereco:string;minutos,segundos:byte):integer; stdcall;
+Function FidIdent:IFid; stdcall;
 Procedure FidIncrementa; stdcall;
-Procedure C_IncrementIdf;stdcall;
-Function FidLeRegistro(nro: integer): shortstring; stdcall;
-Function FidModo(Endereco: string; option: char): integer; stdcall;
-Function FidSetClock(Dia, hora, Minuto: byte): integer; stdcall;
-Function FidStatus: StFid; stdcall;
+Function FidLeRegistro(nro:integer):ShortString; stdcall;
+Function FidModo(endereco:string;option:char):integer;stdcall;
+Function InicializaATCSocket(ip:pchar;porta:integer):Boolean; stdcall;
+Function FidSetClock(dia,hora,minuto:byte):integer;stdcall;
+Function FidStatus:StFid; stdcall;
 Procedure Incrementa; stdcall;
-Function InicializaLogSerial(np: byte; LogFile: string): boolean; stdcall;
-Function LeAbastecimento(): Abast; stdcall;
-Function LeAbastecimentoPAF1(): AbastPAF1; stdcall;
-Function LeAbastecimentoPAF2: AbastPAF2; stdcall;
-Function LeAbastecimentoTWC: AbastTWC; stdcall;
-Function LeAbFix(): Abast; stdcall;
-Function LePart(option: char): shortstring; stdcall;
-Function LePPL(bico: ansistring): real; stdcall;
-// Function LePPLNivel(bico:AnsiString; niveis: integer):AnsiString; stdcall;
-Function LePPLNivel(bico: ansistring; niveis: integer): PPLNivel; stdcall;
-Function LeRegistro(NumReg: integer): Abast; stdcall;
-Function LeRegistroFid(NumReg: integer): AbastFid; stdcall;
-procedure ConfigFid(canal, Endereco: integer); stdcall;
-procedure DesconfigFid(canal, Endereco: integer); stdcall;
-Function LeSocket(desc: string; timeout: cardinal): shortstring; stdcall;
-Function LeStatus(): MultiStatus; stdcall;
-Function LeStatusVB(): StStatus2; stdcall;
-Function LeSTEncerrante(modo: string; bico: string): shortstring; stdcall;
-Function LeStReduzida: shortstring; stdcall;
-Function LeStRegistro(NumReg: integer): shortstring; stdcall;
-Function LeStRegistroFid(NumReg: integer): shortstring; stdcall;
-Function LeAbastecimentoPAFReg(NumReg: integer): AbastPAF2; stdcall;
-Function LeStringAb(var resposta: shortstring): shortstring; stdcall;
-Function LeStringAbVB: shortstring; stdcall;
-Function LeStructEncerrante(modo: string; bico: string): stEncerrante; stdcall;
-Function LeStructPPL(bico: string): stPPL; stdcall;
-Procedure LeStructSt(var ab: Abast2); stdcall;
-Function LeStStatus: StStatus; stdcall;
-Function LeVisualizacao(): Online; stdcall;
-Procedure LimpaSerial; stdcall;
-Function ParaBomba(bico: string): Error; stdcall;
-Function LeStStatus2: shortstring; stdcall;
-Function PortOpen: boolean; stdcall;
-Function SocketOpen: boolean; stdcall;
-Function deleteTagFid(Posicao: integer; tag: string): integer; stdcall;
-Function Preset(bico:Byte; valor: PChar): ShortString; stdcall;
-Function ReadSerial(timeout: integer): shortstring; stdcall;
-Procedure RefAltPreco(bico: string; preco: double; decimais: byte;
-  var Status: Error); stdcall;
-Procedure RefAutoLibera(bico: string; var Status: Error); stdcall;
-Procedure RefAutorizaAbast(bico: string; var Status: Error); stdcall;
-Procedure RefBloqueiaBico(bico: string; var Status: Error); stdcall;
-Procedure RefEncerrante(bico: string; modo: char;
-  var value: shortstring); stdcall;
-Procedure RefLePPL(bico: string; var value: shortstring); stdcall;
-Procedure RefParaBomba(bico: string; var Status: Error); stdcall;
-Procedure RefPreset(bico: string; Valor: double; var Status: Error); stdcall;
-Function SetAlteraPreco(st: string): boolean; stdcall;
-Function SetAutoLibera(bico: string): boolean; stdcall;
-Function SetAutorizaAbast(bico: string): boolean; stdcall;
-Function SetBloqueiaBico(bico: string): boolean; stdcall;
-Function SetClock(par: string): boolean; stdcall;
-Function LeStatusFid(): MultiStatus; stdcall;
-Function SetIntClock(Dia, hora, Minuto: byte): boolean; stdcall;
-Function SetParaBomba(bico: string): boolean; stdcall;
-Function SetPreset(st: string): boolean; stdcall;
-Function STRefAltPreco(par: shortstring): integer; stdcall;
-Function STVisualizacao(var visualizacao: shortstring): shortstring; stdcall;
-Procedure VBLePPL(var inf: shortstring); stdcall;
-procedure VBSetAutoLibera(var bico: string); stdcall;
-procedure VBSetAutorizaAbast(var bico: string); stdcall;
-procedure VBSetBloqueiaBico(var bico: string); stdcall;
-Procedure VBSetPPL(var inf: string); stdcall;
-Procedure Ver(var versao: info); stdcall;
-Procedure WriteSerial(comando: string; len: integer); stdcall;
-Function LeAbastecimentoFid: AbastFid; stdcall;
-Function LeAbastecimentoFid2: AbastFid2; stdcall;
-Procedure CobLeStructIDSt(var ab: Abast3); stdcall;
-function readTagFid(indice: integer; var tag, controle, t1in, t1out, t2in,
-  t2out: string): integer; stdcall;
+Function InicializaLogSerial(np:byte;LogFile:string):boolean; stdcall;
+Function LeAbastecimento():abast; stdcall;
+Function LeAbastecimentoPAF1():abastPAF1; stdcall;
+Function LeAbastecimentoPAF2():abastPAF2; stdcall;
+Function LeAbastecimentoPAFReg(number:integer):AbastPAF2; stdcall;
+Function LeAbastecimentoPAF1Fix():abastPAF1; stdcall;
+Function LeAbFix():abast; stdcall;
+Function LePart(option:char):ShortString; stdcall;
+Function LePPL(bico:string):real; stdcall;
+Function LeRegistro(NumReg:integer):abast; stdcall;
+Function LeRegistroFid(NumReg:integer):abastFid; stdcall;
+procedure ConfigFid(canal,endereco:integer); stdcall;
+procedure DesconfigFid(canal,endereco:integer); stdcall;
+Function LeSocket(desc:string;timeout:cardinal):ShortString; stdcall;
+Function LeStatus():multistatus; stdcall;
+Function LeStatusVB():StStatus2; stdcall;
+Function LeSTEncerrante(modo:string;bico:string):ShortString; stdcall;
+Function LeStReduzida:ShortString; stdcall;
+Function LeStRegistro(NumReg:integer):ShortString; stdcall;
+Function LeStRegistroFid(NumReg:integer):ShortString; stdcall;
+Function LeStringAb(var resposta:shortstring):shortstring; stdcall;
+Function LeStringAbVB:ShortString; stdcall;
+Function LeStructEncerrante(modo:string;bico:string):stEncerrante; stdcall;
+Function LeStructPPL(bico:string):stPPL; stdcall;
+Procedure LeStructSt(var ab:abast2); stdcall;
+Function LeStStatus:StStatus; stdcall;
+Function LeVisualizacao():OnLine; stdcall;
+Procedure LimpaSerial;stdcall;
+Function ParaBomba(bico:string):Error; stdcall;
+Function LeStStatus2:ShortString; stdcall;
+Function PortOpen:boolean; stdcall;
+Function SocketOpen:boolean; stdcall;
+Function deleteTagFid(posicao:integer;tag:string):integer; stdcall;
+Function Preset(bico:Byte;valor:PChar):ShortString; stdcall;
+Function ReadSerial(timeout:integer):pchar; stdcall;
+Procedure RefAltPreco(bico:string;preco:double;decimais:byte;var status:error); stdcall;
+Procedure RefAutoLibera(bico:string;var status:error); stdcall;
+Procedure RefAutorizaAbast(bico:string;var status:error); stdcall;
+Procedure RefBloqueiaBico(bico:string;var status:error); stdcall;
+Procedure RefEncerrante(bico:string;modo:char;var value:ShortString);stdcall;
+Procedure RefLePPL(bico:string;var value:ShortString); stdcall;
+Procedure RefParaBomba(bico:string;var status:error); stdcall;
+Procedure RefPreset(bico:string;valor:double;var status:error); stdcall;
+Function SetAlteraPreco(st:string):boolean; stdcall;
+Function SetAutoLibera(bico:string):boolean; stdcall;
+Function SetAutorizaAbast(bico:string):boolean; stdcall;
+Function SetBloqueiaBico(bico:string):boolean; stdcall;
+Function SetClock(par:string):boolean; stdcall;
+Function LeStatusFid():multistatus; stdcall;
+Function SetIntClock(dia,hora,minuto:byte):boolean; stdcall;
+function SetExtendedWatch(ano,mes,dia,diaSemana,hora,minuto,segundo:string):Boolean;stdcall;export;
+Function SetParaBomba(bico:string):boolean; stdcall;
+Function SetPreset(st:string):boolean; stdcall;
+Function STRefAltPreco(par:ShortString):integer; stdcall;
+Function STVisualizacao(var visualizacao:ShortString):ShortString;stdcall;
+Procedure VBLePPL(var inf:shortstring);stdcall;
+procedure VBSetAutoLibera(var bico:string); stdcall;
+procedure VBSetAutorizaAbast(var bico:string); stdcall;
+procedure VBSetBloqueiaBico(var bico:string); stdcall;
+Procedure VBSetPPL(var inf:string);stdcall;
+Procedure Ver(var versao:info);stdcall;
+Procedure WriteSerial(comando:string;len:integer);stdcall;
+Function LeAbastecimentoFid:AbastFid;stdcall;
+Function LeAbastecimentoFid2:AbastFid2;stdcall;
+Procedure CobLeStructIDSt(var ab:abast3);stdcall;
+function readTagFid(indice:integer;var tag,controle,t1in,t1out,t2in,t2out:pchar):integer; stdcall;
+Function HRSSaveTAG(tag:pchar;level:integer):integer; stdcall; export;
 procedure clearTagFid; stdcall;
-procedure ShowTerminal; stdcall;
-Function LeAbFidFix: AbastFid; stdcall;
-Function LeAbFid2Fix: AbastFid2; stdcall;
-Procedure FidIncrementaAbast; stdcall;
-Function HRSReadTAG(indice: integer; var tag: ansistring; var level: integer)
-  : integer; stdcall;
-Function GetConsoleKey(): shortstring; stdcall;
-Function SetBlackList(modo: char; tag: ansistring): boolean; stdcall; export;
-Function PushBlackList(tag: PAnsiChar): boolean; stdcall; export;
-Function PopBlackList(tag: PAnsiChar): boolean; stdcall; export;
-Function ClearBlackList(): boolean; stdcall; export;
-Function PresetId(bico:Byte;tag:string;valpreset,tempo:integer):ShortString; stdcall; export;
-function patrickFunction(patrickString: String):ShortString;stdcall;export;
-function  presetIdf(bico: Byte; tag:AnsiString; frentista, autoriza, dinheiro: Boolean; valor: PChar; tempo: Integer):ShortString; stdcall; export;
-function PB_sendReceiveText(var st: WideString; timeout: Integer):Integer; stdcall; export;
-Function Preset2(bico:string;valor:double):Error; stdcall; export;
+procedure ShowTerminal;stdcall;
+Function LeAbFidFix:AbastFid; stdcall;
+Function LeAbFid2Fix:AbastFid2; stdcall;
+Procedure FidIncrementaAbast;stdcall;
+Function LeRegistro3(NumReg:integer):abastReg; stdcall;
+Function InicializaATCSerial(np:byte):Boolean; stdcall;
+function ATCInventoryReport(tank:integer;var inventory:TInventory):integer; stdcall;
+function XH_GetAbastecimento(var par:shortstring):integer;stdcall;
+function XH_GetAbastecimentoDuplaIdentif(var par:shortstring):integer;stdcall;
+Function GetConsoleKey:ShortString;stdcall;
+Function test111:string;stdcall;
+Function SetBlackList(modo:char;TAG:string):boolean;stdcall;
+Function PushBlackList(tag:pchar):boolean;stdcall;
+Function PopBlackList(tag:pchar):boolean;stdcall;
+Function ClearBlackList():boolean;stdcall;
+Function PresetId(bico,tag:string;cliente,libera:boolean;valpreset,tempo:integer):boolean; stdcall;
+function  presetIdf(bico: Byte; tag:AnsiString; frentista, autoriza, dinheiro: Boolean; valor: PChar; tempo: Integer):ShortString; stdcall;
+function PB_sendReceiveText(var st: WideString; timeout: Integer):Integer; stdcall;
+Function Preset2(bico:string;valor:double):Error; stdcall;
 Function C_SendReceiveText(comando:shortstring):shortstring;
-Function HRSGetSalePAF():PChar;
+Function HRSGetSalePAF():PChar; stdcall;
 function lerTagIdf(indice: Integer):ShortString; stdcall;
-function SetExtendedWatch(ano,mes,dia,diaSemana,hora,minuto,segundo:string):boolean;stdcall;
-
-
+function VB_SendReceiveText(var st:string;timeout:integer):string;stdcall;
+Function VB_OpenSocket(ip:string):integer;stdcall;
+function ConsultaPorta(): Integer;stdcall;
+function CobReadIdfOfMemory(idx: ShortString):ShortString; stdcall;
+procedure CobClearMemoryIdf; stdcall;
+Function CobSaveTagFid(control,tag:ShortString):ShortString;stdcall;
+Function CobDeleteTagIdf(control,position,tag:ShortString):ShortString; stdcall;
+Function CobPushIdfBlackList(tag:ShortString):integer;stdcall;
+Function CobPopIdfBlackList(tag:ShortString):integer;stdcall;
+Function CobClearIdfBlackList():integer;stdcall;
+function ConsultaCodigoVirgulaPPL(bico:string):integer;stdcall;
+// function XH_AbastDuplaIdentToFile(path:shortstring):integer;stdcall;
 {$ENDIF}
 
 implementation
 
 {$IFNDEF COMPANYTEC}
-Function C_ReadTagFid; external 'COMPANYTEC.DLL' name 'C_ReadTagFid';
-Function InicializaSocket2; external 'COMPANYTEC.DLL' name 'InicializaSocket2';
-Function C_GetSalePAF; external 'COMPANYTEC.DLL' name 'C_GetSalePAF';
-Function SetBlackList; external 'COMPANYTEC.DLL' name 'SetBlackList';
-Function PushBlackList; external 'COMPANYTEC.DLL' name 'PushBlackList';
-Function PopBlackList; external 'COMPANYTEC.DLL' name 'PopBlackList';
-Function ClearBlackList; external 'COMPANYTEC.DLL' name 'ClearBlackList';
-Function GetMemoryPointers; external 'COMPANYTEC.DLL' name 'GetMemoryPointers';
-Function GetConsoleKey; external 'COMPANYTEC.DLL' name 'GetConsoleKey';
-Function LeAbastecimentoTWC;
-  external 'COMPANYTEC.DLL' name 'LeAbastecimentoTWC';
-Function NET_StopPump; external 'COMPANYTEC.DLL' name 'NET_StopPump';
-Function NET_AutoPump; external 'COMPANYTEC.DLL' name 'NET_AutoPump';
-Function NET_FreePump; external 'COMPANYTEC.DLL' name 'NET_FreePump';
-Function NET_BlockPump; external 'COMPANYTEC.DLL' name 'NET_BlockPump';
-Function C_BlockPump; external 'COMPANYTEC.DLL' name 'C_BlockPump';
-Function C_GetClock; external 'COMPANYTEC.DLL' name 'C_GetClock';
-Function C_SetClock; external 'COMPANYTEC.DLL' name 'C_SetClock';
-Function getclock; external 'COMPANYTEC.DLL' name 'getclock';
-Function GetIdentTag; external 'COMPANYTEC.DLL' name 'GetIdentTag';
-Function LeEncerrante2; external 'COMPANYTEC.DLL' name 'LeEncerrante2';
-Function C_ReadTotalsCash2; external 'COMPANYTEC.DLL' name 'C_ReadTotalsCash2';
-Function C_ReadTotalsVolume3;
-  external 'COMPANYTEC.DLL' name 'C_ReadTotalsVolume3';
-Function HRSReadTAG; external 'COMPANYTEC.DLL' name 'HRSReadTAG';
-Procedure FidIncrementaAbast;
-  external 'COMPANYTEC.DLL' name 'FidIncrementaAbast';
+Function LePPLNivel;external 'COMPANYTEC.DLL' name 'LePPLNivel';
+Function SetBlackList;external 'COMPANYTEC.DLL' name 'SetBlackList';
+Function PushBlackList;external 'COMPANYTEC.DLL' name 'PushBlackList';
+Function PopBlackList;external 'COMPANYTEC.DLL' name 'PopBlackList';
+Function ClearBlackList;external 'COMPANYTEC.DLL' name 'ClearBlackList';
+Function test111;external  'COMPANYTEC.DLL' name 'test111' ;
+Function GetConsoleKey;external 'COMPANYTEC.DLL' name 'GetConsoleKey' ;
+Function C_ReadTagFid;external 'COMPANYTEC.DLL' name 'C_ReadTagFid' ;
+Function LeAbastecimentoTWC;external 'COMPANYTEC.DLL' name 'LeAbastecimentoTWC' ;
+Function InicializaATCSerial;external 'COMPANYTEC.DLL' name 'InicializaATCSerial';
+function ATCInventoryReport;external 'COMPANYTEC.DLL' name 'ATCInventoryReport';
+Function InicializaATCSocket;external 'COMPANYTEC.DLL' name 'InicializaATCSocket';
+Function AlteraPrecoNivel;external 'COMPANYTEC.DLL' name 'AlteraPrecoNivel';
+Function AlteraPrecoEstendidoNivel;external 'COMPANYTEC.DLL' name 'AlteraPrecoEstendidoNivel';
+Procedure FidIncrementaAbast;external 'COMPANYTEC.DLL' name 'FidIncrementaAbast';
 function Connected; external 'COMPANYTEC.DLL' name 'Connected';
-procedure clearTagFid; external 'COMPANYTEC.DLL' name 'clearTagFid';
-function TxRxSerial; external 'COMPANYTEC.DLL' name 'TxRxSerial';
-procedure ConfigFid; external 'COMPANYTEC.DLL' name 'ConfigFid';
-procedure DesconfigFid; external 'COMPANYTEC.DLL' name 'DesconfigFid';
-function readTagFid; external 'COMPANYTEC.DLL' name 'readTagFid';
+procedure clearTagFid;external 'COMPANYTEC.DLL' name 'clearTagFid';
+function TxRxSerial;external 'COMPANYTEC.DLL' name 'TxRxSerial';
+procedure ConfigFid;external 'COMPANYTEC.DLL' name 'ConfigFid';
+procedure DesconfigFid;external 'COMPANYTEC.DLL' name 'DesconfigFid';
+function readTagFid;external 'COMPANYTEC.DLL' name 'readTagFid';
 Function SendReceiveText; external 'COMPANYTEC.DLL' name 'SendReceiveText';
 procedure ShowTerminal; external 'COMPANYTEC.DLL' name 'ShowTerminal';
 Function InicializaSerial; external 'COMPANYTEC.DLL' name 'InicializaSerial';
 Function InicializaSocket; external 'COMPANYTEC.DLL' name 'InicializaSocket';
 Function AlteraPreco; external 'COMPANYTEC.DLL' name 'AlteraPreco';
-Function AlteraPrecoNivel; external 'COMPANYTEC.DLL' name 'AlteraPrecoNivel';
-Function AlteraPrecoEstendidoNivel; external 'COMPANYTEC.DLL' name 'AlteraPrecoEstendidoNivel';
-Function LeAbastecimentoFid;
-  external 'COMPANYTEC.DLL' name 'LeAbastecimentoFid';
-Function LeAbastecimentoFid2;
-  external 'COMPANYTEC.DLL' name 'LeAbastecimentoFid2';
+Function LeAbastecimentoFid; external 'COMPANYTEC.DLL' name 'LeAbastecimentoFid';
+Function LeAbastecimentoFid2; external 'COMPANYTEC.DLL' name 'LeAbastecimentoFid2';
 Function LeStatus; external 'COMPANYTEC.DLL' name 'LeStatus';
 Function saveTagFid; external 'COMPANYTEC.DLL' name 'saveTagFid';
 Function AutoLibera; external 'COMPANYTEC.DLL' name 'AutoLibera';
@@ -545,8 +644,7 @@ Function CobPreset; external 'COMPANYTEC.DLL' name 'CobPreset';
 Function CobSetClock; external 'COMPANYTEC.DLL' name 'CobSetClock';
 Function Comunica; external 'COMPANYTEC.DLL' name 'Comunica';
 Procedure CobLeStructIDSt; external 'COMPANYTEC.DLL' name 'CobLeStructIDSt';
-Function ConsultaEncerrante;
-  external 'COMPANYTEC.DLL' name 'ConsultaEncerrante';
+Function ConsultaEncerrante; external 'COMPANYTEC.DLL' name 'ConsultaEncerrante';
 Function EnviaComando; external 'COMPANYTEC.DLL' name 'EnviaComando';
 Procedure EscreveSerial; external 'COMPANYTEC.DLL' name 'EscreveSerial';
 Procedure EscreveSocket; external 'COMPANYTEC.DLL' name 'EscreveSocket';
@@ -555,31 +653,28 @@ Function FechaSocket; external 'COMPANYTEC.DLL' name 'FechaSocket';
 Function FechaSerialVB; external 'COMPANYTEC.DLL' name 'FechaSerialVB';
 Function LeEvento; external 'COMPANYTEC.DLL' name 'LeEvento';
 Function FidAciona; external 'COMPANYTEC.DLL' name 'FidAciona';
-Function FidIdent: IFid; external 'COMPANYTEC.DLL' name 'FidIdent';
-Function LeStStatus2: shortstring; external 'COMPANYTEC.DLL' name 'LeStStatus2';
+Function FidIdent:IFid; external 'COMPANYTEC.DLL' name 'FidIdent';
+Function LeStStatus2:ShortString; external 'COMPANYTEC.DLL' name 'LeStStatus2';
 Procedure FidIncrementa; external 'COMPANYTEC.DLL' name 'FidIncrementa';
-Procedure C_IncrementIdf; external 'COMPANYTEC.DLL' name 'C_IncrementIdf';
 Function FidLeRegistro; external 'COMPANYTEC.DLL' name 'FidLeRegistro';
 Function FidModo; external 'COMPANYTEC.DLL' name 'FidModo';
 Function SetPrice; external 'COMPANYTEC.DLL' name 'SetPrice';
 Function FidSetClock; external 'COMPANYTEC.DLL' name 'FidSetClock';
 Function FidStatus; external 'COMPANYTEC.DLL' name 'FidStatus';
+Function HRSReadTAG;external 'COMPANYTEC.DLL' name 'HRSReadTAG';
+Function HRSSaveTAG;external 'COMPANYTEC.DLL' name 'HRSSaveTAG';
 Procedure Incrementa; external 'COMPANYTEC.DLL' name 'Incrementa';
-Function InicializaLogSerial;
-  external 'COMPANYTEC.DLL' name 'InicializaLogSerial';
+Function InicializaLogSerial; external 'COMPANYTEC.DLL' name 'InicializaLogSerial';
 Function LeAbastecimento; external 'COMPANYTEC.DLL' name 'LeAbastecimento';
-Function LeAbastecimentoPAF1;
-  external 'COMPANYTEC.DLL' name 'LeAbastecimentoPAF1';
-Function LeAbastecimentoPAF2;
-  external 'COMPANYTEC.DLL' name 'LeAbastecimentoPAF2';
+Function LeAbastecimentoPAF1; external 'COMPANYTEC.DLL' name 'LeAbastecimentoPAF1';
+Function LeAbastecimentoPAF2; external 'COMPANYTEC.DLL' name 'LeAbastecimentoPAF2';
+Function LeAbastecimentoPAFReg; external 'COMPANYTEC.DLL' name 'LeAbastecimentoPAFReg';
+Function LeAbastecimentoPAF1Fix; external 'COMPANYTEC.DLL' name 'LeAbastecimentoPAF1Fix';
 Function LeAbFix; external 'COMPANYTEC.DLL' name 'LeAbFix';
 Function LePart; external 'COMPANYTEC.DLL' name 'LePart';
 Function LePPL; external 'COMPANYTEC.DLL' name 'LePPL';
-Function LePPLNivel; external 'COMPANYTEC.DLL' name 'LePPLNivel';
 Function LeRegistro; external 'COMPANYTEC.DLL' name 'LeRegistro';
 Function LeRegistroFid; external 'COMPANYTEC.DLL' name 'LeRegistroFid';
-Function LeAbastecimentoPAFReg;
-  external 'COMPANYTEC.DLL' name 'LeAbastecimentoPAFReg';
 Function LeSocket; external 'COMPANYTEC.DLL' name 'LeSocket';
 Function LeStatusVB; external 'COMPANYTEC.DLL' name 'LeStatusVB';
 Function LeSTEncerrante; external 'COMPANYTEC.DLL' name 'LeSTEncerrante';
@@ -589,8 +684,7 @@ Function LeStRegistroFid; external 'COMPANYTEC.DLL' name 'LeStRegistroFid';
 Function LeStringAb; external 'COMPANYTEC.DLL' name 'LeStringAb';
 Function LeStringAbVB; external 'COMPANYTEC.DLL' name 'LeStringAbVB';
 Function LeStatusFid; external 'COMPANYTEC.DLL' name 'LeStatusFid';
-Function LeStructEncerrante;
-  external 'COMPANYTEC.DLL' name 'LeStructEncerrante';
+Function LeStructEncerrante; external 'COMPANYTEC.DLL' name 'LeStructEncerrante';
 Function LeStructPPL; external 'COMPANYTEC.DLL' name 'LeStructPPL';
 Procedure LeStructSt; external 'COMPANYTEC.DLL' name 'LeStructSt';
 Function LeStStatus; external 'COMPANYTEC.DLL' name 'LeStStatus';
@@ -615,39 +709,52 @@ Function SetAutorizaAbast; external 'COMPANYTEC.DLL' name 'SetAutorizaAbast';
 Function SetBloqueiaBico; external 'COMPANYTEC.DLL' name 'SetBloqueiaBico';
 Function SetClock; external 'COMPANYTEC.DLL' name 'SetClock';
 Function SetIntClock; external 'COMPANYTEC.DLL' name 'SetIntClock';
+Function SetExtendedWatch; external 'COMPANYTEC.DLL' name 'SetExtendedWatch';
 Function SetParaBomba; external 'COMPANYTEC.DLL' name 'SetParaBomba';
 Function SetPreset; external 'COMPANYTEC.DLL' name 'SetPreset';
 Function STRefAltPreco; external 'COMPANYTEC.DLL' name 'STRefAltPreco';
 Function STVisualizacao; external 'COMPANYTEC.DLL' name 'STVisualizacao';
 Procedure VBLePPL; external 'COMPANYTEC.DLL' name 'VBLePPL';
 procedure VBSetAutoLibera; external 'COMPANYTEC.DLL' name 'VBSetAutoLibera';
-procedure VBSetAutorizaAbast;
-  external 'COMPANYTEC.DLL' name 'VBSetAutorizaAbast';
+procedure VBSetAutorizaAbast; external 'COMPANYTEC.DLL' name 'VBSetAutorizaAbast';
 procedure VBSetBloqueiaBico; external 'COMPANYTEC.DLL' name 'VBSetBloqueiaBico';
 Procedure VBSetPPL; external 'COMPANYTEC.DLL' name 'VBSetPPL';
 Procedure Ver; external 'COMPANYTEC.DLL' name 'Ver';
 Procedure WriteSerial; external 'COMPANYTEC.DLL' name 'WriteSerial';
-function GetAbastecimento; external 'COMPANYTEC.DLL' name 'GetAbastecimento';
-function GetAbastecimentoIdent;
-  external 'COMPANYTEC.DLL' name 'GetAbastecimentoIdent';
-function GetAbastecimento2Ident;
-  external 'COMPANYTEC.DLL' name 'GetAbastecimento2Ident';
-function GetEncerrante; external 'companytec.dll' name 'GetEncerrante';
-function GetRegistro; external 'companytec.dll' name 'GetRegistro';
-function deleteTagFid; external 'companytec.dll' name 'deleteTagFid';
-function GetVisualizacao; external 'companytec.dll' name 'GetVisualizacao';
-function GetVisualizacaoId; external 'companytec.dll' name 'GetVisualizacaoId';
+function GetAbastecimento;external 'COMPANYTEC.DLL' name 'GetAbastecimento';
+function GetAbastecimentoIdent;external 'COMPANYTEC.DLL' name 'GetAbastecimentoIdent';
+function GetAbastecimento2Ident;external 'COMPANYTEC.DLL' name 'GetAbastecimento2Ident';
+function GetEncerrante;external 'companytec.dll' name 'GetEncerrante';
+function GetRegistro;external 'companytec.dll' name 'GetRegistro';
+function deleteTagFid;external 'companytec.dll' name 'deleteTagFid';
+function GetVisualizacao;external 'companytec.dll' name 'GetVisualizacao';
+function GetVisualizacaoId;external 'companytec.dll' name 'GetVisualizacaoId';
 Function LeAbFidFix; external 'companytec.dll' name 'LeAbFidFix';
 Function LeAbFid2Fix; external 'companytec.dll' name 'LeAbFid2Fix';
-function PresetId; external 'companytec.dll' name 'presetId';
-function patrickFunction; external 'companytec.dll' name 'patrickFunction';
+Function LeRegistro3; external 'companytec.dll' name 'LeRegistro3';
+function XH_GetAbastecimento; external 'companytec.dll' name 'XH_GetAbastecimento';
+function XH_GetAbastecimentoDuplaIdentif; external 'companytec.dll' name 'XH_GetAbastecimentoDuplaIdentif';
+function PresetId; external 'companytec.dll' name 'PresetId';
 function presetIdf; external 'companytec.dll' name 'presetIdf';
 function PB_sendReceiveText; external 'companytec.dll' name 'PB_sendReceiveText';
 function preset; external 'companytec.dll' name 'Preset';
 Function C_SendReceiveText; external 'companytec.dll' name 'C_SendReceiveText';
-function HRSGetSalePAF; external 'companytec.dll'name 'HRSGetSalePAF';
+function HRSGetSalePAF; external 'companytec.dll' name 'HRSGetSalePAF';
 function lerTagIdf; external 'companytec.dll' name 'lerTagIdf';
-function SetExtendedWatch; external 'companytec.dll' name 'SetExtendedWatch';
+function VB_SendReceiveText; external 'companytec.dll' name 'VB_SendReceiveText';
+function VB_OpenSocket; external 'companytec.dll' name 'VB_OpenSocket';
+function ConsultaPorta; external 'companytec.dll' name 'ConsultaPorta';
+function CobReadIdfOfMemory; external 'companytec.dll' name 'CobReadIdfOfMemory';
+procedure CobClearMemoryIdf; external 'companytec.dll' name 'CobClearMemoryIdf';
+function CobSaveTagFid; external 'companytec.dll' name 'CobSaveTagFid';
+function CobDeleteTagIdf; external 'companytec.dll' name 'CobDeleteTagIdf';
+function CobPushIdfBlackList; external 'companytec.dll' name 'CobPushIdfBlackList';
+function CobPopIdfBlackList; external 'companytec.dll' name 'CobPopIdfBlackList';
+function CobClearIdfBlackList; external 'companytec.dll' name 'CobClearIdfBlackList';
+function ConsultaCodigoVirgulaPPL; external 'companytec.dll' name 'ConsultaCodigoVirgulaPPL';
+//function VB_SetPrice; external 'companytec.dll' name 'VB_SetPrice';
+//function XH_AbastDuplaIdentToFile; external 'companytec.dll' name 'XH_AbastDuplaIdentToFile';
 {$ENDIF}
 
 end.
+

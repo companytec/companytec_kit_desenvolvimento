@@ -134,3 +134,7 @@ Este arquivo contém todas as datas e descrições das atualizações realizadas
 ```
 - Atualizado simulador CBC para a versão 2.3.5. Corrigido problemas nos comandos de leitura de registro (LR) e leitura de registro paf (LC).
 ```
+### Versão 1.1.26 - 01/08/2022:
+```
+- Implementado comando para leitura de casas decimais do preço por litro na DLL e implementado comando no software de teste da DLL.
+```

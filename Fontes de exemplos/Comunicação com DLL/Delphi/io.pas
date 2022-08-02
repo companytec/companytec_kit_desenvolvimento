@@ -1,0 +1,834 @@
+unit io;
+
+
+
+interface
+  Function CreateSocket:boolean;
+  Function CreateSerial:boolean;
+  Function CreateATCSerial:boolean;
+  procedure DestroySerial;
+  procedure DestroyATCSerial;  
+  procedure DestroySocket;
+  Function ReceiveSocketText(desc:string;timeout:integer):string;
+  function writeATCSocket(st:string):string;
+  Function ReceiveSerialText(desc:string;timeout:cardinal):string;stdcall;export;
+  Function SendText(desc,comando:string):boolean;
+  Function ReceiveText(desc:string;timeout:integer):string;
+  Function Get(desc,comando:string;timeout:integer):string;
+  function GetArq(desc,comando:string;timeout:integer):string;
+  Function ioPortOpen:boolean;
+  Function ioSocketOpen:boolean;
+  Function OpenSocket(ip:string):boolean;
+  Function OpenSocket2(ip:string;port:integer):boolean;
+  function OpenSocketATC(ip:string;port:integer):boolean;
+  Function OpenSerial(np:byte):boolean;
+  Function OpenATCSerial(np:byte):boolean;
+  Function CloseSocket:boolean;
+  Function CloseSerial:boolean;
+  Function Alive:boolean;
+  Function CreateLogFile(path:string):boolean;
+  Function PutLogFile(st:string):boolean;
+  Procedure ClearBuffer;
+  function ioConnected:boolean;
+  function StrToPChar(p:pointer;s:string):PChar;
+  function PCharToStr(pS:PChar):string;
+  function writeATCSerial(st:String):string;
+  function ATCSerialIsConnected:boolean;
+  function ATCSocketIsConnected:boolean;
+  function ATCSendReceiveText(comando:string):string;
+  function ReadATCSerial:string;
+  function HRSMontaComando(indice: integer; parametros: string): string;
+  function ParseRtaCode(resposta : string; msgbox : boolean) : string;
+
+const
+  NUL_PATTERN       :string  = char(#$AA) + char(#$55) + char(#$AA);
+
+implementation
+
+uses
+  cport,
+  windows,
+  SysUtils,
+  dialogs,
+  ScktComp;
+
+var
+  Serial      :TComport;
+  ATCSerial   :TComport;
+  TCP         :TClientSocket;
+  ATCSCKT     :TClientSocket;
+  LogFile     :string='c:\dll_monit.log';
+  F:textfile;
+
+//------------------------------------------------------------------------------------------------------------
+function ATCSerialIsConnected:boolean;
+begin
+  result:=ATCSerial.Connected;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+function ioConnected:boolean;
+begin
+  result:=Serial.Connected or tcp.Socket.Connected;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+function ATCConnected:boolean;
+begin
+  result:=ATCSerial.Connected or ATCSCKT.Socket.Connected;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+function ATCSocketIsConnected:boolean;
+begin
+  if ATCSCKT<>nil then
+    result:=ATCSCKT.Socket.Connected
+  else
+    result:=false;
+end;
+
+
+
+//------------------------------------------------------------------------------------------------------------
+Function CreateLogFile(path:string):boolean;
+var a:integer;
+begin
+a:=filecreate(path);
+if a<>-1 then
+  begin
+  fileclose(a);
+  LogFile:=path;
+  result:=true;
+  end
+else
+  result:=false;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+Function PutLogFile(st:string):boolean;
+var tempo:string;
+begin
+try
+  if LogFile<>'' then
+    begin
+    assignfile(F,LogFile);
+    append(F);
+    tempo:=formatdatetime('hh:mm:ss',now);
+    writeln(F,tempo + ' : ' + st);
+    CloseFile(F);
+    result:=true;
+    end
+  else
+    result:=false;
+except
+  result:=false;
+end;      
+result:=true;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+Function CreateSocket:boolean;
+begin
+try
+  TCP := TClientSocket.Create(nil);
+  TCP.FreeOnRelease;
+  TCP.ClientType := ctBlocking;
+  result := true;
+except
+  result := false;
+end;
+end;
+
+
+//------------------------------------------------------------------------------------------------------------
+Function CreateSocketATC:boolean;
+begin
+try
+  ATCSCKT := TClientSocket.Create(nil);
+  ATCSCKT.FreeOnRelease;
+  ATCSCKT.ClientType := ctBlocking;
+  result := true;
+except
+  result := false;
+end;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+Function CreateSerial:boolean;
+begin
+  try
+    serial:=tcomport.Create(nil);
+    serial.FreeOnRelease;
+    result:=true;
+  except
+    result:=false;
+  end;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+Function CreateATCSerial:boolean;
+begin
+  try
+    ATCserial:=tcomport.Create(nil);
+    ATCserial.FreeOnRelease;
+    result:=true;
+  except
+    result:=false;
+  end;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+Function Alive:boolean;
+var SerialNumber:string;
+begin
+  SerialNumber:=Get('SerialNumber','(&T99N3A)',1000);
+  result:=(SerialNumber<>'') and (SerialNumber<>'DESCONECTADO') and (SerialNumber<>'FALHA ENVIO') and (SerialNumber<>'FALHA');
+end;
+
+//------------------------------------------------------------------------------------------------------------
+Function CloseSerial:boolean;
+begin
+  try
+    serial.Close;
+  finally
+    result:=serial.Connected;
+  end;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function CloseATCSerial:boolean;
+begin
+  ATCserial.Close;
+  result := ATCSerial.Connected;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function CloseSocket:boolean;
+begin
+  TCP.Active := false;
+  result := not TCP.Socket.Connected;
+end;
+
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function OpenSocket(ip:string):boolean;
+begin
+  try
+    TCP.Active := false;
+    TCP.Host := ip;
+    TCP.Port := 1771;
+    TCP.ClientType := ctBlocking;
+    TCP.Active := true;
+  except //on E : Exception do
+//    ShowMessage(E.ClassName + ' razão do erro, messagem : ' + E.Message);
+    result := false;
+  end;
+    result := TCP.Active;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function OpenSocket2(ip:string;port:integer):boolean;
+begin
+  try
+    TCP.Active := false;
+    TCP.Host := ip;
+    TCP.Port := port;
+    TCP.ClientType := ctBlocking;
+    TCP.Active := true;
+  finally
+    result := TCP.Active;
+  end;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function OpenSocketATC(ip:string;port:integer):boolean;
+begin
+  try
+    if ATCSCKT=nil then ATCSCKT:=TClientSocket.Create(nil);
+    if ATCSCKT<>nil then
+      begin
+      try
+        ATCSCKT.Active:=false;
+        ATCSCKT.Host:=ip;
+        ATCSCKT.Port:=port;
+        ATCSCKT.ClientType:=ctBlocking;
+        ATCSCKT.Active:=true;
+      except
+        result:=false;
+      end;
+      end
+    else
+      result:=false;
+  except
+    result:=false;
+  end;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function OpenSerial(np:byte):boolean;
+begin
+  try
+      serial.Port:='COM' + inttostr(np);
+      serial.CustomBaudRate:=9600;
+      serial.Open;
+      serial.SetDTR(true);
+      serial.SetRTS(false);
+      result:=serial.Connected;
+  except
+      result:=false;
+  end;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function OpenATCSerial(np:byte):boolean;
+begin
+try
+    ATCserial.Port:='COM' + inttostr(np);
+    ATCserial.CustomBaudRate:=9600;
+    ATCserial.Open;
+    ATCserial.SetDTR(true);
+    ATCserial.SetRTS(false);
+    result:=ATCSerial.Connected;
+except
+    result:=false;
+end;
+end;
+
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function ReceiveSocketText(desc:string;timeout:integer):string;
+var //bufferRX:array [1..100] of char;
+    resposta:string;
+    lenRX,tentativas:integer;//a
+begin
+resposta:='';
+lenRX:=TCP.Socket.ReceiveLength;
+tentativas:=0;
+while (lenRX=0) and (tentativas<10) do
+    begin
+    sleep(timeout div 10);
+    inc(tentativas);
+    lenRX:=TCP.Socket.ReceiveLength;
+    end;
+if lenRX=0 then
+    resposta:='SEM RESPOSTA'
+else
+    resposta:=TCP.Socket.ReceiveText;
+result:=resposta;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+
+Function ReceiveSocketArq(desc:string; timeout:integer):string;
+var
+    //bufferRX:array [1..100] of char;
+    resposta:string;
+    str : string;
+    lenRX,tentativas:integer;//a
+
+begin
+    resposta:='';
+    messagedlg( 'dentro metod receive ' ,mterror,[mbok],0);
+    lenRX:=TCP.Socket.ReceiveLength;
+    messagedlg(IntToStr( lenRX) ,mterror,[mbok],0);
+    resposta := TCP.Socket.ReceiveText;
+    messagedlg( resposta ,mterror,[mbok],0);
+    tentativas:=0;
+
+    while (lenRX=0) and (tentativas<20) do
+    begin
+        sleep(timeout div 10);
+        inc(tentativas);
+        lenRX:=TCP.Socket.ReceiveLength;
+
+        if(lenRX <> 0 ) then
+        begin
+            tentativas := 0;
+            str:= TCP.Socket.ReceiveText;
+            messagedlg( str ,mterror,[mbok],0);
+            resposta := resposta + str;
+
+        end;
+    end;
+
+
+end;
+
+
+
+
+
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function ReceiveATCSocketText(desc:string;timeout:integer):string;
+var //bufferRX:array [1..100] of char;
+    resposta:string;
+    lenRX,tentativas:integer;//a
+begin
+resposta:='';
+lenRX:=ATCSCKT.Socket.ReceiveLength;
+tentativas:=0;
+while (lenRX=0) and (tentativas<10) do
+    begin
+    sleep(timeout div 10);
+    inc(tentativas);
+    lenRX:=ATCSCKT.Socket.ReceiveLength;
+    end;
+if lenRX=0 then
+    resposta:='SEM RESPOSTA'
+else
+    resposta:=ATCSCKT.Socket.ReceiveText;
+result:=resposta;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função ReceiveSerialText                                                                                  -
+// Entrada: tempo máximo de espera (timeout)                                                                 -
+// Saída: string lida da serial                                                                              -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function ReceiveSerialText(desc:string;timeout:cardinal):string;stdcall;export;
+var rec,resposta:string;
+    stop:single;
+    a:integer;
+begin
+result:='';
+if serial.Connected then
+    begin
+    stop:=gettickcount+timeout;
+    while gettickcount<stop do
+        begin
+        Serial.ReadStr(rec,Serial.InputCount);
+        resposta:=resposta+rec;
+        for a:=length(resposta) downto 1 do
+          begin
+          if resposta[a]=')' then
+            begin
+            result:=resposta;
+            exit;
+            end;
+          end;
+        end;
+    end
+else
+    result:='';
+end;
+
+//------------------------------------------------------------------------------------------------------------
+function EscLog(ent:string):boolean;
+var F: textfile;
+    a: integer;
+    arquivo: string;
+begin
+result:=false;
+arquivo:='dllcompanytec' + formatdatetime('ddmm-hh',now)+'.log';
+ent:=formatdatetime('hh:nn:ss:zzz',now)+ ' - ' + ent;
+if fileexists(arquivo) then
+    begin
+    assignfile(F, arquivo);
+    append(F);
+    writeln(f,ent);
+    result:=true;
+    CloseFile(F);
+    end
+ else
+    begin
+    a:=filecreate(arquivo);
+    if a<>-1 then
+        begin
+        fileclose(a);
+        assignfile(F, arquivo);
+        append(F);
+        writeln(f,ent);
+        result:=true;
+        CloseFile(F);
+        end;
+    end;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function SendText(desc,comando:string):boolean;
+var bSended:integer;
+begin
+try
+  ClearBuffer;
+  if (fileexists('debugdll.log')) then esclog('TX: ' + comando + ' - ' + desc);
+     //esclog('TX: ' + comando + ' - ' + desc);
+  if TCP.socket.Connected then
+    bSended:=TCP.Socket.SendText(comando)
+  else if Serial.Connected then
+    bSended:=Serial.WriteStr(comando)
+  else
+    bSended:=-1;
+  result:=bSended=length(comando);
+except
+  result:=false;
+end;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+Function ReceiveText(desc:string;timeout:integer):string;
+begin
+try
+  if TCP.socket.Connected then
+    result:=ReceiveSocketText(desc,timeout)
+  else if Serial.Connected then
+    result:=ReceiveSerialText(desc,timeout);
+except
+  result:='';
+end;
+end;
+
+
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+function Get(desc,comando:string;timeout:integer):string;
+var resposta:string;
+begin
+  try
+  if comando<>'' then
+  begin
+  //ClearBuffer;
+  //ShowMessage(comando + '  : ' + IntToStr(timeout));
+  if SendText(desc,comando) then
+    begin
+    if TCP.socket.Connected then
+      resposta:=ReceiveSocketText(desc,timeout)
+    else if Serial.Connected then
+      resposta:=ReceiveSerialText(desc,timeout)
+    else
+      resposta:='DESCONECTADO';
+    end
+  else
+    resposta:='FALHA';
+  end
+  else
+  begin
+  if TCP.socket.Connected then
+    resposta:=ReceiveSocketText(desc,timeout)
+  else if Serial.Connected then
+    resposta:=ReceiveSerialText(desc,timeout)
+  else
+    resposta:='DESCONECTADO';
+  end;
+  if (fileexists('debugdll.log')) then esclog('RX: ' + resposta + ' - ' + desc);
+      //esclog('RX: ' + resposta + ' - ' + desc);
+  result:=resposta;
+except
+  result:='FALHA';
+end;
+end;
+
+//--------------------------------------------------------------------------------------------------
+
+
+function GetArq(desc,comando:string;timeout:integer):string;
+var
+   resposta:string;
+begin
+
+  if comando <> '' then
+  begin
+  if SendText(desc,comando) then
+  begin
+       if TCP.socket.Connected then
+       begin
+          messagedlg( 'METODO GETARQ' ,mterror,[mbok],0);
+          resposta:= ReceiveSocketArq(desc,timeout);
+          messagedlg( 'METODO receive depois da chamada' ,mterror,[mbok],0);
+
+       end;
+  end
+  else
+  begin
+       result:= 'Erro NO ENVIO';
+
+  end;
+  end
+  else
+  begin
+      result:= 'Erro COMANDO VAZIO';
+
+  end;
+
+result:= resposta;
+end;
+
+
+
+
+//--------------------------------------------------------------------------------------------------
+function ParseRtaCode(resposta : string; msgbox : boolean) : string;
+begin
+if length(resposta) >= 10 then
+   begin
+   case resposta[ 9 ] of
+   'E' : result := resposta[ 10 ];
+   '0' : result := 'COMANDO OK';
+   end;
+   end
+else
+   begin
+   result := 'ERRO RESPOSTA';
+   end;
+end;
+
+
+{Function HRSAdicionaCheck(st:string):string;
+var a:byte;
+    acumulador:byte;
+    stout:string;
+begin
+acumulador:=0;
+for a:=1 to length(st) do
+    if (st[a]<>'(') and (st[a]<>')') then acumulador:=acumulador + ord(st[a]);
+stout:='';
+for a:=1 to length(st) do
+    if (st[a]<>'(') and (st[a]<>')') then stout:=stout + st[a];
+result:='(' + stout + inttohex(acumulador,2) + ')';
+end;}
+
+//--------------------------------------------------------------------------------------------------
+//>!NNNN__
+function HRSadicionaCheck(st : string) : string;
+var check : byte; a : integer; stcheck : string;
+begin
+check := 0;
+for a := 2 to length(st) do
+   check := check + ord(st[ a ]);
+stcheck := st + inttohex(check, 2);
+result := stcheck;
+end;
+
+// --------------------------------------------------------------------------------------------------
+function HRSMontaComando(indice: integer; parametros: string): string;
+var
+  stIndice: string[2];
+  countBytes: integer;
+  comando: string;
+begin
+  try
+    countBytes := length(parametros) + 2;
+    stIndice := inttohex(indice, 2);
+    comando := HRSAdicionaCheck('>?' + inttohex(countBytes, 4) + stIndice +
+      parametros);
+    result := comando;
+  except
+    result := '';
+  end;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Procedimento ClearBuffer                                                                                  -
+// Entrada: none                                                                                             -
+// Saída: none                                                                                               -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+function writeATCSerial(st:String):string;
+var timeEnd:integer;
+    strec,linha:string;
+begin
+if atcSerial.Connected then
+  begin
+  st:=#1 + st;
+//  st:=#1 + 'i20100';
+  ATCSerial.SetDTR(true);
+  if ATCSerial.WriteStr(st)>0 then
+    begin
+    timeEnd:=gettickcount + 2000;
+    while (timeEnd>gettickcount) do
+      begin
+      ATCSerial.ReadStr(strec,1);
+      if strec=#1 then linha:='' else
+      linha:=linha+strec;
+      if strec=#3 then
+        begin
+        break;
+        end;
+      end;
+    result:=linha;
+    end;
+  end;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+function ReadATCSerial:string;
+var timeEnd:integer;
+    strec,linha:string;
+begin
+if atcSerial.Connected then
+  begin
+    timeEnd:=gettickcount + 2000;
+    while (timeEnd>gettickcount) do
+      begin
+      ATCSerial.ReadStr(strec,1);
+      if strec=#1 then linha:='' else
+      linha:=linha+strec;
+      if strec=#3 then break;
+      end;
+    result:=linha;
+  end
+else
+  result:='';
+end;
+
+
+
+//------------------------------------------------------------------------------------------------------------
+//                                                                                                           -
+//------------------------------------------------------------------------------------------------------------
+function writeATCSocket(st:string):string;
+var bSended:integer;
+begin
+if ATCSCKT.socket.Connected then
+  begin
+  bSended:=ATCSCKT.Socket.SendText(st);
+  if bSended=length(st) then
+    begin
+    result:=ReceiveATCSocketText(st,2000);
+    end
+  else
+    result:='';
+  end
+else
+  result:='';
+end;
+
+
+
+//------------------------------------------------------------------------------------------------------------
+function ATCSendReceiveText(comando:string):string;
+var bSended:integer;
+begin
+try
+  if (ATCSCKT<>nil) and (ATCSocketIsConnected) then
+    begin
+    bSended:=ATCSCKT.Socket.SendText(#1 + comando);
+    if bSended=length(comando)+1 then
+      result:=ReceiveATCSocketText('comando',5000);
+    end
+  else if (ATCSerial<>nil) and (ATCSerialIsConnected) then
+    begin
+    result:=writeATCSerial(comando);
+    end;
+except on e:exception do
+  result:=e.Message;
+end;
+end;
+
+
+//------------------------------------------------------------------------------------------------------------
+// Procedimento ClearBuffer                                                                                  -
+// Entrada: none                                                                                             -
+// Saída: none                                                                                               -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Procedure ClearBuffer;
+var resposta:string;
+begin
+try
+  if TCP.socket.Connected then resposta:=ReceiveSocketText('ClearBuffer',100)
+  else if Serial.Connected then resposta:=ReceiveSerialText('ClearBuffer',100);
+except 
+end;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função PortOpen                                                                                           -
+// Entrada: none                                                                                             -
+// Saída: booleana                                                                                           -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function ioPortOpen:boolean;
+begin
+result:=Serial.Connected;
+end;
+
+//------------------------------------------------------------------------------------------------------------
+// Função SocketOpen                                                                                         -
+// Entrada: none                                                                                             -
+// Saída: booleana                                                                                           -
+// Sub-Functions: None                                                                                       -
+//------------------------------------------------------------------------------------------------------------
+Function ioSocketOpen:boolean;
+begin
+result:=TCP.socket.Connected;
+end;
+
+procedure DestroySocket;
+begin
+if (TCP.Active) and (TCP.Socket.Connected) then
+  TCP.Socket.Disconnect(0);
+end;
+
+procedure DestroySerial;
+begin
+if Serial<>nil then
+  Serial.Destroy;
+end;
+
+procedure DestroyATCSerial;
+begin
+if ATCSerial<>nil then
+  ATCSerial.Destroy;
+end;
+
+
+function PCharToStr(pS:PChar):string;
+var
+  i:integer;
+  s:string;
+begin
+  s:=strPas(pS);
+  while pos(NUL_PATTERN,s)>0 do
+     begin
+     i:=pos(NUL_PATTERN,s);
+     delete(s,i,2);
+     s[i]:=char(0);
+     end;
+  result:=s;
+end;
+
+
+
+function StrToPChar(p:pointer;s:string):PChar;
+var
+  i:integer;
+  s1:string;
+begin
+  s1:='';
+  for i:=1 to length(s) do
+     if s[i]<>char(0) then
+        s1:=s1+s[i]
+     else
+        s1:=s1+NUL_PATTERN;
+  result:=strPCopy(p,s1);
+end;
+
+end.
