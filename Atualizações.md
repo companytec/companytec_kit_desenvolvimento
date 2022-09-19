@@ -138,3 +138,7 @@ Este arquivo contém todas as datas e descrições das atualizações realizadas
 ```
 - Implementado comando para leitura de casas decimais do preço por litro na DLL e implementado comando no software de teste da DLL.
 ```
+### Versão 1.1.27 - 19/09/2022:
+```
+- Nova versão do hrs console com leitura de tipo de memória.
+```
