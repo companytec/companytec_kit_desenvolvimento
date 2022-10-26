@@ -147,3 +147,7 @@ Este arquivo contém todas as datas e descrições das atualizações realizadas
 - Inserido na DLL o comando para leitura de abastecimentos com 8 caracteres no total a pagar e no volume e com 6 caracteres no preço por litro.
 - Atualizado o software de teste da DLL em delphi, inserindo o comando citado acima.
 ```
+### Versão 1.1.29 - 26/10/2022:
+```
+- Havia um exemplo de comunicação com socket em delphi, mas funcionava somente com protocolo companytec, agora funciona com qualquer protocolo.
+```

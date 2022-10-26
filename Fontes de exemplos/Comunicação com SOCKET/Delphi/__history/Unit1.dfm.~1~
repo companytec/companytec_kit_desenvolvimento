@@ -1,9 +1,9 @@
 object Form1: TForm1
   Left = 359
   Top = 263
-  Caption = 'Companytec Automa'#231#227'o e Controle - Desenvolvimento de Software'
-  ClientHeight = 541
-  ClientWidth = 1001
+  Width = 693
+  Height = 470
+  Caption = 'Companytec Automação e Controle - Desenvolvimento de Software'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,18 +17,17 @@ object Form1: TForm1
   object Shape1: TShape
     Left = 0
     Top = 0
-    Width = 1001
+    Width = 685
     Height = 83
     Align = alTop
     Brush.Color = clBlack
-    ExplicitWidth = 685
   end
   object Label2: TLabel
-    Left = 8
-    Top = 33
+    Left = 4
+    Top = 65
     Width = 309
     Height = 16
-    Caption = 'Exemplo de integra'#231#227'o utilizando Socket TCP/IP'
+    Caption = 'Exemplo de integração utilizando Socket TCP/IP'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWhite
     Font.Height = -13
@@ -38,7 +37,7 @@ object Form1: TForm1
     Transparent = True
   end
   object Image1: TImage
-    Left = 668
+    Left = 588
     Top = 0
     Width = 95
     Height = 81
@@ -131,23 +130,40 @@ object Form1: TForm1
       A2803FFFD9}
   end
   object GroupBox1: TGroupBox
-    Left = 789
+    Left = 555
     Top = 84
-    Width = 206
-    Height = 167
+    Width = 130
+    Height = 89
     Caption = ' Socket '
     TabOrder = 0
+    object Label1: TLabel
+      Left = 59
+      Top = 14
+      Width = 30
+      Height = 13
+      Caption = 'Status'
+    end
+    object ledLan: ThhALed
+      Left = 102
+      Top = 13
+      Width = 22
+      Height = 16
+      FalseColor = clRed
+      Blink = False
+      Bordered = False
+      LEDStyle = LEDHorizontal
+    end
     object Label3: TLabel
-      Left = 12
-      Top = 15
-      Width = 18
-      Height = 15
+      Left = 6
+      Top = 38
+      Width = 13
+      Height = 13
       Caption = 'IP:'
     end
     object MaskEdit1: TMaskEdit
-      Left = 12
-      Top = 31
-      Width = 184
+      Left = 24
+      Top = 32
+      Width = 100
       Height = 21
       Color = clWhite
       Font.Charset = DEFAULT_CHARSET
@@ -157,101 +173,38 @@ object Form1: TForm1
       Font.Style = []
       ParentFont = False
       TabOrder = 0
-      Text = '192.168.0.74'
     end
     object SocketConnect: TButton
-      Left = 79
-      Top = 56
+      Left = 6
+      Top = 57
       Width = 117
       Height = 24
       Caption = 'Conectar'
       TabOrder = 1
       OnClick = SocketConnectClick
     end
-    object GroupBox2: TGroupBox
-      Left = 3
-      Top = 91
-      Width = 200
-      Height = 73
-      Caption = 'Status'
-      TabOrder = 2
-      object rb_conected: TRadioButton
-        Left = 61
-        Top = 18
-        Width = 113
-        Height = 17
-        Caption = 'Conectado'
-        TabOrder = 0
-      end
-      object rb_disconected: TRadioButton
-        Left = 61
-        Top = 41
-        Width = 113
-        Height = 17
-        Caption = 'Desconectado'
-        TabOrder = 1
-      end
-    end
   end
   object RichEdit1: TRichEdit
     Left = 0
     Top = 84
-    Width = 783
-    Height = 453
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -11
-    Font.Name = 'MS Sans Serif'
-    Font.Style = []
-    ParentFont = False
+    Width = 553
+    Height = 349
     ReadOnly = True
     ScrollBars = ssVertical
     TabOrder = 1
-    OnChange = RichEdit1Change
-  end
-  object GroupBox3: TGroupBox
-    Left = 789
-    Top = 254
-    Width = 206
-    Height = 104
-    Caption = 'Enviar comando'
-    TabOrder = 2
-    object Label1: TLabel
-      Left = 12
-      Top = 21
-      Width = 48
-      Height = 13
-      Caption = 'Comando:'
-    end
-    object edt_commandtosend: TEdit
-      Left = 12
-      Top = 40
-      Width = 184
-      Height = 21
-      TabOrder = 0
-    end
-    object btn_sendcommand: TButton
-      Left = 79
-      Top = 67
-      Width = 117
-      Height = 25
-      Caption = 'Enviar'
-      TabOrder = 1
-      OnClick = btn_sendcommandClick
-    end
   end
   object ClientSocket1: TClientSocket
     Active = False
     Address = '192.168.0.63'
     ClientType = ctNonBlocking
     Port = 2001
-    Left = 958
-    Top = 421
+    Left = 600
+    Top = 216
   end
   object Timer1: TTimer
     Enabled = False
     OnTimer = Timer1Timer
-    Left = 958
-    Top = 373
+    Left = 632
+    Top = 216
   end
 end

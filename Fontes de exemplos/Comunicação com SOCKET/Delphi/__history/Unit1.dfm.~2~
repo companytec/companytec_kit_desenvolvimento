@@ -2,8 +2,8 @@ object Form1: TForm1
   Left = 359
   Top = 263
   Caption = 'Companytec Automa'#231#227'o e Controle - Desenvolvimento de Software'
-  ClientHeight = 541
-  ClientWidth = 1001
+  ClientHeight = 431
+  ClientWidth = 771
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,7 +17,7 @@ object Form1: TForm1
   object Shape1: TShape
     Left = 0
     Top = 0
-    Width = 1001
+    Width = 771
     Height = 83
     Align = alTop
     Brush.Color = clBlack
@@ -131,23 +131,23 @@ object Form1: TForm1
       A2803FFFD9}
   end
   object GroupBox1: TGroupBox
-    Left = 789
-    Top = 84
+    Left = 559
+    Top = 87
     Width = 206
     Height = 167
     Caption = ' Socket '
     TabOrder = 0
     object Label3: TLabel
-      Left = 12
-      Top = 15
+      Left = 6
+      Top = 28
       Width = 18
       Height = 15
       Caption = 'IP:'
     end
     object MaskEdit1: TMaskEdit
-      Left = 12
-      Top = 31
-      Width = 184
+      Left = 30
+      Top = 25
+      Width = 153
       Height = 21
       Color = clWhite
       Font.Charset = DEFAULT_CHARSET
@@ -157,11 +157,11 @@ object Form1: TForm1
       Font.Style = []
       ParentFont = False
       TabOrder = 0
-      Text = '192.168.0.74'
+      Text = ''
     end
     object SocketConnect: TButton
-      Left = 79
-      Top = 56
+      Left = 66
+      Top = 52
       Width = 117
       Height = 24
       Caption = 'Conectar'
@@ -175,17 +175,17 @@ object Form1: TForm1
       Height = 73
       Caption = 'Status'
       TabOrder = 2
-      object rb_conected: TRadioButton
-        Left = 61
-        Top = 18
+      object RadioButton1: TRadioButton
+        Left = 46
+        Top = 17
         Width = 113
         Height = 17
         Caption = 'Conectado'
         TabOrder = 0
       end
-      object rb_disconected: TRadioButton
-        Left = 61
-        Top = 41
+      object RadioButton2: TRadioButton
+        Left = 46
+        Top = 40
         Width = 113
         Height = 17
         Caption = 'Desconectado'
@@ -196,8 +196,8 @@ object Form1: TForm1
   object RichEdit1: TRichEdit
     Left = 0
     Top = 84
-    Width = 783
-    Height = 453
+    Width = 553
+    Height = 349
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
     Font.Height = -11
@@ -207,51 +207,19 @@ object Form1: TForm1
     ReadOnly = True
     ScrollBars = ssVertical
     TabOrder = 1
-    OnChange = RichEdit1Change
-  end
-  object GroupBox3: TGroupBox
-    Left = 789
-    Top = 254
-    Width = 206
-    Height = 104
-    Caption = 'Enviar comando'
-    TabOrder = 2
-    object Label1: TLabel
-      Left = 12
-      Top = 21
-      Width = 48
-      Height = 13
-      Caption = 'Comando:'
-    end
-    object edt_commandtosend: TEdit
-      Left = 12
-      Top = 40
-      Width = 184
-      Height = 21
-      TabOrder = 0
-    end
-    object btn_sendcommand: TButton
-      Left = 79
-      Top = 67
-      Width = 117
-      Height = 25
-      Caption = 'Enviar'
-      TabOrder = 1
-      OnClick = btn_sendcommandClick
-    end
   end
   object ClientSocket1: TClientSocket
     Active = False
     Address = '192.168.0.63'
     ClientType = ctNonBlocking
     Port = 2001
-    Left = 958
-    Top = 421
+    Left = 728
+    Top = 384
   end
   object Timer1: TTimer
     Enabled = False
     OnTimer = Timer1Timer
-    Left = 958
-    Top = 373
+    Left = 728
+    Top = 336
   end
 end

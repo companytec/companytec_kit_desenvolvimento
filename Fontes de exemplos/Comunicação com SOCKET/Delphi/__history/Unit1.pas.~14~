@@ -155,7 +155,6 @@ var
   a: byte;
   Last: char;
 begin
-  DataLan := '';
   start := gettickcount;
   stop := start + timeout;
   Last := #0;

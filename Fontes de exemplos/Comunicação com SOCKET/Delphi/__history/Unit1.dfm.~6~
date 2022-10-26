@@ -3,7 +3,7 @@ object Form1: TForm1
   Top = 263
   Caption = 'Companytec Automa'#231#227'o e Controle - Desenvolvimento de Software'
   ClientHeight = 541
-  ClientWidth = 1001
+  ClientWidth = 769
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -17,7 +17,7 @@ object Form1: TForm1
   object Shape1: TShape
     Left = 0
     Top = 0
-    Width = 1001
+    Width = 769
     Height = 83
     Align = alTop
     Brush.Color = clBlack
@@ -131,8 +131,8 @@ object Form1: TForm1
       A2803FFFD9}
   end
   object GroupBox1: TGroupBox
-    Left = 789
-    Top = 84
+    Left = 559
+    Top = 87
     Width = 206
     Height = 167
     Caption = ' Socket '
@@ -157,7 +157,7 @@ object Form1: TForm1
       Font.Style = []
       ParentFont = False
       TabOrder = 0
-      Text = '192.168.0.74'
+      Text = ''
     end
     object SocketConnect: TButton
       Left = 79
@@ -196,7 +196,7 @@ object Form1: TForm1
   object RichEdit1: TRichEdit
     Left = 0
     Top = 84
-    Width = 783
+    Width = 553
     Height = 453
     Font.Charset = ANSI_CHARSET
     Font.Color = clWindowText
@@ -207,11 +207,10 @@ object Form1: TForm1
     ReadOnly = True
     ScrollBars = ssVertical
     TabOrder = 1
-    OnChange = RichEdit1Change
   end
   object GroupBox3: TGroupBox
-    Left = 789
-    Top = 254
+    Left = 559
+    Top = 257
     Width = 206
     Height = 104
     Caption = 'Enviar comando'
@@ -237,7 +236,6 @@ object Form1: TForm1
       Height = 25
       Caption = 'Enviar'
       TabOrder = 1
-      OnClick = btn_sendcommandClick
     end
   end
   object ClientSocket1: TClientSocket
@@ -245,13 +243,13 @@ object Form1: TForm1
     Address = '192.168.0.63'
     ClientType = ctNonBlocking
     Port = 2001
-    Left = 958
-    Top = 421
+    Left = 728
+    Top = 424
   end
   object Timer1: TTimer
     Enabled = False
     OnTimer = Timer1Timer
-    Left = 958
-    Top = 373
+    Left = 728
+    Top = 376
   end
 end

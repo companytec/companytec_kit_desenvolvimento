@@ -61,15 +61,15 @@ begin
     else
     begin
       SocketConnect.Caption := 'Desconectar';
-//      if (AjustaRelogio(true)) then
-//      begin
+      if (AjustaRelogio(true)) then
+      begin
         rb_conected.Checked := true;
         rb_disconected.Checked := false;
         // timer1.Enabled:=true;
-//      end
-//      else
-//        messagedlg('Falha ao sincronizar relógio: ' + ClientSocket1.Address,
-//          mterror, [mbok], 0)
+      end
+      else
+        messagedlg('Falha ao sincronizar relógio: ' + ClientSocket1.Address,
+          mterror, [mbok], 0)
     end;
   end
   else
@@ -155,7 +155,6 @@ var
   a: byte;
   Last: char;
 begin
-  DataLan := '';
   start := gettickcount;
   stop := start + timeout;
   Last := #0;
