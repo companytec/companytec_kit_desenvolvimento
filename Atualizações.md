@@ -151,3 +151,9 @@ Este arquivo contém todas as datas e descrições das atualizações realizadas
 ```
 - Havia um exemplo de comunicação com socket em delphi, mas funcionava somente com protocolo companytec, agora funciona com qualquer protocolo.
 ```
+### Versão 1.1.30 - 04/11/2022:
+```
+- Implementados os protocolos metroval CDM05, yenen full dart, tokheim kraus, tokheim 262A, durulsan mode gb e gilbc encore 775 (hrs console).
+- Quando carregava firmware V 08.08 com a versão, exemplo, C8.08, software identificava que a automação iria fazer um downgrade (hrs console).
+- Colocada a versão do firmware na janela de atualização (hrs console).
+```
