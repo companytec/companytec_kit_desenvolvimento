@@ -141,7 +141,6 @@ object Form1: TForm1
     TabOrder = 0
     object Abastecimentos: TTabSheet
       Caption = 'Abastecimentos'
-      ExplicitTop = 28
       object GroupBox5: TGroupBox
         Left = 106
         Top = 6
@@ -399,40 +398,39 @@ object Form1: TForm1
         Top = 177
         Width = 756
         Height = 206
-        ActivePage = TabSheet7
+        ActivePage = TabSheet21
         TabOrder = 1
         object TabSheet18: TTabSheet
           Caption = 'Leitura Abast. PAF'
           ImageIndex = 12
           object Memo8: TMemo
-            Left = 95
+            Left = 3
             Top = 0
-            Width = 546
+            Width = 742
             Height = 144
             ScrollBars = ssVertical
             TabOrder = 0
           end
           object Button43: TButton
-            Left = 20
+            Left = 469
             Top = 150
-            Width = 52
+            Width = 137
             Height = 25
             Caption = 'LeAbastecimentoPAF2'
             TabOrder = 1
-            Visible = False
             OnClick = Button43Click
           end
           object Button47: TButton
-            Left = 80
+            Left = 0
             Top = 150
-            Width = 63
+            Width = 74
             Height = 25
             Caption = 'LeAbastecimentoPAF1Fix'
             TabOrder = 2
             Visible = False
           end
           object Button51: TButton
-            Left = 149
+            Left = 80
             Top = 150
             Width = 51
             Height = 25
@@ -442,7 +440,7 @@ object Form1: TForm1
             OnClick = Button51Click
           end
           object Button53: TButton
-            Left = 508
+            Left = 612
             Top = 150
             Width = 133
             Height = 25
@@ -1687,7 +1685,7 @@ object Form1: TForm1
       Caption = 'Identifica'#231#227'o'
       ImageIndex = 5
       object GroupBox9: TGroupBox
-        Left = 348
+        Left = 475
         Top = 173
         Width = 280
         Height = 143
@@ -1752,8 +1750,8 @@ object Form1: TForm1
         end
       end
       object GroupBox10: TGroupBox
-        Left = 101
-        Top = 12
+        Left = 3
+        Top = 3
         Width = 215
         Height = 294
         Caption = 'Cadastro de cart'#245'es'
@@ -1810,7 +1808,7 @@ object Form1: TForm1
         end
       end
       object GroupBox11: TGroupBox
-        Left = 346
+        Left = 477
         Top = 3
         Width = 280
         Height = 171
@@ -1820,15 +1818,15 @@ object Form1: TForm1
         ParentColor = False
         TabOrder = 2
         object Memo10: TMemo
-          Left = 3
-          Top = 11
-          Width = 275
+          Left = 4
+          Top = 17
+          Width = 272
           Height = 88
           TabOrder = 0
         end
         object Button38: TButton
           Left = 130
-          Top = 105
+          Top = 111
           Width = 146
           Height = 27
           Caption = 'GetIdentTag'
@@ -1837,7 +1835,7 @@ object Form1: TForm1
         end
         object btnFidIncrementa: TButton
           Left = 130
-          Top = 137
+          Top = 142
           Width = 146
           Height = 25
           Caption = 'FidIncrementa'
@@ -1846,9 +1844,9 @@ object Form1: TForm1
         end
       end
       object grpLeituraCartao: TGroupBox
-        Left = 101
-        Top = 315
-        Width = 525
+        Left = 3
+        Top = 380
+        Width = 750
         Height = 138
         Caption = 'Leitura de Cart'#245'es'
         TabOrder = 3
@@ -1888,6 +1886,68 @@ object Form1: TForm1
           Top = 72
           Width = 337
           Height = 21
+          TabOrder = 1
+        end
+      end
+      object GroupBox15: TGroupBox
+        Left = 224
+        Top = 3
+        Width = 215
+        Height = 294
+        Caption = 'Cadastro de cart'#245'es'
+        TabOrder = 4
+        object Label70: TLabel
+          Left = 16
+          Top = 228
+          Width = 51
+          Height = 13
+          Caption = 'Resultado:'
+        end
+        object Label71: TLabel
+          Left = 16
+          Top = 21
+          Width = 112
+          Height = 13
+          Caption = 'Digite a TAG do cart'#227'o:'
+        end
+        object Label72: TLabel
+          Left = 16
+          Top = 80
+          Width = 184
+          Height = 13
+          Caption = 'Digite a posi'#231#227'o de mem'#243'ria do cart'#227'o:'
+        end
+        object edt_TagDeleteIDF: TEdit
+          Left = 16
+          Top = 40
+          Width = 185
+          Height = 21
+          MaxLength = 16
+          TabOrder = 0
+        end
+        object edt_ResultDeleteIDF: TEdit
+          Left = 16
+          Top = 247
+          Width = 185
+          Height = 21
+          MaxLength = 16
+          TabOrder = 3
+        end
+        object btn_DeleteIDF: TButton
+          Left = 80
+          Top = 147
+          Width = 123
+          Height = 25
+          Caption = 'Excluir cart'#227'o'
+          TabOrder = 2
+          OnClick = btn_DeleteIDFClick
+        end
+        object edt_PositionDeleteIDF: TEdit
+          Left = 16
+          Top = 99
+          Width = 185
+          Height = 21
+          MaxLength = 6
           TabOrder = 1
         end
       end
@@ -2940,9 +3000,9 @@ object Form1: TForm1
     Panels = <>
   end
   object CheckBox1: TCheckBox
-    Left = 675
-    Top = 547
-    Width = 97
+    Left = 680
+    Top = 606
+    Width = 78
     Height = 17
     Caption = 'CheckBox1'
     TabOrder = 3
@@ -2950,7 +3010,7 @@ object Form1: TForm1
     OnClick = CheckBox1Click
   end
   object timer1: TTimer
-    Left = 728
-    Top = 504
+    Left = 720
+    Top = 568
   end
 end

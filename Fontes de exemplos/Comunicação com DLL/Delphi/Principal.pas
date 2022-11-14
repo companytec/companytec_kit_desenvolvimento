@@ -354,6 +354,14 @@ type
     TabSheet22: TTabSheet;
     memo_ReadExtendedSale: TMemo;
     btn_ReadExtendedSale: TButton;
+    GroupBox15: TGroupBox;
+    Label70: TLabel;
+    Label71: TLabel;
+    edt_TagDeleteIDF: TEdit;
+    edt_ResultDeleteIDF: TEdit;
+    btn_DeleteIDF: TButton;
+    edt_PositionDeleteIDF: TEdit;
+    Label72: TLabel;
     function ErrorToString(Erro: Error): string;
     procedure Button1Click(Sender: TObject);
     procedure Button2Click(Sender: TObject);
@@ -429,6 +437,7 @@ type
     procedure Button26Click(Sender: TObject);
     procedure btn_EnviaConsultaCodigoVirgulaClick(Sender: TObject);
     procedure btn_ReadExtendedSaleClick(Sender: TObject);
+    procedure btn_DeleteIDFClick(Sender: TObject);
 
     // procedure Button47Click(Sender: TObject);
     // procedure Button48Click(Sender: TObject);
@@ -541,7 +550,6 @@ end;
 // ------------------------------------------------------------------------------
 // Quando enviar o comando para ler abastecimento, após ele incrementa ponteiro -
 // ------------------------------------------------------------------------------
-
 
 procedure TForm1.Timer1Timer(Sender: TObject);
 begin
@@ -823,7 +831,6 @@ begin
   end;
 
 end;
-
 // ------------------------------------------------------------------------------
 // Consulta codigo de virgula                                                   -
 // ------------------------------------------------------------------------------
@@ -897,15 +904,41 @@ begin
       ShowMessage(E.ClassName + ' razão do erro, messagem : ' + E.Message);
     end;
 end;
-
+// ------------------------------------------------------------------------------
+// PAF1                                                                         -
+// ------------------------------------------------------------------------------
 procedure TForm1.btn_ReadSalePaf1Click(Sender: TObject);
 var
   ab: AbastPAF1;
 begin
   try
-    ab := LeAbastecimentoPAF1();
-//    ShowMessage(ab.st_full);
-    memo_AbastPaf1.Lines.Add(ab.st_full);
+    ab := LeAbastecimentoPAF1;
+    if ab.value = false then
+    begin
+      memo_AbastPaf1.Lines.Add('(0)');
+//      ClearFields;
+    end
+    else
+    begin
+      memo_AbastPaf1.Lines.Add('--------------------------------------------------------------------------');
+      if ab.value then
+        memo_AbastPaf1.Lines.Add('value: TRUE')
+      else
+        memo_AbastPaf1.Lines.Add('value: FALSE');
+      memo_AbastPaf1.Lines.Add(ab.st_full);
+    end;
+//    EditTotaisDin.Text := floattostr(ab.total_dinheiro);
+//    EditCanal.Text := ab.codbico;
+//    EditPPL.Text := floattostr(ab.PU);
+//    EditData.Text := ab.data;
+//    EditHora.Text := ab.hora;
+//    EditTempo.Text := ab.tempo;
+//    EditEnc.Text := floattostr(ab.encerranteI) + ' / ' +
+//      floattostr(ab.encerranteF);
+//    EditRegistro.Text := inttostr(ab.registro);
+//    EditTotaisLT.Text := floattostr(ab.total_litros);
+//    EditString.Text := ab.st_full;
+
   except on E : Exception do
       ShowMessage(E.ClassName+' razão do erro, messagem : '+E.Message);
   end;
@@ -949,7 +982,6 @@ var
   tin: string;
   idx: Integer;
 begin
-
   if (RadioGroup1.ItemIndex = 0) then
   begin
     perm1 := '7';
@@ -973,13 +1005,33 @@ begin
 
   idx := savetagFid(perm1, perm2, tag, tin, tin, tin, tin);
 
-  if idx = 0 then
+  if idx = -1 then
     Edt_Tag.Text := 'Erro'
   else
     Edt_Tag.Text := 'Inserido no Index ' + inttostr(idx);
-
 end;
+// ------------------------------------------------------------------------------
+// Exclusão de cartão idf                                                       -
+// ------------------------------------------------------------------------------
+procedure TForm1.btn_DeleteIDFClick(Sender: TObject);
+var
+  tag: AnsiString;
+  position: integer;
+  idx: Integer;
+begin
+  tag := edt_TagDeleteIDF.Text;
+  position := StrToInt(edt_PositionDeleteIDF.Text);
 
+  idx := deleteTagFid(position, tag);
+
+  if idx = 0 then
+    edt_ResultDeleteIDF.Text := 'Erro'
+  else
+    edt_ResultDeleteIDF.Text := 'Cartão excluído';
+end;
+// ------------------------------------------------------------------------------
+//  -
+// ------------------------------------------------------------------------------
 procedure TForm1.btn_SendCommandReadPointersMemoryClick(Sender: TObject);
 var
   answer: MemoryPointers;
@@ -988,7 +1040,6 @@ begin
   edt_AnswerWritePointerMemory.Text := answer.writePointer;
   edt_AnswerReadPointerMemory.Text := answer.readPointer;
 end;
-
 // ------------------------------------------------------------------------------
 // Visualização retornando a string inteira                                     -
 // ------------------------------------------------------------------------------

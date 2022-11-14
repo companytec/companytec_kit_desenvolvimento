@@ -157,3 +157,7 @@ Este arquivo contém todas as datas e descrições das atualizações realizadas
 - Quando carregava firmware V 08.08 com a versão, exemplo, C8.08, software identificava que a automação iria fazer um downgrade (hrs console).
 - Colocada a versão do firmware na janela de atualização (hrs console).
 ```
+### Versão 1.1.31 - 14/11/2022:
+```
+- Realizada correção nos códigos de vírgula dos comandos paf da DLL Companytec.
+```
