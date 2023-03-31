@@ -165,3 +165,7 @@ Este arquivo contém todas as datas e descrições das atualizações realizadas
 ```
 - Implementado comando de pausar abastecimentos no simulador CBC.
 ```
+### Versão 1.1.33 - 31/03/2023:
+```
+- Após enviar pausa, simulador CBC estava sempre respondendo visualização (0).
+```
