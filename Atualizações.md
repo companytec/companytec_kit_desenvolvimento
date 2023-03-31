@@ -161,3 +161,7 @@ Este arquivo contém todas as datas e descrições das atualizações realizadas
 ```
 - Realizada correção nos códigos de vírgula dos comandos paf da DLL Companytec.
 ```
+### Versão 1.1.32 - 31/03/2023:
+```
+- Implementado comando de pausar abastecimentos no simulador CBC.
+```

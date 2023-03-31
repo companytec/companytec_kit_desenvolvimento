@@ -1,0 +1,4 @@
+C:\Users\desenvolvimento\Documents\projetos\Kit desenvolvimento concentradores\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\obj\Release\Project1.vbproj.AssemblyReference.cache
+C:\Users\desenvolvimento\Documents\projetos\Kit desenvolvimento concentradores\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\obj\Release\Project1.Form1.resources
+C:\Users\desenvolvimento\Documents\projetos\Kit desenvolvimento concentradores\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\obj\Release\Project1.vbproj.GenerateResource.cache
+C:\Users\desenvolvimento\Documents\projetos\Kit desenvolvimento concentradores\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\obj\Release\Project1.vbproj.CoreCompileInputs.cache
