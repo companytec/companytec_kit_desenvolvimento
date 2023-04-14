@@ -169,3 +169,8 @@ Este arquivo contém todas as datas e descrições das atualizações realizadas
 ```
 - Após enviar pausa, simulador CBC estava sempre respondendo visualização (0).
 ```
+### Versão 1.1.34 - 14/04/2023:
+```
+- Ajustada resposta do comando de desabilita e habilita idf no simulador cbc.
+- Atualização para a versão 1.6.06 do hrs console.
+```
