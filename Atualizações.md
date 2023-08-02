@@ -174,3 +174,7 @@ Este arquivo contém todas as datas e descrições das atualizações realizadas
 - Ajustada resposta do comando de desabilita e habilita idf no simulador cbc.
 - Atualização para a versão 1.6.06 do hrs console.
 ```
+### Versão 1.1.35 - 02/08/2023:
+```
+- Inseridos dados da Concept no readme do repositório.
+```
