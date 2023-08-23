@@ -178,3 +178,7 @@ Este arquivo contém todas as datas e descrições das atualizações realizadas
 ```
 - Quando chamava a função Comunica() na DLL, além de retornar status da comunicação, gravava cartões idf e também lia o cartão na posição 40, agora ela só retorna status da comunicação.
 ```
+### Versão 1.1.36 - 23/08/2023:
+```
+- Inseridos dados da Concept no readme do repositório.
+```
