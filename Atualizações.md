@@ -174,3 +174,7 @@ Este arquivo contém todas as datas e descrições das atualizações realizadas
 - Ajustada resposta do comando de desabilita e habilita idf no simulador cbc.
 - Atualização para a versão 1.6.06 do hrs console.
 ```
+### Versão 1.1.35 - 07/06/2023:
+```
+- Quando chamava a função Comunica() na DLL, além de retornar status da comunicação, gravava cartões idf e também lia o cartão na posição 40, agora ela só retorna status da comunicação.
+```
