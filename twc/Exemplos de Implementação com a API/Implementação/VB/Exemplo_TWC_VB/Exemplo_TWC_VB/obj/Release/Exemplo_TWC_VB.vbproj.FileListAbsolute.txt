@@ -1,0 +1,20 @@
+C:\Users\projetos4\documents\visual studio 2013\Projects\Exemplo_TWC_VB\Exemplo_TWC_VB\bin\Release\Exemplo_TWC_VB.exe.config
+C:\Users\projetos4\documents\visual studio 2013\Projects\Exemplo_TWC_VB\Exemplo_TWC_VB\bin\Release\Exemplo_TWC_VB.exe
+C:\Users\projetos4\documents\visual studio 2013\Projects\Exemplo_TWC_VB\Exemplo_TWC_VB\bin\Release\Exemplo_TWC_VB.pdb
+C:\Users\projetos4\documents\visual studio 2013\Projects\Exemplo_TWC_VB\Exemplo_TWC_VB\bin\Release\Exemplo_TWC_VB.xml
+C:\Users\projetos4\documents\visual studio 2013\Projects\Exemplo_TWC_VB\Exemplo_TWC_VB\obj\Release\Exemplo_TWC_VB.Form1.resources
+C:\Users\projetos4\documents\visual studio 2013\Projects\Exemplo_TWC_VB\Exemplo_TWC_VB\obj\Release\Exemplo_TWC_VB.Resources.resources
+C:\Users\projetos4\documents\visual studio 2013\Projects\Exemplo_TWC_VB\Exemplo_TWC_VB\obj\Release\Exemplo_TWC_VB.vbproj.GenerateResource.Cache
+C:\Users\projetos4\documents\visual studio 2013\Projects\Exemplo_TWC_VB\Exemplo_TWC_VB\obj\Release\Exemplo_TWC_VB.exe
+C:\Users\projetos4\documents\visual studio 2013\Projects\Exemplo_TWC_VB\Exemplo_TWC_VB\obj\Release\Exemplo_TWC_VB.xml
+C:\Users\projetos4\documents\visual studio 2013\Projects\Exemplo_TWC_VB\Exemplo_TWC_VB\obj\Release\Exemplo_TWC_VB.pdb
+C:\Users\projetos4\Desktop\Softwares\VB\Exemplo_TWC_VB\Exemplo_TWC_VB\bin\Release\Exemplo_TWC_VB.exe.config
+C:\Users\projetos4\Desktop\Softwares\VB\Exemplo_TWC_VB\Exemplo_TWC_VB\obj\Release\Exemplo_TWC_VB.exe
+C:\Users\projetos4\Desktop\Softwares\VB\Exemplo_TWC_VB\Exemplo_TWC_VB\obj\Release\Exemplo_TWC_VB.xml
+C:\Users\projetos4\Desktop\Softwares\VB\Exemplo_TWC_VB\Exemplo_TWC_VB\obj\Release\Exemplo_TWC_VB.pdb
+C:\Users\projetos4\Desktop\Softwares\VB\Exemplo_TWC_VB\Exemplo_TWC_VB\bin\Release\Exemplo_TWC_VB.exe
+C:\Users\projetos4\Desktop\Softwares\VB\Exemplo_TWC_VB\Exemplo_TWC_VB\bin\Release\Exemplo_TWC_VB.pdb
+C:\Users\projetos4\Desktop\Softwares\VB\Exemplo_TWC_VB\Exemplo_TWC_VB\bin\Release\Exemplo_TWC_VB.xml
+C:\Users\projetos4\Desktop\Softwares\VB\Exemplo_TWC_VB\Exemplo_TWC_VB\obj\Release\Exemplo_TWC_VB.Form1.resources
+C:\Users\projetos4\Desktop\Softwares\VB\Exemplo_TWC_VB\Exemplo_TWC_VB\obj\Release\Exemplo_TWC_VB.Resources.resources
+C:\Users\projetos4\Desktop\Softwares\VB\Exemplo_TWC_VB\Exemplo_TWC_VB\obj\Release\Exemplo_TWC_VB.vbproj.GenerateResource.Cache

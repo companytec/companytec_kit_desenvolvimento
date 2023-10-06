@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2014/02/26 11:17:28.000.891,=G:\projetos4\Documentos\RAD Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2015/04/06 12:59:56.000.390,=C:\Users\projetos4\Documents\RAD Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2015/05/12 08:37:56.000.692,=C:\Users\projetos4\Documents\RAD Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2015/05/12 09:19:25.000.510,C:\Users\projetos4\Documents\RAD Studio\Projects\Unit1.h=C:\Users\projetos4\Documents\RAD Studio\Projects\mct\Unit1.h</Transaction>
+    <Transaction>2015/05/12 09:19:25.000.510,C:\Users\projetos4\Documents\RAD Studio\Projects\Unit1.cpp=C:\Users\projetos4\Documents\RAD Studio\Projects\mct\Unit1.cpp</Transaction>
+    <Transaction>2015/05/12 09:19:25.000.510,C:\Users\projetos4\Documents\RAD Studio\Projects\Unit1.dfm=C:\Users\projetos4\Documents\RAD Studio\Projects\mct\Unit1.dfm</Transaction>
+    <Transaction>2015/05/12 09:19:26.000.750,C:\Users\projetos4\Documents\RAD Studio\Projects\Project1.cbproj=C:\Users\projetos4\Documents\RAD Studio\Projects\mct\Project1.cbproj</Transaction>
+    <Transaction>2015/05/12 09:34:15.000.675,C:\Users\projetos4\Desktop\test\Project1.cbproj=C:\Users\projetos4\Documents\RAD Studio\Projects\mct\Project1.cbproj</Transaction>
+    <Transaction>2015/05/12 09:34:46.000.149,C:\Users\projetos4\Desktop\test\Unit1.h=C:\Users\projetos4\Documents\RAD Studio\Projects\mct\Unit1.h</Transaction>
+    <Transaction>2015/05/12 09:34:46.000.149,C:\Users\projetos4\Desktop\test\Unit1.cpp=C:\Users\projetos4\Documents\RAD Studio\Projects\mct\Unit1.cpp</Transaction>
+    <Transaction>2015/05/12 09:34:46.000.149,C:\Users\projetos4\Desktop\test\Unit1.dfm=C:\Users\projetos4\Documents\RAD Studio\Projects\mct\Unit1.dfm</Transaction>
+    <Transaction>2015/05/12 09:36:51.000.180,=C:\Users\projetos4\Desktop\test\TCPIP.cpp</Transaction>
+    <Transaction>2015/05/12 09:37:03.000.059,=C:\Users\projetos4\Desktop\test\TCPIP.h</Transaction>
+    <Transaction>2015/05/15 13:35:35.000.178,=C:\Users\projetos4\Desktop\Softwares\Exemplos Terminal\Controle Produtivo\Unit2.cpp</Transaction>
+    <Transaction>2015/07/24 13:40:40.000.350,C:\Users\projetos4\Desktop\Softwares\C++\Exemplo_TWC_C++\Unit2.cpp=</Transaction>
+  </Transactions>
+</BorlandProject>

@@ -1,0 +1,177 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 749
+  ClientWidth = 1310
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnClose = FormClose
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object ComboBox1: TComboBox
+    Left = 24
+    Top = 376
+    Width = 89
+    Height = 21
+    TabOrder = 0
+    Text = 'ComboBox1'
+  end
+  object Button1: TButton
+    Left = 175
+    Top = 372
+    Width = 75
+    Height = 25
+    Caption = 'Button1'
+    TabOrder = 1
+    OnClick = Button1Click
+  end
+  object StringGrid1: TStringGrid
+    Left = 24
+    Top = 24
+    Width = 425
+    Height = 337
+    Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goEditing]
+    TabOrder = 2
+    ColWidths = (
+      64
+      62
+      191
+      56
+      45)
+  end
+  object ComboBox2: TComboBox
+    Left = 119
+    Top = 376
+    Width = 50
+    Height = 21
+    TabOrder = 3
+    Text = '1771'
+  end
+  object GroupBox1: TGroupBox
+    Left = 481
+    Top = 24
+    Width = 560
+    Height = 297
+    Caption = 'Cadastro de Colaboradores'
+    TabOrder = 4
+    object Label5: TLabel
+      Left = 402
+      Top = 18
+      Width = 23
+      Height = 13
+      Caption = 'Nivel'
+    end
+    object Button3: TButton
+      Left = 9
+      Top = 61
+      Width = 540
+      Height = 25
+      Caption = 'Cadastrar'
+      TabOrder = 0
+      OnClick = Button3Click
+    end
+    object L_Cad_CodCartao: TLabeledEdit
+      Left = 9
+      Top = 33
+      Width = 121
+      Height = 21
+      EditLabel.Width = 59
+      EditLabel.Height = 13
+      EditLabel.Caption = 'C'#243'd. Cart'#227'o'
+      MaxLength = 16
+      TabOrder = 1
+    end
+    object L_Cad_Nome: TLabeledEdit
+      Left = 149
+      Top = 33
+      Width = 236
+      Height = 21
+      EditLabel.Width = 27
+      EditLabel.Height = 13
+      EditLabel.Caption = 'Nome'
+      TabOrder = 2
+    end
+    object C_Cad_Nivel: TComboBox
+      Left = 401
+      Top = 34
+      Width = 148
+      Height = 21
+      ItemIndex = 0
+      TabOrder = 3
+      Text = '1 - Aux. I'
+      Items.Strings = (
+        '1 - Aux. I'
+        '2 - Aux. II'
+        '3 - Aux. III'
+        '4 - Aux. IV'
+        '5 - Tec. I'
+        '6 - Tec. II'
+        '7 - Tec. III'
+        'A - Admin')
+    end
+    object S_Cad_Colabs: TStringGrid
+      Left = 9
+      Top = 92
+      Width = 540
+      Height = 193
+      ColCount = 4
+      RowCount = 1
+      FixedRows = 0
+      TabOrder = 4
+      OnKeyDown = S_Cad_ColabsKeyDown
+      ColWidths = (
+        64
+        289
+        99
+        70)
+    end
+  end
+  object GroupBox2: TGroupBox
+    Left = 481
+    Top = 335
+    Width = 728
+    Height = 297
+    Caption = 'Eventos'
+    TabOrder = 5
+    object S_Events: TStringGrid
+      Left = 9
+      Top = 25
+      Width = 712
+      Height = 261
+      Color = clBtnFace
+      ColCount = 7
+      RowCount = 1
+      FixedRows = 0
+      TabOrder = 0
+      OnKeyDown = S_Cad_ColabsKeyDown
+      ColWidths = (
+        64
+        256
+        44
+        47
+        105
+        94
+        89)
+    end
+  end
+  object T_Task: TTimer
+    Interval = 1
+    OnTimer = T_TaskTimer
+    Left = 928
+    Top = 24
+  end
+  object DataSource1: TDataSource
+    DataSet = DataModule2.ClientDataSet1
+    Left = 856
+    Top = 16
+  end
+end

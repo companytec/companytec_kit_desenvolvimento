@@ -1,0 +1,10 @@
+c:\users\projetos4\documents\visual studio 2013\Projects\Exemplo_TWC_VB\Exemplo_TWC_VB\bin\Debug\Exemplo_TWC_VB.exe.config
+c:\users\projetos4\documents\visual studio 2013\Projects\Exemplo_TWC_VB\Exemplo_TWC_VB\obj\Debug\Exemplo_TWC_VB.Form1.resources
+c:\users\projetos4\documents\visual studio 2013\Projects\Exemplo_TWC_VB\Exemplo_TWC_VB\obj\Debug\Exemplo_TWC_VB.Resources.resources
+c:\users\projetos4\documents\visual studio 2013\Projects\Exemplo_TWC_VB\Exemplo_TWC_VB\obj\Debug\Exemplo_TWC_VB.vbproj.GenerateResource.Cache
+c:\users\projetos4\documents\visual studio 2013\Projects\Exemplo_TWC_VB\Exemplo_TWC_VB\bin\Debug\Exemplo_TWC_VB.exe
+c:\users\projetos4\documents\visual studio 2013\Projects\Exemplo_TWC_VB\Exemplo_TWC_VB\bin\Debug\Exemplo_TWC_VB.pdb
+c:\users\projetos4\documents\visual studio 2013\Projects\Exemplo_TWC_VB\Exemplo_TWC_VB\bin\Debug\Exemplo_TWC_VB.xml
+c:\users\projetos4\documents\visual studio 2013\Projects\Exemplo_TWC_VB\Exemplo_TWC_VB\obj\Debug\Exemplo_TWC_VB.exe
+c:\users\projetos4\documents\visual studio 2013\Projects\Exemplo_TWC_VB\Exemplo_TWC_VB\obj\Debug\Exemplo_TWC_VB.xml
+c:\users\projetos4\documents\visual studio 2013\Projects\Exemplo_TWC_VB\Exemplo_TWC_VB\obj\Debug\Exemplo_TWC_VB.pdb

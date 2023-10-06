@@ -1,0 +1,855 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "Unit1.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TForm1 *Form1;
+
+Connection *Aut;
+TCP *Tcp;
+Cmd *Cmds;
+queue<AnsiString> *Fila;
+_tPROT Prot;
+Terminal* Term;
+
+
+//---------------------------------------------------------------------------
+Terminal::Terminal (void)
+{
+	idx = 1;
+	Sm_Task = STATE;
+	is_closing = false;
+}
+//---------------------------------------------------------------------------
+void Terminal::Task(void)
+{
+	switch (Sm_Task)
+	{
+		case STATE:
+			Num = Cmds[idx].Send_Status();
+			if (Num)
+			{
+				Sm_Task = LOOP;
+			}
+		break;
+		case LOOP:
+			if (Cont < Num)
+			{
+				idx = List[Cont];
+				if (!idx) idx = 1;
+				Cmds[idx].Task();
+			}
+			else
+			{
+				Sm_Task = STATE; // ja varreu todos os terminais
+				Cont = 0;
+			}
+		break;
+	}
+
+}
+//---------------------------------------------------------------------------
+String Str::Ajuste_Len (char ch ,char side, int new_len)
+{
+	int count = 0,dif,len = Txt.Length();
+	char* acc = new char[new_len];
+
+	dif = new_len - len;
+	if (dif > 0)
+	{
+		for (int count_aux = 1; count < new_len; count++)
+		{
+			if (side == 'L')
+			{
+				if (count < dif)
+				{
+					acc[count] = ch;
+				}
+				else
+				{
+					acc[count] = Txt[count_aux++];
+				}
+			}
+			else if ('R')
+			{
+				if (count < len)
+				{
+					acc[count] = Txt[count_aux++];
+				}
+				else
+				{
+					acc[count] = ch;
+				}
+			}
+			else break;
+		}
+		acc[count] = '\0';
+		Txt = acc;
+	}
+	return Txt;
+}
+//---------------------------------------------------------------------------
+Str::Str (String val)
+{
+	Txt = val;
+}
+//---------------------------------------------------------------------------
+void Cmd::AutPutBegin (void)
+{
+	Tx_Checksum = 0;
+	Buff_Tx[Tx_Push++]  = '>';   // Não entra no cálculo do check
+	Buff_Tx[Tx_Push]  = '?';
+	Tx_Checksum = Buff_Tx[Tx_Push++];
+}
+//---------------------------------------------------------------------------
+void Cmd::AutPut (String cmd)
+{
+   for (int count = 0; count < cmd.Length(); count++)
+   {
+		Buff_Tx[Tx_Push + 4 + count] = cmd[count+1]; // ansi indexa do 1
+		Tx_Checksum += cmd[count+1];
+   }
+   Tx_Push += cmd.Length();
+}
+//---------------------------------------------------------------------------
+void Cmd::AutPutFlush (void)
+{
+   BYTE len = ((Tx_Push - Tx_Pop) - 2);// não conta os marcadores nem o próprio campo
+   String tamanho = IntToHex(len,4);
+   for (int count = 0; count < 4; count++)
+   {
+		Buff_Tx[Tx_Push - len + count]  = tamanho[count+1];  //string indexa do 1, pula os marcadores
+		Tx_Checksum += tamanho[count+1];
+   }
+   Tx_Push += 4;
+   String ck = IntToHex(Tx_Checksum,2);
+
+   for (int count = 1; count < 3; count++)
+   {
+		Buff_Tx[Tx_Push++] = ck[count];
+   }
+   Buff_Tx[Tx_Push] = '\0';
+   String cmd = Buff_Tx;
+
+   Fila->push(cmd);
+   Tx_Push = 0;
+   Tx_Pop = 0;
+   Tx_Checksum = 0;
+
+   Pckg_Ok = false;
+
+}
+//---------------------------------------------------------------------------
+Cmd::Cmd(void)
+{
+	Tx_Push = 0;
+	sm_task = READ_VERSION;
+	sm_state = TX;
+	Tx_Pop = 0;
+	Tx_Pop = 0;
+	Pckg_Ok = false;
+
+}
+//---------------------------------------------------------------------------
+String Cmd::Parser(char *p, int len)
+{
+	int count = 0,count_aux = 0;;
+	char *Data = new char[len];
+
+
+	while (count < len)
+	{
+		BYTE data = p[count++];
+		switch (Prot.Sm)
+		{
+			case STX:
+				if (data == '>')
+				{
+					Prot.Sm = INIT;
+					Prot.Checksum = 0;
+				}
+			break;
+			case INIT:
+				if (data == '!')
+				{
+					Prot.Sm = GET_LEN;
+					Prot.Checksum += data;
+				}
+			break;
+			case GET_LEN:
+					Prot.Len_Acc[Prot.Len_Count++] = data;
+					Prot.Checksum += data;
+				if (Prot.Len_Count == 4)
+				{
+					HexToBin(Prot.Len_Acc,Prot.Len_Aux,2);
+					Prot.Len = (Prot.Len_Aux[0] << 8 | Prot.Len_Aux[1]);
+					if (Prot.Len > 4)
+					{
+						//a = 10;
+					}
+					Prot.Len_Count = 0;
+					Prot.Sm = GET_DATA;
+				}
+			break;
+			case GET_DATA:
+			   Prot.Checksum += data;
+			   Data[count_aux++] = data;
+			   if (Prot.Data_Count++ >= Prot.Len - 1)
+			   {
+					Data[count_aux] = '\0';
+					Prot.Data_Count = 0;
+					Prot.Sm = GET_CHECK;
+			   }
+			break;
+			case GET_CHECK:
+				Prot.Ck_Acc[Prot.Ck_Count++] = data;
+				if (Prot.Ck_Count >= 2)
+				{
+					Prot.Ck_Acc[Prot.Ck_Count] = '\0';
+					Prot.Ck = IntToHex(Prot.Checksum,2);
+					Prot.Ck_Count = 0;
+					if (AnsiString(Prot.Ck_Acc) == Prot.Ck)
+					{
+						Dados = String(Data);
+						Aut->Write_term("Rx",String(Dados).SubString(1,2),AnsiString(Tcp->Buff_Rx),Data,NULL);
+						Pckg_Ok = true;
+					}
+				}
+			break;
+
+			default:
+			;
+		}
+	}
+
+}
+//---------------------------------------------------------------------------
+int Cmd::Send_Status (void)
+{
+	switch (sm_state)
+	{
+		case TX:
+			AutPutStr("2F");
+			sm_state = RX;
+			return 0;
+		break;
+		case RX:
+			if (Pckg_Ok)
+			{
+				String cmd = Dados.SubString(1,2);
+				if (cmd == "2F")
+				{
+					int len = Dados.Length();
+					if (len > 2)
+					{
+						int Qtd_term = Extract_Term(Dados);
+						return Qtd_term;
+					}
+				sm_state = TX;
+				return 0;
+				}
+				else
+				{
+					sm_state = TX;
+					return 0;
+				}
+			}
+			else return 0;
+		break;
+	}
+}
+//---------------------------------------------------------------------------
+int Cmd::Extract_Term(String str)
+{
+	int N_terminais = (str.Length() - 2)/2;
+
+	for (int i = 0; i < N_terminais; i++)
+	{
+		 Term->List[i] = StrToInt(str.SubString((i*2)+3,2));
+	}
+
+	return N_terminais;
+}
+//---------------------------------------------------------------------------
+void Cmd::Parser_Term(String s)
+{
+	String cmd = Dados.SubString(1,2);
+	String escape = Dados.SubString(10,1);
+	String index = Dados.SubString(7,2);
+	int len, Qtd_term;
+	len = Dados.Length();
+
+	if (cmd == "2C")
+	{
+		if (Error < MAXERROR)
+		{
+			if (escape != "G")
+			{
+				//***************** lendo versao de menu *****************
+				if (index == "80")
+				{
+					is_asking = false;
+					String versao = Dados.SubString(10, len - 9);
+					String loc = VERSAO;
+					if (versao != VERSAO)
+					{
+						sm_task = WRITE_VERSION;
+					}
+					else sm_task = CHECKED;
+				}
+				//***************** Abastecimento frota /coleta de Odometro *****************
+				else if (index == "82")
+				{
+					Form1->L_F_CPF->Text = s.SubString(17,8);
+					sm_task = WRITECPF;
+				}
+				//***************** Abastecimento frota /coleta de CPF *****************
+				else if (index == "83")
+				{
+					Form1->L_F_CPF->Text = s.SubString(17,8);
+					sm_task = WRITECARDF;
+				}
+				//***************** Abastecimento frota /coleta de card Frentista *****************
+				else if (index == "84")
+				{
+					String aux =  s.SubString(15,16);
+					if (Menu == FROTA)
+					{
+						Form1->L_F_CardF->Text = aux;
+						sm_task = WRITEOLEO;
+					}
+					else if (Menu == CLIENTE)
+					{
+						Form1->L_C_CardF->Text = aux;
+						sm_task = WRITESENHA;
+					}
+				}
+				//***************** confirmação de not login *****************
+				else if (index == "85")
+				{
+					sm_task = RERUN1;
+				}
+				//***************** lendo cartoes p/ cadastrar *****************
+				else if (index == "86")
+				{
+					login_ongoing = false;
+					sm_task = CLEAN;
+				}
+				//***************** confirmação de login *****************
+				else if (index == "87")
+				{
+					if (User->Nivel == ADMIN && login_ongoing) sm_task = GET_CARD;
+					else sm_task = CLEAN;
+				}
+				//***************** inicia abastecimento frota/coleta placa *****************
+				else if (index == "20" || index == "2A")
+				{
+					Form1->L_F_Placa->Text = s.SubString(10,8);
+					Menu = FROTA;
+					sm_task = WRITEODO;
+				}
+				//***************** inicia abastecimento cliente/coleta card frentista *****************
+				else if (index == "21" || index == "2B")
+				{
+					Form1->L_C_CardF->Text = s.SubString(15,16);
+					Menu = CLIENTE;
+					sm_task = WRITECARDF;
+				}
+				//***************** menu p/ cadastrar cartao *****************
+				else if (index == "22")
+				{
+
+				}
+				//***************** menu p/ consulta de cartao *****************
+				else if (index == "23")
+				{
+					sm_task = CLEAN;
+				}
+				else Error++;
+			}
+			else sm_task = CANCELED;
+		}
+		else
+		{
+			Error = 0;
+			sm_task = sm_back;
+		}
+	}
+	else if (cmd == "2B" || cmd == "2E")
+	{
+		String index2 = Dados.SubString(3,2);
+		if (index2 == "E1")
+		{
+			sm_task = sm_back;
+		}
+		else if (index2 == "E5")
+		{
+			sm_task = CLEAN;
+        }
+		else if (index2 == "E7" || index2 == "EA")
+		{
+			sm_task = READ_VERSION;
+			Term->Sm_Task = STATUS;
+		}
+	Error = 0; // ?
+	}
+	else if (cmd == "2D")
+	{
+		//sm_task = sm_back;
+	}
+}
+//---------------------------------------------------------------------------
+void Cmd::Clean_Canvas(bool *flag)
+{
+		*flag = true;
+		for (int i = 0; i < 99; i++)
+		{
+			if (Cmds[i].User)
+			{
+				Cmds[i].sm_task = WRITE_TELA;
+				*flag = false;
+			}
+		}
+}
+//---------------------------------------------------------------------------
+void Cmd::Write_Login(void)
+{
+	AutPutStr("2E" + Str(IntToStr(Term->idx)).Ajuste_Len('0','L',2) + "0E87Terminal|T1Sucesso!|R|R|T1Colaborador:" + User->Nome + "|R|R|T1Cartao:" + User->CodCartao + "|KC");
+	sm_task = PENDENCY;
+}
+//---------------------------------------------------------------------------
+void Cmd::Write_Tela (void)
+{
+
+	if (User != NULL && !Term->is_closing)
+	{
+		AutPutStr("2E" + Str(IntToStr(Term->idx)).Ajuste_Len('0','L',2) + "0E2CTerminal|D0010|T1Colaborador:" + User->Nome + "|R|R|T1Nº Terminal:|H1|KC");
+		sm_task = WRITE_LOGIN;
+	}
+	else
+	{
+		AutPutStr("2E" + Str(IntToStr(Term->idx)).Ajuste_Len('0','L',2) + "0E2CTerminal|D2220|T2Produção|D3750|H2|KC");
+		if (!Checked) sm_task = READ_VERSION; // se ainda não foi atualizado
+		else sm_task = LOG_OUT; // situação de logoff
+	}
+}
+//---------------------------------------------------------------------------
+void Cmd::Write_Men2(void)
+{
+	AutPutStr("2E" + Str(IntToStr(Term->idx)).Ajuste_Len('0','L',2) + "0E21Abastecer Cliente|D1730|T1Aproxime o Cartão|D2450|T1 do cliente.|D2070|C|KN");
+	sm_task = WRITE_MENA;
+}
+//---------------------------------------------------------------------------
+void Cmd::Write_Men1(void)
+{
+	AutPutStr("2E" + Str(IntToStr(Term->idx)).Ajuste_Len('0','L',2) + "0E20Abastecer Frota|D0030|T1Insira a Placa: |EM08SSSS-NNN");
+	sm_task = WRITE_MEN2;
+}
+//---------------------------------------------------------------------------
+void Cmd::Write_MenA(void)
+{
+	AutPutStr("2B" + Str(IntToStr(Term->idx)).Ajuste_Len('0','L',2) + "0E2BAbastecer Cliente|D1730|T1Aproxime o Cartão|D2450|T1 do cliente.|D2070|C|KN");
+	sm_task = WRITE_MENB;
+}
+//---------------------------------------------------------------------------
+void Cmd::Write_MenB(void)
+{
+	AutPutStr("2B" + Str(IntToStr(Term->idx)).Ajuste_Len('0','L',2) + "0E2BAbastecer Frota|D0030|T1Insira a Placa: |EM08SSSS-NNN");
+	sm_task = WRITE_TELA;
+}
+//---------------------------------------------------------------------------
+void Cmd::Write_LogOut(void)
+{
+	AutPutStr("2E" + Str(IntToStr(Term->idx)).Ajuste_Len('0','L',2) + "0E89Terminal|T1Sucesso!|R|R|T1Colaborador Deslogado.|KC ");
+	sm_task = PENDENCY;
+	User = NULL;
+}
+//---------------------------------------------------------------------------
+void Cmd::Write_Version(void)
+{
+	AutPutStr("2E" + Str(IntToStr(Term->idx)).Ajuste_Len('0','L',2) + "0E81|MG" + VERSAO);
+	sm_task = WRITE_MEN1;
+}
+//---------------------------------------------------------------------------
+void Cmd::Write_GetCard(void)
+{
+	AutPutStr("2B" + Str(IntToStr(Term->idx)).Ajuste_Len('0','L',2) + "0E86Cadastro|D0030|T1Aproxime o Cartao ...|D1860|C");
+	sm_task = PENDENCY;
+}
+//---------------------------------------------------------------------------
+void Cmd::Write_Txt(String str,BYTE next_step)
+{
+	AutPutStr("2E" + Str(IntToStr(Term->idx)).Ajuste_Len('0','L',2) + "0E" + str);
+	sm_task = next_step;
+}
+//---------------------------------------------------------------------------
+void Cmd::Read_Version (void)
+{
+	AutPutStr("2B" + Str(IntToStr(Term->idx)).Ajuste_Len('0','L',2) + "0E80|ML");
+	is_asking = true;
+	sm_task = PENDENCY;
+}
+//---------------------------------------------------------------------------
+void Cmd::Send_Pendency(void)
+{
+	AutPutStr("2C" + Str(IntToStr(Term->idx)).Ajuste_Len('0','L',2));
+}
+//---------------------------------------------------------------------------
+void Cmd::Write_Clean(void)
+{
+	AutPutStr("2D" + Str(IntToStr(Term->idx)).Ajuste_Len('0','L',2));
+	sm_task = PENDENCY;
+}
+//---------------------------------------------------------------------------
+void Cmd::Task(void)
+{
+	if (!Pendency)
+	{
+		if (!is_asking) sm_back = sm_task;
+		Pendency = true;
+		if (!Term->idx) sm_task = PENDENCY;
+		switch (sm_task)
+		{
+			case PENDENCY:
+				Send_Pendency();
+			break;
+			case READ_VERSION:
+				Read_Version();
+			break;
+			case WRITE_VERSION:
+				Write_Version();
+			break;
+			case WRITE_MEN1:
+				Write_Men1();
+			break;
+			case WRITE_MEN2:
+				Write_Men2();
+			break;
+			case WRITE_MENA:
+				Write_MenA();
+			break;
+			case WRITE_MENB:
+				Write_MenB();
+			break;
+			case WRITE_TELA:
+				Write_Tela();
+			break;
+			case CHECKED:
+			   Write_Txt("82Terminal|D1535|T2Atualizado!|KN",PENDENCY);
+			   Checked = true;
+			break;
+			case CANCELED:
+				Write_Txt("83Terminal|D1535|T1Operação Cancelada|KN",PENDENCY);
+			break;
+			case CLEAN:
+				Write_Clean();
+			break;
+			case N_LOG_OUT:
+				Write_Txt("88Terminal|T1Erro!|R|R|T1Para deslogar é necessário|R|T1o cartão do colaborador|R|T1Logado.|KN",PENDENCY);
+			break;
+			case GET_CARD:
+				Write_GetCard();
+			break;
+			case WRITE_LOGIN:
+				Write_Login();
+			break;
+			case LOG_OUT:
+				Write_LogOut();
+			break;
+			case WRITE_INIT:
+				Write_Txt("85Terminal|T1Sucesso!|R|R|T1Atividade Iniciada ...|KN",PENDENCY);
+			break;
+			case WRITE_FINISH:
+				Write_Txt("85Terminal|T1Sucesso!|R|R|T1Atividade Finalizada ...|KN",PENDENCY);
+			break;
+			case ERROR_INIT:
+				Write_Txt("85Terminal|T1Erro!|R|R|T1Atividade não iniciada ... |R|R|T1Nenhum usuário logado.|KN",PENDENCY);
+			break;
+			case ERROR_FINISH:
+				Write_Txt("85Terminal|T1Erro!|R|R|T1Atividade não finalizada ... |R|R|T1Nenhum usuário logado.|KN",PENDENCY);
+			break;
+			case RERUN1:
+				Write_Txt("85Terminal|J21",PENDENCY);
+			break;
+			case ERROR_INIT_IS_BUSY:
+				Write_Txt("85Terminal|T1Erro!|R|R|T1Atividade não iniciada ... |R|R|T1Atividade Pendente.|KN",PENDENCY);
+			break;
+			case N_LOG_OFF:
+				Write_Txt("86Terminal|T1Erro!|R|R|T1Logoff Não realizado ... |R|R|T1Atividade Pendente.|KN",PENDENCY);
+			break;
+		}
+	}
+	else
+	{
+		if (!Aut->Connected()) Pendency = false;
+		else
+		{
+			if (Pckg_Ok)
+			{
+				Parser_Term(Dados);
+				Pendency = false;
+				Term->Cont++; // incrementa contador de terminais.
+			}
+		}
+	}
+}
+//---------------------------------------------------------------------------
+void Cmd::AutPutStr(String str)
+{
+	if (Aut->Connected())
+	{
+		AutPutBegin();
+		AutPut(str);
+		AutPutFlush();
+	}
+
+}
+//---------------------------------------------------------------------------
+Tick::Tick(void)
+{
+	Count = 0;
+}
+//---------------------------------------------------------------------------
+int Tick::GetTick(void)
+{
+	return Count;
+}
+//---------------------------------------------------------------------------
+bool Tick::TickCompare(int val)
+{
+	if (val - GetTick() <= 0) return true;
+	else return false;
+}
+//---------------------------------------------------------------------------
+Grid::Grid(void)
+{
+	Line = 1;
+}
+//---------------------------------------------------------------------------
+void Connection::Write_term(String idx = NULL,String Cmd = NULL, String Cmd1 = NULL, String Cmd2 = NULL,String Cmd3 = NULL)
+{
+	Term.Grade->Cells[0][Term.Line] = idx;
+	Term.Grade->Cells[1][Term.Line] = Cmd;
+	Term.Grade->Cells[2][Term.Line] = Cmd1;
+	Term.Grade->Cells[3][Term.Line] = Cmd2;
+	Term.Grade->Cells[4][Term.Line] = Cmd3;
+	Term.Grade->RowCount++;
+	if (!Term.Paused) Term.Grade->Row = Term.Line;
+	Term.Line++;
+}
+//---------------------------------------------------------------------------
+void Connection::Inc_Port(void)
+{
+	if (Port->ItemIndex > 2) Port->ItemIndex = 0;
+	else Port->ItemIndex++;
+}
+//---------------------------------------------------------------------------
+bool Connection::Connected(void)
+{
+	return is_Connected;
+}
+//---------------------------------------------------------------------------
+void Connection::Task(void)
+{
+	switch (Sm)
+	{
+		case CONNECT:
+			if (Tcp->Connect(AnsiString(Ip->Text).c_str(),StrToInt(Port->Text),Time))
+			{
+				Write_term("Info","Conetado",Ip->Text,Port->Text);
+				Sm = WAIT;
+				is_Connected = true;
+				Reconnecting = false;
+				Connect_b->Caption = "Desconectar";
+			}
+			else
+			{
+				if (Reconnecting) Sm = DISCONNECT;
+				Write_term("Info","Não Conetado",Ip->Text,Port->Text);
+				Inc_Port();
+				Connect_b->Caption = "Parar";
+			}
+		break;
+
+		case RECONNECT:
+			Reconnecting = true;
+			Sm = DISCONNECT;
+		break;
+		case DISCONNECT:
+			if (Tcp->Disconnect())
+			{
+				Write_term("Info","Desconectado",Ip->Text,Port->Text);
+				is_Connected = false;
+				Connect_b->Caption = "Conectar";
+				if (!Reconnecting) Sm = WAIT;
+				else Sm = CONNECT;
+			}
+		break;
+
+		case WAIT:
+
+		break;
+
+
+	}
+}
+//---------------------------------------------------------------------------
+void Connection::ConnectClick (TObject *Sender)
+{
+	if (!is_Connected) Sm = CONNECT;
+	else  Sm = DISCONNECT;
+}
+//---------------------------------------------------------------------------
+Connection::Connection(void)
+{
+	Ip = Form1->Edit1;
+	Port = Form1->ComboBox2;
+	Connect_b = Form1->Button1;
+	Term.Grade = Form1->StringGrid1;
+
+	Connect_b->Caption = "Conectar";
+
+	Ip->Text = IP;
+
+	Port->Items->Add("1771");
+	Port->Items->Add("2001");
+	Port->Items->Add("857");
+	Port->Items->Add("771");
+
+	Port->ItemIndex = 0;
+
+	Time.tv_sec = 1;
+	Time.tv_usec = 0;
+
+	Sm = CONNECT;
+
+	Line_term = 1;
+	Term.Paused = false;
+}
+//---------------------------------------------------------------------------
+TCP::TCP (void)
+{
+	Sm = TX;
+	Tx = 0;
+	Rx = 0;
+}
+//---------------------------------------------------------------------------
+void TCP::Verify_Error(void)
+{
+	int a = GetError();
+	switch (GetError())
+	{
+		case 1054:
+			Aut->Sm = RECONNECT;
+		break;
+	}
+}
+//---------------------------------------------------------------------------
+void TCP::Task(void)
+{
+	switch (Sm)
+	{
+		case TX:
+			if (Tout.TickCompare(Tx))
+			{
+				Tx = Tout.GetTick() + TOUTTX;
+				Rx = Tout.GetTick() + TOUTRX;
+				if (!Fila->empty() && Aut->Connected())
+				{
+					AnsiString cmd = Fila->front();
+					if (Send(cmd.c_str(),cmd.Length()))
+					{
+						Fila->pop();
+						Aut->Write_term("Tx",cmd.SubString(7,2),cmd);
+						Recept = false;
+						Sm = RX;
+					}
+					else
+					{
+						Aut->Write_term("Tx","Não Enviado",cmd.SubString(7,2),cmd);
+						Verify_Error();
+					}
+				}
+			}
+		break;
+		case RX:
+			if (!Tout.TickCompare(Rx))
+			{
+				int size = Receive(Buff_Rx,200);
+				if (size > 0)
+				{
+					Buff_Rx[size] = '\0';
+					Sm = TX;
+					Recept = true;
+					Rx_Push = size;
+					Cmds[Term->idx].Parser(Buff_Rx,Rx_Push);
+				}
+			}
+			else Sm = TX;
+		break;
+
+	}
+}
+//---------------------------------------------------------------------------
+__fastcall TForm1::TForm1(TComponent* Owner)
+	: TForm(Owner)
+{
+
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::Button1Click(TObject *Sender)
+{
+	Aut->ConnectClick(NULL);
+}
+//---------------------------------------------------------------------------
+
+
+void __fastcall TForm1::FormCreate(TObject *Sender)
+{
+
+	Aut = new Connection;
+	Tcp = new TCP;
+	Cmds = new Cmd[99];
+	Term = new Terminal;
+	Fila =  new queue<AnsiString>();
+
+	Aut->Term.Grade->Cells[0][0] = "Idx";
+	Aut->Term.Grade->Cells[1][0] = "Cmd";
+	Aut->Term.Grade->Cells[2][0] = "Cmd1";
+	Aut->Term.Grade->Cells[3][0] = "Cm2";
+
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::T_TaskTimer(TObject *Sender)
+{
+	Aut->Task();
+	Term->Task();
+	Tcp->Task();
+	Tcp->Tout.Count++;
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Button4Click(TObject *Sender)
+{
+	//Base->Write_Table();
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::FormCloseQuery(TObject *Sender, bool &CanClose)
+{
+	if (!Term->is_closing)
+	{
+		Cmds->Clean_Canvas(&CanClose);
+		Term->is_closing = true; //flag p/ fecha app;
+	}
+
+}
+//---------------------------------------------------------------------------
+
