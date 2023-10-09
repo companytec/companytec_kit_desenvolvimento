@@ -1,5 +1,4 @@
-<h1> Bem vindo(a) ao kit desenvolvimento concentradores </h1>
-<p>Esse kit tem o intuito de lhe auxiliar no desenvolvimento de sua aplicação para integração com os equipamentos da Companytec.</p>
+<p>Esse kit de desenvolvimento irá abranger todos os modelos de concentradores que a Companytec comercializa ou já comercializou.</p>
 <p>Em primeiro momento é necessário saber que existem duas possibilidade de comunicação com os equipamentos, uma através da DLL e outra através do protocolo nativo.</p>
 <p>Caso sua intuição seja trabalhar com a DLL, nesse kit há uma pasta relacionada a ela e onde encontrarás os manuais, onde é possível verificar todas as funções que a mesma possui, exemplos de softwares para a integração com ela e a própria DLL.</p>
 <p>Agora se sua intuição é trabalhar com o protocolo nativo, neste kit também há alguns exemplos em diversas linguagens demonstrando como realizar a conexão via socket com os equipamentos e os manuais para verificar quais comandos a automação irá responder, então para que a automação comunique com o software é só abrir uma conexão via socket e enviar os comandos desejados, feito isto ela irá responder. Lembrando que na conexão via socket é necessário colocar o IP que está configurado na automação juntamente com sua porta de comunicação, colocarei abaixo as portas disponíveis nas automações:</p>
@@ -26,6 +25,3 @@
 * i206 : TANK_ALARMS_REPORT;
 * i301 : LEAK_SENSOR_STATUS;
 * i302 : LEAK_SENSOR_REPORT;
-  
-<p>Caso tenha alguma dúvida sobre essas questões de integração, pode entrar em contato conosco, o telefone e whatsapp é (53) 3284-8100, skype é desenvolvimento2companytec e o e-mail é desenvolvimento@companytec.com.br, falar com Patrick Medeiros.:desktop_computer:</p>
-<p>Obrigado.</p>
