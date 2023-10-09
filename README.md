@@ -1,4 +1,4 @@
-<h1> Bem vindo(a) ao kit desenvolvimento da Companyte </h1>
+<h1> Bem vindo(a) ao kit desenvolvimento da Companytec</h1>
 <p>Esse kit tem o intuito de lhe auxiliar no desenvolvimento de sua aplicação para integração com os equipamentos da Companytec.</p>
 <p>Na raiz do repositório encontrarás todos os kits de desnvolvimento dos equipamentos GDC (Gerenciador de duchas Companytec), o TWC (Terminal wireless Companytec) e também a parte dos concentradores que podem ser eles Horustech, Concept e todos os modelos de CBC.</p>
 <p>Em cada pasta encontrarás alguns exemplos de softwares para auxílio no desenvolvimento, manuais sobre funcionamento dos equipamentos e também com seus respectivos protocolos, etc.</p>
