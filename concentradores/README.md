@@ -1,3 +1,4 @@
+<h1> Kit desenvolvimento concentradores</h1>
 <p>Esse kit de desenvolvimento irá abranger todos os modelos de concentradores que a Companytec comercializa ou já comercializou.</p>
 <p>Em primeiro momento é necessário saber que existem duas possibilidade de comunicação com os equipamentos, uma através da DLL e outra através do protocolo nativo.</p>
 <p>Caso sua intuição seja trabalhar com a DLL, nesse kit há uma pasta relacionada a ela e onde encontrarás os manuais, onde é possível verificar todas as funções que a mesma possui, exemplos de softwares para a integração com ela e a própria DLL.</p>
