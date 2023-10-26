@@ -182,3 +182,7 @@ Este arquivo contém todas as datas e descrições das atualizações realizadas
 ```
 - Inseridos dados da Concept no readme do repositório.
 ```
+### Versão 1.1.37 - 26/10/2023:
+```
+- Inserido comando de leitura de abastecimento paf2 no simulador CBC.
+```
