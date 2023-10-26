@@ -185,4 +185,5 @@ Este arquivo contém todas as datas e descrições das atualizações realizadas
 ### Versão 1.1.37 - 26/10/2023:
 ```
 - Inserido comando de leitura de abastecimento paf2 no simulador CBC.
+- Corrigido bug na configuração de idf no hrs console.
 ```
