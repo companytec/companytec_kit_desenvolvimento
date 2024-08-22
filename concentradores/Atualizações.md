@@ -1,6 +1,10 @@
 # Atualizações kit desenvolvimento concentradores
 Este arquivo contém todas as datas e descrições das atualizações realizadas no kit desenvolvimento da Companytec.
 
+### Versão 1.1.39 - 22/08/2024:
+```
+- Inserida a descrição da função C_SetExtendedPrice no manual da DLL.
+```
 ### Versão 1.1.38 - 03/01/2024:
 ```
 - Alterado hrs console para ler abastecimentos com dados Conecttec ou informações adicionais do TWC.
