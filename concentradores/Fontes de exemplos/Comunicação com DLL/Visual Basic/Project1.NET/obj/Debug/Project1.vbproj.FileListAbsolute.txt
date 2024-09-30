@@ -29,3 +29,18 @@ C:\Users\desenvolvimento\Documents\projetos\Kit desenvolvimento concentradores\F
 C:\Users\desenvolvimento\Documents\projetos\Kit desenvolvimento concentradores\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\bin\Project1.application
 C:\Users\desenvolvimento\Documents\projetos\Kit desenvolvimento concentradores\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\obj\Debug\Project1.exe.manifest
 C:\Users\desenvolvimento\Documents\projetos\Kit desenvolvimento concentradores\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\obj\Debug\Project1.application
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\concentradores\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\obj\Debug\Project1.vbproj.AssemblyReference.cache
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\concentradores\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\obj\Debug\Project1.Form1.resources
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\concentradores\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\obj\Debug\Project1.vbproj.GenerateResource.cache
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\concentradores\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\obj\Debug\Project1.vbproj.CoreCompileInputs.cache
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\concentradores\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\obj\Debug\Project1.exe
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\concentradores\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\obj\Debug\Project1.xml
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\concentradores\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\obj\Debug\Project1.pdb
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\concentradores\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\bin\Project1.exe.config
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\concentradores\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\bin\Project1.exe.manifest
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\concentradores\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\bin\Project1.application
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\concentradores\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\bin\Project1.exe
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\concentradores\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\bin\Project1.pdb
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\concentradores\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\bin\Project1.xml
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\concentradores\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\obj\Debug\Project1.exe.manifest
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\concentradores\Fontes de exemplos\Comunicação com DLL\Visual Basic\Project1.NET\obj\Debug\Project1.application

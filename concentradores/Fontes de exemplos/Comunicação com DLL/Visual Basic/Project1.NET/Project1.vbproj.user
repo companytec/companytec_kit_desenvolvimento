@@ -29,4 +29,7 @@
     <StartAction>Project</StartAction>
     <StartWithIE>true</StartWithIE>
   </PropertyGroup>
+  <PropertyGroup>
+    <EnableSecurityDebugging>false</EnableSecurityDebugging>
+  </PropertyGroup>
 </Project>

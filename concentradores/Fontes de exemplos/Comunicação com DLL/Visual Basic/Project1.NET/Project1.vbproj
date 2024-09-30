@@ -68,10 +68,10 @@
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>396739961D3721E4F41DAE36D1842FA5056DD3F2</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>E11EEB2C152792702F06CD8078667BC8BAC23593</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>Project1_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>Project1_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -132,6 +132,7 @@
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="My Project\app.manifest" />
+    <None Include="Project1_1_TemporaryKey.pfx" />
     <None Include="Project1_TemporaryKey.pfx" />
     <None Include="_UpgradeReport.htm">
       <SubType>Preview</SubType>

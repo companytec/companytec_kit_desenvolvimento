@@ -1,6 +1,11 @@
 # Atualizações kit desenvolvimento concentradores
 Este arquivo contém todas as datas e descrições das atualizações realizadas no kit desenvolvimento da Companytec.
 
+### Versão 1.1.39 - 30/09/2024:
+```
+- Alterado hrs console, agora é possível configurar sensor idf controla a bomba sem controle de preço idf.
+- Alterado hrs console, agora é possível mudar endereço lógico dos sensores idf pela janela de diagnóstico.
+```
 ### Versão 1.1.38 - 03/01/2024:
 ```
 - Alterado hrs console para ler abastecimentos com dados Conecttec ou informações adicionais do TWC.
