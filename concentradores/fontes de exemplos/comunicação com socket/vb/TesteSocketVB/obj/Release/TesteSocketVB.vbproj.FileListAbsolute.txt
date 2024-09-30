@@ -1,0 +1,22 @@
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\bin\Release\TesteSocketVB.exe.config
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\bin\Release\TesteSocketVB.exe
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\bin\Release\TesteSocketVB.pdb
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\bin\Release\TesteSocketVB.xml
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\obj\Release\TesteSocketVB.Form1.resources
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\obj\Release\TesteSocketVB.Resources.resources
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\obj\Release\TesteSocketVB.vbproj.GenerateResource.Cache
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\obj\Release\TesteSocketVB.exe
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\obj\Release\TesteSocketVB.xml
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\obj\Release\TesteSocketVB.pdb
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\obj\Release\TesteSocketVB.vbprojResolveAssemblyReference.cache
+C:\Users\desenvolvimento\Desktop\Kit desenvolvimento concentradores Vr 1.1.11\Fontes de exemplos\Comunicação com SOCKET\VB\TesteSocketVB\bin\Release\TesteSocketVB.exe.config
+C:\Users\desenvolvimento\Desktop\Kit desenvolvimento concentradores Vr 1.1.11\Fontes de exemplos\Comunicação com SOCKET\VB\TesteSocketVB\obj\Release\TesteSocketVB.exe
+C:\Users\desenvolvimento\Desktop\Kit desenvolvimento concentradores Vr 1.1.11\Fontes de exemplos\Comunicação com SOCKET\VB\TesteSocketVB\obj\Release\TesteSocketVB.xml
+C:\Users\desenvolvimento\Desktop\Kit desenvolvimento concentradores Vr 1.1.11\Fontes de exemplos\Comunicação com SOCKET\VB\TesteSocketVB\obj\Release\TesteSocketVB.pdb
+C:\Users\desenvolvimento\Desktop\Kit desenvolvimento concentradores Vr 1.1.11\Fontes de exemplos\Comunicação com SOCKET\VB\TesteSocketVB\bin\Release\TesteSocketVB.exe
+C:\Users\desenvolvimento\Desktop\Kit desenvolvimento concentradores Vr 1.1.11\Fontes de exemplos\Comunicação com SOCKET\VB\TesteSocketVB\bin\Release\TesteSocketVB.pdb
+C:\Users\desenvolvimento\Desktop\Kit desenvolvimento concentradores Vr 1.1.11\Fontes de exemplos\Comunicação com SOCKET\VB\TesteSocketVB\bin\Release\TesteSocketVB.xml
+C:\Users\desenvolvimento\Desktop\Kit desenvolvimento concentradores Vr 1.1.11\Fontes de exemplos\Comunicação com SOCKET\VB\TesteSocketVB\obj\Release\TesteSocketVB.vbprojResolveAssemblyReference.cache
+C:\Users\desenvolvimento\Desktop\Kit desenvolvimento concentradores Vr 1.1.11\Fontes de exemplos\Comunicação com SOCKET\VB\TesteSocketVB\obj\Release\TesteSocketVB.Form1.resources
+C:\Users\desenvolvimento\Desktop\Kit desenvolvimento concentradores Vr 1.1.11\Fontes de exemplos\Comunicação com SOCKET\VB\TesteSocketVB\obj\Release\TesteSocketVB.Resources.resources
+C:\Users\desenvolvimento\Desktop\Kit desenvolvimento concentradores Vr 1.1.11\Fontes de exemplos\Comunicação com SOCKET\VB\TesteSocketVB\obj\Release\TesteSocketVB.vbproj.GenerateResource.Cache

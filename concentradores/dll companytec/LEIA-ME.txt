@@ -1,0 +1,20 @@
+Nesta pasta há duas subpastas com as diferentes versões da DLL Companytec. A diferença destas duas DLL's é a porta de comunicação quando é chamado a função InicializaSocket ou qualquer outra função de comunicação ethernet que não seja necessário passar o parâmetro da porta de comunicação.
+As últimas versões da DLL eram feitas utilizando a porta 1771 por padrão, só que esta porta é utilizada pelos softwares de configuração e consulta da Companytec. Como a DLL é utilizada pelos sistemas de pista do posto, é aconselhável que os mesmos utilizem a porta 2001, por este motivo que estamos disponibilizando a DLL com comunicação através desta porta.
+Aconselhamos a utilizar a DLL com porta 2001 por questões de futuras intervenções em seus equipamentos de automação.
+OBS.: Caso decida substituir a sua DLL com porta 1771 para a DLL com porta 2001, é necessário seguir os passos abaixo:
+1º Dar baixa em todos os abastecimentos através do sistema de pista;
+2º Não realizar nenhum abastecimento enquanto está realizando a operação;
+3º Enviar o comando de sincronia de ponteiros através do software HRS Console ou CBC Manager, para realizar tal procedimento na automação Horustech é necessário logar um certificado digital na mesma;
+4º Colocar a nova DLL com porta 2001 e liberar o sistema novamente para trabalhar.
+
+Foi implementada uma função em cada DLL para saber qual porta a mesma está utilizando para a comunicação, segue abaixo sua estrutura:
+	- Function ConsultaPorta():Integer;
+
+Qualquer dúvida, por favor, entrar em contato com o setor de desenvolvimento da Companytec.
+
+Email: desenvolvimento@companytec.com.br
+Skype: desenvolvimento2companytec
+Telefone: (53)3284-8100 - Ramal 229
+
+Atenciosamente...
+	Patrick Gonçalves.

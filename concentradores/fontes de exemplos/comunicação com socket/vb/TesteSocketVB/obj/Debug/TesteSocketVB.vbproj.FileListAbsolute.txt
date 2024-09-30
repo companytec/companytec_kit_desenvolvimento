@@ -1,0 +1,10 @@
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\bin\Debug\TesteSocketVB.exe.config
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\bin\Debug\TesteSocketVB.exe
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\bin\Debug\TesteSocketVB.pdb
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\bin\Debug\TesteSocketVB.xml
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\obj\Debug\TesteSocketVB.Form1.resources
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\obj\Debug\TesteSocketVB.Resources.resources
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\obj\Debug\TesteSocketVB.vbproj.GenerateResource.Cache
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\obj\Debug\TesteSocketVB.exe
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\obj\Debug\TesteSocketVB.xml
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\obj\Debug\TesteSocketVB.pdb
