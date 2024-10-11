@@ -137,7 +137,7 @@ object Form1: TForm1
     Top = 88
     Width = 770
     Height = 549
-    ActivePage = Abastecimentos
+    ActivePage = ChangePrice
     TabOrder = 0
     object Abastecimentos: TTabSheet
       Caption = 'Abastecimentos'
@@ -2194,8 +2194,8 @@ object Form1: TForm1
           Top = 31
           Width = 45
           Height = 22
-          MaxValue = 2
-          MinValue = 0
+          MaxValue = 3
+          MinValue = 1
           TabOrder = 2
           Value = 0
         end
