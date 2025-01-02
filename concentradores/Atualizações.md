@@ -1,6 +1,10 @@
 # Atualizações kit desenvolvimento concentradores
 Este arquivo contém todas as datas e descrições das atualizações realizadas no kit desenvolvimento da Companytec.
 
+### Versão 1.1.41 - 02/01/2025:
+```
+- Alterado hrs console, removida opção de conexão com Concept.
+```
 ### Versão 1.1.40 - 30/09/2024:
 ```
 - Alterado hrs console, agora é possível configurar sensor idf controla a bomba sem controle de preço idf.
