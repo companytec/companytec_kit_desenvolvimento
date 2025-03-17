@@ -1,0 +1,34 @@
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\bin\Release\TesteSocketVB.exe.config
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\bin\Release\TesteSocketVB.exe
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\bin\Release\TesteSocketVB.pdb
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\bin\Release\TesteSocketVB.xml
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\obj\Release\TesteSocketVB.Form1.resources
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\obj\Release\TesteSocketVB.Resources.resources
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\obj\Release\TesteSocketVB.vbproj.GenerateResource.Cache
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\obj\Release\TesteSocketVB.exe
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\obj\Release\TesteSocketVB.xml
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\obj\Release\TesteSocketVB.pdb
+C:\Users\desenvolvimento\Desktop\TesteSocketVB\TesteSocketVB\obj\Release\TesteSocketVB.vbprojResolveAssemblyReference.cache
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\TesteComunicaçãoSocketVB\TesteSocketVB\bin\Release\TesteSocketVB.exe.config
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\TesteComunicaçãoSocketVB\TesteSocketVB\obj\Release\TesteSocketVB.exe
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\TesteComunicaçãoSocketVB\TesteSocketVB\obj\Release\TesteSocketVB.xml
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\TesteComunicaçãoSocketVB\TesteSocketVB\obj\Release\TesteSocketVB.pdb
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\TesteComunicaçãoSocketVB\TesteSocketVB\bin\Release\TesteSocketVB.exe
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\TesteComunicaçãoSocketVB\TesteSocketVB\bin\Release\TesteSocketVB.pdb
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\TesteComunicaçãoSocketVB\TesteSocketVB\bin\Release\TesteSocketVB.xml
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\TesteComunicaçãoSocketVB\TesteSocketVB\obj\Release\TesteSocketVB.vbprojResolveAssemblyReference.cache
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\TesteComunicaçãoSocketVB\TesteSocketVB\obj\Release\TesteSocketVB.Form1.resources
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\TesteComunicaçãoSocketVB\TesteSocketVB\obj\Release\TesteSocketVB.Resources.resources
+C:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\TesteComunicaçãoSocketVB\TesteSocketVB\obj\Release\TesteSocketVB.vbproj.GenerateResource.Cache
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\teste_comunicacao_socket_vb_gdc\TesteSocketVB\bin\Release\TesteSocketVB.exe.config
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\teste_comunicacao_socket_vb_gdc\TesteSocketVB\bin\Release\TesteSocketVB.exe
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\teste_comunicacao_socket_vb_gdc\TesteSocketVB\bin\Release\TesteSocketVB.pdb
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\teste_comunicacao_socket_vb_gdc\TesteSocketVB\bin\Release\TesteSocketVB.xml
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\teste_comunicacao_socket_vb_gdc\TesteSocketVB\obj\Release\TesteSocketVB.vbproj.AssemblyReference.cache
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\teste_comunicacao_socket_vb_gdc\TesteSocketVB\obj\Release\TesteSocketVB.Form1.resources
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\teste_comunicacao_socket_vb_gdc\TesteSocketVB\obj\Release\TesteSocketVB.Resources.resources
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\teste_comunicacao_socket_vb_gdc\TesteSocketVB\obj\Release\TesteSocketVB.vbproj.GenerateResource.cache
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\teste_comunicacao_socket_vb_gdc\TesteSocketVB\obj\Release\TesteSocketVB.vbproj.CoreCompileInputs.cache
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\teste_comunicacao_socket_vb_gdc\TesteSocketVB\obj\Release\TesteSocketVB.exe
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\teste_comunicacao_socket_vb_gdc\TesteSocketVB\obj\Release\TesteSocketVB.xml
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\teste_comunicacao_socket_vb_gdc\TesteSocketVB\obj\Release\TesteSocketVB.pdb

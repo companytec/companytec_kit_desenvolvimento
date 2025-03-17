@@ -4,6 +4,10 @@
 <p>Nesse kit é possível encontrar a DLL para a integração com seu software e também os manuais necessários para tal integração.</p>
 <p>Abaixo listarei todas as atualizações que foram feitas no kit GDC:</p>
 
+### Versão 1.1.03 - 17/03/2025:
+```
+- Feito software de teste em VB
+```
 ### Versão 1.1.02 - 23/11/2023:
 ```
 - Atualização do manual do protocolo de comunicação, correção de comandos.
