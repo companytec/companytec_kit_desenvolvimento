@@ -32,3 +32,15 @@ D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\teste_comunicacao
 D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\teste_comunicacao_socket_vb_gdc\TesteSocketVB\obj\Release\TesteSocketVB.exe
 D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\teste_comunicacao_socket_vb_gdc\TesteSocketVB\obj\Release\TesteSocketVB.xml
 D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\teste_comunicacao_socket_vb_gdc\TesteSocketVB\obj\Release\TesteSocketVB.pdb
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\gdc\exemplos\comunicacao_socket_vb\TesteSocketVB\bin\Release\TesteSocketVB.exe.config
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\gdc\exemplos\comunicacao_socket_vb\TesteSocketVB\bin\Release\TesteSocketVB.exe
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\gdc\exemplos\comunicacao_socket_vb\TesteSocketVB\bin\Release\TesteSocketVB.pdb
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\gdc\exemplos\comunicacao_socket_vb\TesteSocketVB\bin\Release\TesteSocketVB.xml
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\gdc\exemplos\comunicacao_socket_vb\TesteSocketVB\obj\Release\TesteSocketVB.vbproj.AssemblyReference.cache
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\gdc\exemplos\comunicacao_socket_vb\TesteSocketVB\obj\Release\TesteSocketVB.Form1.resources
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\gdc\exemplos\comunicacao_socket_vb\TesteSocketVB\obj\Release\TesteSocketVB.Resources.resources
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\gdc\exemplos\comunicacao_socket_vb\TesteSocketVB\obj\Release\TesteSocketVB.vbproj.GenerateResource.cache
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\gdc\exemplos\comunicacao_socket_vb\TesteSocketVB\obj\Release\TesteSocketVB.vbproj.CoreCompileInputs.cache
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\gdc\exemplos\comunicacao_socket_vb\TesteSocketVB\obj\Release\TesteSocketVB.exe
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\gdc\exemplos\comunicacao_socket_vb\TesteSocketVB\obj\Release\TesteSocketVB.xml
+D:\Users\desenvolvimento\Documents\Projetos\Patrick Gonçalves\git_hub\companytec_kit_desenvolvimento\gdc\exemplos\comunicacao_socket_vb\TesteSocketVB\obj\Release\TesteSocketVB.pdb

@@ -37,6 +37,8 @@ Partial Class Form1
         Me.Label1 = New System.Windows.Forms.Label()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.tb_command_to_send = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.tb_duration_seconds = New System.Windows.Forms.TextBox()
         Me.tb_ans_command_save_password = New System.Windows.Forms.TextBox()
@@ -51,11 +53,16 @@ Partial Class Form1
         Me.tb_password = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
-        Me.tb_command_to_send = New System.Windows.Forms.TextBox()
-        Me.Label11 = New System.Windows.Forms.Label()
+        Me.TabPage3 = New System.Windows.Forms.TabPage()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.tb_send_command_status = New System.Windows.Forms.TextBox()
+        Me.tb_ans_command_status = New System.Windows.Forms.TextBox()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.btn_send_command_status = New System.Windows.Forms.Button()
         Me.Panel1.SuspendLayout()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
+        Me.TabPage3.SuspendLayout()
         Me.SuspendLayout()
         '
         'Panel1
@@ -184,6 +191,7 @@ Partial Class Form1
         '
         Me.TabControl1.Controls.Add(Me.TabPage1)
         Me.TabControl1.Controls.Add(Me.TabPage2)
+        Me.TabControl1.Controls.Add(Me.TabPage3)
         Me.TabControl1.Location = New System.Drawing.Point(5, 75)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -214,6 +222,23 @@ Partial Class Form1
         Me.TabPage1.TabIndex = 0
         Me.TabPage1.Text = "Gravação de senha"
         Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(8, 166)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(140, 13)
+        Me.Label11.TabIndex = 15
+        Me.Label11.Text = "Comando que será enviado:"
+        '
+        'tb_command_to_send
+        '
+        Me.tb_command_to_send.Location = New System.Drawing.Point(11, 191)
+        Me.tb_command_to_send.Name = "tb_command_to_send"
+        Me.tb_command_to_send.Size = New System.Drawing.Size(452, 20)
+        Me.tb_command_to_send.TabIndex = 14
+        Me.tb_command_to_send.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label10
         '
@@ -331,33 +356,76 @@ Partial Class Form1
         Me.TabPage2.Location = New System.Drawing.Point(4, 22)
         Me.TabPage2.Name = "TabPage2"
         Me.TabPage2.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage2.Size = New System.Drawing.Size(470, 233)
+        Me.TabPage2.Size = New System.Drawing.Size(470, 286)
         Me.TabPage2.TabIndex = 1
         Me.TabPage2.Text = "Gravação tag"
         Me.TabPage2.UseVisualStyleBackColor = True
         '
-        'tb_command_to_send
+        'TabPage3
         '
-        Me.tb_command_to_send.Location = New System.Drawing.Point(11, 191)
-        Me.tb_command_to_send.Name = "tb_command_to_send"
-        Me.tb_command_to_send.Size = New System.Drawing.Size(452, 20)
-        Me.tb_command_to_send.TabIndex = 14
-        Me.tb_command_to_send.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.TabPage3.Controls.Add(Me.Label12)
+        Me.TabPage3.Controls.Add(Me.tb_send_command_status)
+        Me.TabPage3.Controls.Add(Me.tb_ans_command_status)
+        Me.TabPage3.Controls.Add(Me.Label13)
+        Me.TabPage3.Controls.Add(Me.btn_send_command_status)
+        Me.TabPage3.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage3.Name = "TabPage3"
+        Me.TabPage3.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage3.Size = New System.Drawing.Size(470, 286)
+        Me.TabPage3.TabIndex = 2
+        Me.TabPage3.Text = "Status"
+        Me.TabPage3.UseVisualStyleBackColor = True
         '
-        'Label11
+        'Label12
         '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(8, 166)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(140, 13)
-        Me.Label11.TabIndex = 15
-        Me.Label11.Text = "Comando que será enviado:"
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(5, 8)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(140, 13)
+        Me.Label12.TabIndex = 20
+        Me.Label12.Text = "Comando que será enviado:"
+        '
+        'tb_send_command_status
+        '
+        Me.tb_send_command_status.Location = New System.Drawing.Point(8, 33)
+        Me.tb_send_command_status.Name = "tb_send_command_status"
+        Me.tb_send_command_status.ReadOnly = True
+        Me.tb_send_command_status.Size = New System.Drawing.Size(452, 20)
+        Me.tb_send_command_status.TabIndex = 19
+        Me.tb_send_command_status.Text = "{X&7E}"
+        Me.tb_send_command_status.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'tb_ans_command_status
+        '
+        Me.tb_ans_command_status.Location = New System.Drawing.Point(66, 98)
+        Me.tb_ans_command_status.Name = "tb_ans_command_status"
+        Me.tb_ans_command_status.Size = New System.Drawing.Size(395, 20)
+        Me.tb_ans_command_status.TabIndex = 18
+        Me.tb_ans_command_status.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(5, 101)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(55, 13)
+        Me.Label13.TabIndex = 17
+        Me.Label13.Text = "Resposta:"
+        '
+        'btn_send_command_status
+        '
+        Me.btn_send_command_status.Location = New System.Drawing.Point(375, 66)
+        Me.btn_send_command_status.Name = "btn_send_command_status"
+        Me.btn_send_command_status.Size = New System.Drawing.Size(86, 23)
+        Me.btn_send_command_status.TabIndex = 16
+        Me.btn_send_command_status.Text = "Enviar"
+        Me.btn_send_command_status.UseVisualStyleBackColor = True
         '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(487, 403)
+        Me.ClientSize = New System.Drawing.Size(487, 516)
         Me.Controls.Add(Me.TabControl1)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.ckConected)
@@ -368,12 +436,14 @@ Partial Class Form1
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Name = "Form1"
-        Me.Text = "Form1"
+        Me.Text = "Comandos GDC"
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
+        Me.TabPage3.ResumeLayout(False)
+        Me.TabPage3.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -410,4 +480,10 @@ Partial Class Form1
     Friend WithEvents Label6 As Label
     Friend WithEvents tb_command_to_send As TextBox
     Friend WithEvents Label11 As Label
+    Friend WithEvents TabPage3 As TabPage
+    Friend WithEvents Label12 As Label
+    Friend WithEvents tb_send_command_status As TextBox
+    Friend WithEvents tb_ans_command_status As TextBox
+    Friend WithEvents Label13 As Label
+    Friend WithEvents btn_send_command_status As Button
 End Class

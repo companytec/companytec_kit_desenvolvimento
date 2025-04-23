@@ -1,6 +1,7 @@
 ﻿Imports System.Net
 Imports System.Net.Sockets
 Imports System.Text
+Imports System.Windows.Forms.VisualStyles.VisualStyleElement
 Public Class Form1
     Dim client As TcpClient
     Dim stream As NetworkStream
@@ -82,5 +83,30 @@ Public Class Form1
 
         ' Exibir resposta no txtAnswer
         tb_ans_command_save_password.Text = responseData
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btn_send_command_status.Click
+        Dim command As Byte() = {&H58, &H26}
+        Dim checksum As Byte = checksumMod256(command)
+
+        Dim checksumStr As String = checksum.ToString("X2")
+        Dim checksumBytes As Byte() = Encoding.ASCII.GetBytes(checksumStr)
+
+        ' Adicionar delimitadores { (0x7B) no início e } (0x7D) no final
+        Dim finalCommand As Byte() = {CByte(&H7B)}.Concat(command).Concat(checksumBytes).Concat({CByte(&H7D)}).ToArray()
+
+        tb_send_command_status.Text = System.Text.Encoding.ASCII.GetString(finalCommand)
+
+
+        stream.Write(finalCommand, 0, finalCommand.Length)
+
+        ' Receber resposta
+        Dim buffer(126) As Byte
+        Dim bytes As Int32 = stream.Read(buffer, 0, buffer.Length)
+        Dim responseData As String = Encoding.ASCII.GetString(buffer, 0, bytes)
+
+        ' Exibir resposta no txtAnswer
+        tb_ans_command_status.Text = responseData
+
     End Sub
 End Class
