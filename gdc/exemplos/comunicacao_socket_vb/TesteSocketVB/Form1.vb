@@ -86,27 +86,121 @@ Public Class Form1
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles btn_send_command_status.Click
+        ' Montar comando
         Dim command As Byte() = {&H58, &H26}
         Dim checksum As Byte = checksumMod256(command)
-
         Dim checksumStr As String = checksum.ToString("X2")
         Dim checksumBytes As Byte() = Encoding.ASCII.GetBytes(checksumStr)
 
-        ' Adicionar delimitadores { (0x7B) no início e } (0x7D) no final
+        ' Adicionar delimitadores { e }
         Dim finalCommand As Byte() = {CByte(&H7B)}.Concat(command).Concat(checksumBytes).Concat({CByte(&H7D)}).ToArray()
 
+        ' Mostrar comando enviado (em ASCII)
         tb_send_command_status.Text = System.Text.Encoding.ASCII.GetString(finalCommand)
 
-
+        ' Enviar comando
         stream.Write(finalCommand, 0, finalCommand.Length)
 
-        ' Receber resposta
-        Dim buffer(126) As Byte
-        Dim bytes As Int32 = stream.Read(buffer, 0, buffer.Length)
-        Dim responseData As String = Encoding.ASCII.GetString(buffer, 0, bytes)
+        ' Preparar para receber resposta
+        Dim fullResponse As New List(Of Byte)()
+        Dim endFound As Boolean = False
 
-        ' Exibir resposta no txtAnswer
-        tb_ans_command_status.Text = responseData
+        While Not endFound
+            Dim buffer(126) As Byte
+            Dim bytesRead As Int32 = stream.Read(buffer, 0, buffer.Length)
+
+            For i As Integer = 0 To bytesRead - 1
+                fullResponse.Add(buffer(i))
+                If buffer(i) = &H7D Then ' } = 0x7D
+                    endFound = True
+                    Exit For
+                End If
+            Next
+        End While
+
+        ' Montar hexdump
+        Dim hexDump As New StringBuilder()
+        Dim lineAddress As Integer = 0
+
+        For i As Integer = 0 To fullResponse.Count - 1 Step 16
+            ' Endereço da linha
+            hexDump.AppendFormat("{0:X4}: ", lineAddress)
+
+            ' Bytes da linha
+            For j As Integer = 0 To 15
+                If (i + j) < fullResponse.Count Then
+                    hexDump.AppendFormat("{0:X2} ", fullResponse(i + j))
+                Else
+                    hexDump.Append("   ") ' Se não tem byte, preencher espaço
+                End If
+            Next
+
+            ' Representação ASCII da linha (opcional, fica bem bonito!)
+            hexDump.Append(" |")
+            For j As Integer = 0 To 15
+                If (i + j) < fullResponse.Count Then
+                    Dim b As Byte = fullResponse(i + j)
+                    If b >= 32 AndAlso b <= 126 Then ' Se caractere imprimível
+                        hexDump.Append(ChrW(b))
+                    Else
+                        hexDump.Append(".") ' Se não imprimível, mostra ponto
+                    End If
+                Else
+                    hexDump.Append(" ")
+                End If
+            Next
+            hexDump.AppendLine("|")
+
+            ' Atualizar endereço da linha
+            lineAddress += 16
+        Next
+
+        ' Mostrar hexdump formatado
+        tb_ans_command_status.Text = hexDump.ToString().Trim()
+
+
+        '' Aqui é um código para receber a resposta só em hexa, sem mostrar os caracteres nem quantidade
+        '' Montar comando
+        'Dim command As Byte() = {&H58, &H26}
+        'Dim checksum As Byte = checksumMod256(command)
+        'Dim checksumStr As String = checksum.ToString("X2")
+        'Dim checksumBytes As Byte() = Encoding.ASCII.GetBytes(checksumStr)
+
+        '' Adicionar delimitadores { e }
+        'Dim finalCommand As Byte() = {CByte(&H7B)}.Concat(command).Concat(checksumBytes).Concat({CByte(&H7D)}).ToArray()
+
+        '' Mostrar comando enviado (em ASCII)
+        'tb_send_command_status.Text = System.Text.Encoding.ASCII.GetString(finalCommand)
+
+        '' Enviar comando
+        'stream.Write(finalCommand, 0, finalCommand.Length)
+
+        '' Preparar para receber resposta
+        'Dim fullResponse As New List(Of Byte)()
+        'Dim endFound As Boolean = False
+
+        'While Not endFound
+        '    Dim buffer(126) As Byte
+        '    Dim bytesRead As Int32 = stream.Read(buffer, 0, buffer.Length)
+
+        '    For i As Integer = 0 To bytesRead - 1
+        '        fullResponse.Add(buffer(i))
+        '        If buffer(i) = &H7D Then ' } = 0x7D
+        '            endFound = True
+        '            Exit For
+        '        End If
+        '    Next
+        'End While
+
+        '' Converter todos os bytes recebidos para hexadecimal
+        'Dim hexString As New StringBuilder()
+        'For Each b As Byte In fullResponse
+        '    hexString.AppendFormat("{0:X2} ", b)
+        'Next
+
+        'tb_ans_command_status.Text = hexString.ToString().Trim()
+
+
 
     End Sub
 End Class

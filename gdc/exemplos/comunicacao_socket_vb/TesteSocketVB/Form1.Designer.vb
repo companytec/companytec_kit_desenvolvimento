@@ -398,15 +398,17 @@ Partial Class Form1
         'tb_ans_command_status
         '
         Me.tb_ans_command_status.Location = New System.Drawing.Point(66, 98)
+        Me.tb_ans_command_status.Multiline = True
         Me.tb_ans_command_status.Name = "tb_ans_command_status"
-        Me.tb_ans_command_status.Size = New System.Drawing.Size(395, 20)
+        Me.tb_ans_command_status.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.tb_ans_command_status.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.tb_ans_command_status.Size = New System.Drawing.Size(395, 182)
         Me.tb_ans_command_status.TabIndex = 18
-        Me.tb_ans_command_status.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'Label13
         '
         Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(5, 101)
+        Me.Label13.Location = New System.Drawing.Point(5, 98)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(55, 13)
         Me.Label13.TabIndex = 17
