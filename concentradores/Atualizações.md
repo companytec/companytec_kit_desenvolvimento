@@ -1,6 +1,10 @@
 # Atualizações kit desenvolvimento concentradores
 Este arquivo contém todas as datas e descrições das atualizações realizadas no kit desenvolvimento da Companytec.
 
+### Versão 1.1.42 - 17/06/2025:
+```
+- Corrigido comando de leitura de identificador da DLL.
+```
 ### Versão 1.1.41 - 02/01/2025:
 ```
 - Alterado hrs console, removida opção de conexão com Concept.
