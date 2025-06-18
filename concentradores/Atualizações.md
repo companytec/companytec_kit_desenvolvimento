@@ -4,6 +4,7 @@ Este arquivo contém todas as datas e descrições das atualizações realizadas
 ### Versão 1.1.42 - 17/06/2025:
 ```
 - Corrigido comando de leitura de identificador da DLL.
+- Corrigida estrutura de AbastFid2 onde a mesma estava enviando os dados de total a pagar com casa decimal errada.
 ```
 ### Versão 1.1.41 - 02/01/2025:
 ```
