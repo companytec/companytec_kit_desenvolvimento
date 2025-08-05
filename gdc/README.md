@@ -4,6 +4,10 @@
 <p>Nesse kit é possível encontrar a DLL para a integração com seu software e também os manuais necessários para tal integração.</p>
 <p>Abaixo listarei todas as atualizações que foram feitas no kit GDC:</p>
 
+### Versão 1.1.06 - 05/08/2025:
+```
+- Atualizado manual do protocolo GDC.
+```
 ### Versão 1.1.05 - 06/05/2025:
 ```
 - Melhorado software de teste no comando de leitura de status, agora reposta não vem quebrada.
