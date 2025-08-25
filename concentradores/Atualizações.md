@@ -1,6 +1,10 @@
 # Atualizações kit desenvolvimento concentradores
 Este arquivo contém todas as datas e descrições das atualizações realizadas no kit desenvolvimento da Companytec.
 
+### Versão 1.1.43 - 25/08/2025
+```
+- Comando de preset identificado em volume não parava no valor correto no simulador CBC.
+```
 ### Versão 1.1.42 - 17/06/2025:
 ```
 - Corrigido comando de leitura de identificador da DLL.
