@@ -171,29 +171,30 @@ Type
         end;
 
 Type
-  AbastPAF2 = record
-    value: boolean;
-    total_dinheiro: currency;
-    total_litros: double;
-    PU: currency;
-    tempo: integer;
-    codbico: string[2];
-    numbico: integer;
-    numtanque: integer;
-    voltanque: integer;
-    codcombustivel: integer;
-    seriecbc: integer;
-    tipocbc: char;
-    datetime: TDatetime;
-    st_full: string[123];
-    registro: integer;
-    encerranteI: double;
-    encerranteF: double;
-    integridade: boolean;
-    checksum: boolean;
-    tag1: string[16];
-    tag2: string[16];
-  end;
+    AbastPAF2=record
+        value           :boolean;
+        total_dinheiro  :currency;
+        total_litros    :double;
+        PU              :currency;
+        tempo           :integer;
+        codbico         :string[2];
+        numbico         :integer;
+        numtanque       :integer;
+        voltanque       :integer;
+        codcombustivel  :integer;
+        seriecbc        :integer;
+        tipocbc         :char;
+        data            :string[10];
+        hora            :string[8];
+        st_full         :string[127];
+        registro        :integer;
+        encerranteI     :double;
+        encerranteF     :double;
+        integridade     :boolean;
+        checksum        :boolean;
+        tag1            :string[16];
+        tag2            :string[16];
+        end;
 
 Type
   MemoryPointers = record

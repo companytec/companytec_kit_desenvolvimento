@@ -137,7 +137,7 @@ object Form1: TForm1
     Top = 88
     Width = 770
     Height = 549
-    ActivePage = ChangePrice
+    ActivePage = Abastecimentos
     TabOrder = 0
     object Abastecimentos: TTabSheet
       Caption = 'Abastecimentos'
@@ -398,7 +398,7 @@ object Form1: TForm1
         Top = 177
         Width = 756
         Height = 206
-        ActivePage = TabSheet16
+        ActivePage = TabSheet18
         TabOrder = 1
         object TabSheet18: TTabSheet
           Caption = 'Leitura Abast. PAF'
@@ -420,22 +420,13 @@ object Form1: TForm1
             TabOrder = 1
             OnClick = Button43Click
           end
-          object Button47: TButton
-            Left = 0
-            Top = 150
-            Width = 74
-            Height = 25
-            Caption = 'LeAbastecimentoPAF1Fix'
-            TabOrder = 2
-            Visible = False
-          end
           object Button51: TButton
-            Left = 80
+            Left = 3
             Top = 150
             Width = 51
             Height = 25
             Caption = 'LeAbastecimentoTWC'
-            TabOrder = 3
+            TabOrder = 2
             Visible = False
             OnClick = Button51Click
           end
@@ -445,8 +436,17 @@ object Form1: TForm1
             Width = 133
             Height = 25
             Caption = 'Enviar (C_GetSalePaf)'
-            TabOrder = 4
+            TabOrder = 3
             OnClick = Button53Click
+          end
+          object btn_LeAbastecimentoPAF1: TButton
+            Left = 323
+            Top = 150
+            Width = 140
+            Height = 25
+            Caption = 'LeAbastecimentoPAF1'
+            TabOrder = 4
+            OnClick = btn_LeAbastecimentoPAF1Click
           end
         end
         object TabSheet3: TTabSheet
@@ -2197,7 +2197,7 @@ object Form1: TForm1
           MaxValue = 3
           MinValue = 1
           TabOrder = 2
-          Value = 0
+          Value = 1
         end
         object Edit41: TEdit
           Left = 111
@@ -2928,7 +2928,7 @@ object Form1: TForm1
         Width = 141
         Height = 21
         TabOrder = 0
-        Text = '192.168.0.74'
+        Text = '192.168.0.71'
       end
       object Button30: TButton
         Left = 2

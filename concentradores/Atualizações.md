@@ -1,6 +1,10 @@
 # Atualizações kit desenvolvimento concentradores
 Este arquivo contém todas as datas e descrições das atualizações realizadas no kit desenvolvimento da Companytec.
 
+### Versão 1.1.44 - 26/11/2025
+```
+- Correção na função LeAbastPAF2 na DLL
+```
 ### Versão 1.1.43 - 25/08/2025
 ```
 - Comando de preset identificado em volume não parava no valor correto no simulador CBC.
