@@ -1,6 +1,10 @@
 # Atualizações kit desenvolvimento concentradores
 Este arquivo contém todas as datas e descrições das atualizações realizadas no kit desenvolvimento da Companytec.
 
+### Versão 1.1.45 - 19/12/2025
+```
+- Correções no Simulador CBC em relação a tipo de separador de casa decimal.
+```
 ### Versão 1.1.44 - 26/11/2025
 ```
 - Correção na função LeAbastPAF2 na DLL
