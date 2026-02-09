@@ -1,0 +1,10 @@
+<data PropFormat="node">
+  <TSettings>
+    <CBC>
+      <IPAddress>192.168.0.99</IPAddress>
+    </CBC>
+    <DB>
+      <IPAddress>192.168.254.1</IPAddress>
+    </DB>
+  </TSettings>
+</data>

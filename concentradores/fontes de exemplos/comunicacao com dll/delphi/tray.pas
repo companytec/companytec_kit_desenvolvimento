@@ -1,0 +1,51 @@
+unit tray;
+
+interface
+  Function CreateTrayIcon(hint:string):boolean;
+  procedure DestroyTrayIcon;
+  procedure ShowBalloonMessage(st:String);
+
+implementation
+
+uses
+    Windows,
+    Graphics,
+    CoolTrayIcon;
+
+Var TrayIcon1: TCoolTrayIcon;
+    Icon1: TIcon;
+
+{$R dllcompanytec.res}
+
+Function CreateTrayIcon(hint:string):boolean;
+begin
+try
+    Icon1:=TIcon.Create;
+    Icon1.Handle:=LoadIcon(hInstance,'MAIN');
+    TrayIcon1:=TCoolTrayIcon.create(nil);
+    TrayIcon1.Icon:=icon1;
+    TrayIcon1.Enabled:=true;
+    Trayicon1.IconVisible:=true;
+    Trayicon1.Hint:=hint;
+    result:=true;
+except
+    result:=false;
+end;
+end;
+
+
+procedure DestroyTrayIcon;
+begin
+if TrayIcon1<>nil then
+  begin
+  TrayIcon1.IconVisible:=false;
+  Trayicon1.Destroy;
+  end;
+end;
+
+procedure ShowBalloonMessage(st:String);
+begin
+Trayicon1.ShowBalloonHint('DLL Companytec',st,bitInfo,10);
+end;
+
+end.

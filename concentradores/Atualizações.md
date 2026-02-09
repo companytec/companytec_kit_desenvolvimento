@@ -1,6 +1,10 @@
 # Atualizações kit desenvolvimento concentradores
 Este arquivo contém todas as datas e descrições das atualizações realizadas no kit desenvolvimento da Companytec.
 
+### Versão 1.1.46 - 09/02/2026
+```
+- Correção na estrutura de abastecimento PAF2 na DLL e também no software de teste em Delphi.
+```
 ### Versão 1.1.45 - 19/12/2025
 ```
 - Correções no Simulador CBC em relação a tipo de separador de casa decimal.
