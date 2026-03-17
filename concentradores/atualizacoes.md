@@ -1,6 +1,10 @@
 # Atualizações kit desenvolvimento concentradores
 Este arquivo contém todas as datas e descrições das atualizações realizadas no kit desenvolvimento da Companytec.
 
+### Versão 1.1.49 - 17/03/2026
+```
+- Função SetPrice na DLL não estava respeitando a quantidade de casas decimais enviadas.
+```
 ### Versão 1.1.48 - 16/03/2026
 ```
 - Correção no simulador CBC pois estava com erros que não comunicava direito com o CBC Manager.
