@@ -1,7 +1,7 @@
 # Atualizações kit desenvolvimento concentradores
 Este arquivo contém todas as datas e descrições das atualizações realizadas no kit desenvolvimento da Companytec.
 
-### Versão 1.1.47 - 16/03/2026
+### Versão 1.1.48 - 16/03/2026
 ```
 - Correção no simulador CBC pois estava com erros que não comunicava direito com o CBC Manager.
 ```
