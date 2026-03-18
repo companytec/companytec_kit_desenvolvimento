@@ -4,6 +4,15 @@
 <p>Nesse kit é possível encontrar a DLL para a integração com seu software e também os manuais necessários para tal integração.</p>
 <p>Abaixo listarei todas as atualizações que foram feitas no kit GDC:</p>
 
+### Versão 1.1.08 - 18/03/2025:
+```
+- Corrigido problema na função de gravação de cartões na DLL, não gravava quando vinha um byte 7B ou 7D na tag.
+- Inserida nova versão do GDC_Manager.
+```
+### Versão 1.1.07 - 17/03/2025:
+```
+- Comando de status da DLL estava cortando quando identificava um hexa 0x00.
+```
 ### Versão 1.1.06 - 05/08/2025:
 ```
 - Atualizado manual do protocolo GDC.
