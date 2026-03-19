@@ -1,6 +1,10 @@
 # Atualizações kit desenvolvimento concentradores
 Este arquivo contém todas as datas e descrições das atualizações realizadas no kit desenvolvimento da Companytec.
 
+### Versão 1.1.50 - 19/03/2026
+```
+- Na função LeAbastecimentoPAFReg estava como retorno o AbastPAF2 sendo que esse comando deve retornar o AbastPAF1.
+```
 ### Versão 1.1.49 - 17/03/2026
 ```
 - Função SetPrice na DLL não estava respeitando a quantidade de casas decimais enviadas.
