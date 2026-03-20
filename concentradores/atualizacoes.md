@@ -1,6 +1,10 @@
 # Atualizações kit desenvolvimento concentradores
 Este arquivo contém todas as datas e descrições das atualizações realizadas no kit desenvolvimento da Companytec.
 
+### Versão 1.1.51 - 20/03/2026
+```
+- Atualização do manual do protocolo Horustech.
+```
 ### Versão 1.1.50 - 19/03/2026
 ```
 - Na função LeAbastecimentoPAFReg estava como retorno o AbastPAF2 sendo que esse comando deve retornar o AbastPAF1.
