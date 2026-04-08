@@ -4,6 +4,7 @@ Este arquivo contém todas as datas e descrições das atualizações realizadas
 ### Versão 1.1.51 - 20/03/2026
 ```
 - Atualização do manual do protocolo Horustech.
+- Atualização da DLL pois estava com problema no comando de leitura de abastecimento PAF2.
 ```
 ### Versão 1.1.50 - 19/03/2026
 ```
