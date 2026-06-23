@@ -1,6 +1,10 @@
 # Atualizações kit desenvolvimento concentradores
 Este arquivo contém todas as datas e descrições das atualizações realizadas no kit desenvolvimento da Companytec.
 
+### Versão 1.1.52 - 23/06/2026
+```
+- Atualização do simulador CBC, PC quando estava em inglês trazia os preços com ponto decimal.
+```
 ### Versão 1.1.51 - 20/03/2026
 ```
 - Atualização do manual do protocolo Horustech.
