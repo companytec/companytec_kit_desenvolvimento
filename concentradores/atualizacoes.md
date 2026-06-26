@@ -1,6 +1,10 @@
 # Atualizações kit desenvolvimento concentradores
 Este arquivo contém todas as datas e descrições das atualizações realizadas no kit desenvolvimento da Companytec.
 
+### Versão 1.1.53 - 26/06/2026
+```
+- Atualização do simulador CBC, quando lia preço e estava com 2 casas decimais, respondia que estava configurado para 3.
+```
 ### Versão 1.1.52 - 23/06/2026
 ```
 - Atualização do simulador CBC, PC quando estava em inglês trazia os preços com ponto decimal.
