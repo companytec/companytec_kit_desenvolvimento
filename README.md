@@ -16,7 +16,7 @@
 
 <h1>Bienvenido/a al kit de desarrollo de Companytec</h1>
 <p>Este kit tiene como objetivo ayudarle en el desarrollo de su aplicación para la integración con los equipos de Companytec.</p>
-<p>En la raíz del repositorio encontrará todos los kits de desarrollo para los equipos GDC (Gestor de duchas Companytec), el TWC (Terminal inalámbrico Companytec), así como para los concentradores —incluyendo los modelos Horustech, Concept y toda la línea CBC—.</p>
+<p>En la raíz del repositorio encontrará todos los kits de desarrollo para los equipos GDC (Gestor de duchas Companytec), el TWC (Terminal inalámbrico Companytec), así como para los concentradores —incluyendo los modelos Horustech, Concept y toda la línea CBC.</p>
 <p>En cada carpeta encontrará ejemplos de software para facilitar el desarrollo, manuales sobre el funcionamiento de los equipos, sus respectivos protocolos, etc.</p>
 
 <p>Si tiene alguna duda sobre la integración, puede ponerse en contacto con nosotros a través del teléfono +55 (53) 3284-8100, por WhatsApp al +55 (53) 99709-7581, por Skype en desarrollo2companytec o por correo electrónico a desarrollo@companytec.com.br. Pregunte por Patrick Medeiros. :desktop_computer:</p>
