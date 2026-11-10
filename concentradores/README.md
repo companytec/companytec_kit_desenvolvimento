@@ -26,3 +26,46 @@
 * i206 : TANK_ALARMS_REPORT;
 * i301 : LEAK_SENSOR_STATUS;
 * i302 : LEAK_SENSOR_REPORT;
+
+
+<details open>
+<summary>🇧🇷 Português</summary>
+
+# Meu Projeto
+
+Esta é a descrição do projeto em português.
+
+## Funcionalidades
+- Funcionalidade 1
+- Funcionalidade 2
+- Funcionalidade 3
+
+</details>
+
+<details>
+<summary>🇺🇸 English</summary>
+
+# My Project
+
+This is the project description in English.
+
+## Features
+- Feature 1
+- Feature 2
+- Feature 3
+
+</details>
+
+<details>
+<summary>🇪🇸 Español</summary>
+
+# Mi Proyecto
+
+Esta es la descripción del proyecto en español.
+
+## Características
+- Característica 1
+- Característica 2
+- Característica 3
+
+</details>
